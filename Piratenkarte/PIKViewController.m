@@ -18,10 +18,13 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     self.o_mapView.showsUserLocation = YES;
+    self.o_mapView.userTrackingMode = MKUserTrackingModeFollow;
 }
 
 - (IBAction)toggleShowUserLocation {
-    self.o_mapView.showsUserLocation = !self.o_mapView.showsUserLocation;
+    BOOL setting = !self.o_mapView.showsUserLocation;
+    self.o_mapView.showsUserLocation = setting;
+    self.o_mapView.userTrackingMode = setting ? MKUserTrackingModeFollow : MKUserTrackingModeNone;
 }
 
 // iOS 6 only
