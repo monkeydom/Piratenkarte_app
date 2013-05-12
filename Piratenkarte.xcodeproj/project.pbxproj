@@ -22,6 +22,28 @@
 		F221F214173FD08700A63B56 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F221F213173FD08700A63B56 /* MapKit.framework */; };
 		F221F219173FDAF600A63B56 /* PiratenkarteIcon57.png in Resources */ = {isa = PBXBuildFile; fileRef = F221F217173FDAF600A63B56 /* PiratenkarteIcon57.png */; };
 		F221F21A173FDAF600A63B56 /* PiratenkarteIcon57@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F221F218173FDAF600A63B56 /* PiratenkarteIcon57@2x.png */; };
+		F2ACB9181740334D0015E899 /* Api.pb.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACB9171740334D0015E899 /* Api.pb.m */; };
+		F2ACB990174033E40015E899 /* AbstractMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACB961174033E40015E899 /* AbstractMessage.m */; };
+		F2ACB991174033E40015E899 /* AbstractMessage_Builder.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACB963174033E40015E899 /* AbstractMessage_Builder.m */; };
+		F2ACB992174033E40015E899 /* CodedInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACB966174033E40015E899 /* CodedInputStream.m */; };
+		F2ACB993174033E40015E899 /* CodedOutputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACB968174033E40015E899 /* CodedOutputStream.m */; };
+		F2ACB994174033E40015E899 /* ConcreteExtensionField.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACB96A174033E40015E899 /* ConcreteExtensionField.m */; };
+		F2ACB995174033E40015E899 /* Descriptor.pb.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACB96C174033E40015E899 /* Descriptor.pb.m */; };
+		F2ACB996174033E40015E899 /* ExtendableMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACB96E174033E40015E899 /* ExtendableMessage.m */; };
+		F2ACB997174033E40015E899 /* ExtendableMessage_Builder.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACB970174033E40015E899 /* ExtendableMessage_Builder.m */; };
+		F2ACB998174033E40015E899 /* Field.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACB973174033E40015E899 /* Field.m */; };
+		F2ACB999174033E40015E899 /* GeneratedMessage_Builder.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACB976174033E40015E899 /* GeneratedMessage_Builder.m */; };
+		F2ACB99A174033E40015E899 /* MutableField.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACB97A174033E40015E899 /* MutableField.m */; };
+		F2ACB99B174033E40015E899 /* PBArray.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACB97C174033E40015E899 /* PBArray.m */; };
+		F2ACB99C174033E40015E899 /* PBExtensionRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACB97E174033E40015E899 /* PBExtensionRegistry.m */; };
+		F2ACB99D174033E40015E899 /* PBGeneratedMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACB980174033E40015E899 /* PBGeneratedMessage.m */; };
+		F2ACB99E174033E40015E899 /* PBMutableExtensionRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACB982174033E40015E899 /* PBMutableExtensionRegistry.m */; };
+		F2ACB99F174033E40015E899 /* RingBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACB985174033E40015E899 /* RingBuffer.m */; };
+		F2ACB9A0174033E40015E899 /* TextFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACB987174033E40015E899 /* TextFormat.m */; };
+		F2ACB9A1174033E40015E899 /* UnknownFieldSet.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACB989174033E40015E899 /* UnknownFieldSet.m */; };
+		F2ACB9A2174033E40015E899 /* UnknownFieldSet_Builder.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACB98B174033E40015E899 /* UnknownFieldSet_Builder.m */; };
+		F2ACB9A3174033E40015E899 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACB98D174033E40015E899 /* Utilities.m */; };
+		F2ACB9A4174033E40015E899 /* WireFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACB98F174033E40015E899 /* WireFormat.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +67,56 @@
 		F221F213173FD08700A63B56 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F221F217173FDAF600A63B56 /* PiratenkarteIcon57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PiratenkarteIcon57.png; path = Images/Icon/PiratenkarteIcon57.png; sourceTree = "<group>"; };
 		F221F218173FDAF600A63B56 /* PiratenkarteIcon57@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "PiratenkarteIcon57@2x.png"; path = "Images/Icon/PiratenkarteIcon57@2x.png"; sourceTree = "<group>"; };
+		F2ACB9161740334D0015E899 /* Api.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Api.pb.h; sourceTree = "<group>"; };
+		F2ACB9171740334D0015E899 /* Api.pb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Api.pb.m; sourceTree = "<group>"; };
+		F2ACB960174033E40015E899 /* AbstractMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractMessage.h; sourceTree = "<group>"; };
+		F2ACB961174033E40015E899 /* AbstractMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractMessage.m; sourceTree = "<group>"; };
+		F2ACB962174033E40015E899 /* AbstractMessage_Builder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractMessage_Builder.h; sourceTree = "<group>"; };
+		F2ACB963174033E40015E899 /* AbstractMessage_Builder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractMessage_Builder.m; sourceTree = "<group>"; };
+		F2ACB964174033E40015E899 /* Bootstrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bootstrap.h; sourceTree = "<group>"; };
+		F2ACB965174033E40015E899 /* CodedInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodedInputStream.h; sourceTree = "<group>"; };
+		F2ACB966174033E40015E899 /* CodedInputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodedInputStream.m; sourceTree = "<group>"; };
+		F2ACB967174033E40015E899 /* CodedOutputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodedOutputStream.h; sourceTree = "<group>"; };
+		F2ACB968174033E40015E899 /* CodedOutputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodedOutputStream.m; sourceTree = "<group>"; };
+		F2ACB969174033E40015E899 /* ConcreteExtensionField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConcreteExtensionField.h; sourceTree = "<group>"; };
+		F2ACB96A174033E40015E899 /* ConcreteExtensionField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConcreteExtensionField.m; sourceTree = "<group>"; };
+		F2ACB96B174033E40015E899 /* Descriptor.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Descriptor.pb.h; sourceTree = "<group>"; };
+		F2ACB96C174033E40015E899 /* Descriptor.pb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Descriptor.pb.m; sourceTree = "<group>"; };
+		F2ACB96D174033E40015E899 /* ExtendableMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtendableMessage.h; sourceTree = "<group>"; };
+		F2ACB96E174033E40015E899 /* ExtendableMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExtendableMessage.m; sourceTree = "<group>"; };
+		F2ACB96F174033E40015E899 /* ExtendableMessage_Builder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtendableMessage_Builder.h; sourceTree = "<group>"; };
+		F2ACB970174033E40015E899 /* ExtendableMessage_Builder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExtendableMessage_Builder.m; sourceTree = "<group>"; };
+		F2ACB971174033E40015E899 /* ExtensionField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtensionField.h; sourceTree = "<group>"; };
+		F2ACB972174033E40015E899 /* Field.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Field.h; sourceTree = "<group>"; };
+		F2ACB973174033E40015E899 /* Field.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Field.m; sourceTree = "<group>"; };
+		F2ACB974174033E40015E899 /* ForwardDeclarations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForwardDeclarations.h; sourceTree = "<group>"; };
+		F2ACB975174033E40015E899 /* GeneratedMessage_Builder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneratedMessage_Builder.h; sourceTree = "<group>"; };
+		F2ACB976174033E40015E899 /* GeneratedMessage_Builder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedMessage_Builder.m; sourceTree = "<group>"; };
+		F2ACB977174033E40015E899 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		F2ACB978174033E40015E899 /* Message_Builder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message_Builder.h; sourceTree = "<group>"; };
+		F2ACB979174033E40015E899 /* MutableField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MutableField.h; sourceTree = "<group>"; };
+		F2ACB97A174033E40015E899 /* MutableField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MutableField.m; sourceTree = "<group>"; };
+		F2ACB97B174033E40015E899 /* PBArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBArray.h; sourceTree = "<group>"; };
+		F2ACB97C174033E40015E899 /* PBArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBArray.m; sourceTree = "<group>"; };
+		F2ACB97D174033E40015E899 /* PBExtensionRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBExtensionRegistry.h; sourceTree = "<group>"; };
+		F2ACB97E174033E40015E899 /* PBExtensionRegistry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBExtensionRegistry.m; sourceTree = "<group>"; };
+		F2ACB97F174033E40015E899 /* PBGeneratedMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBGeneratedMessage.h; sourceTree = "<group>"; };
+		F2ACB980174033E40015E899 /* PBGeneratedMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBGeneratedMessage.m; sourceTree = "<group>"; };
+		F2ACB981174033E40015E899 /* PBMutableExtensionRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMutableExtensionRegistry.h; sourceTree = "<group>"; };
+		F2ACB982174033E40015E899 /* PBMutableExtensionRegistry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMutableExtensionRegistry.m; sourceTree = "<group>"; };
+		F2ACB983174033E40015E899 /* ProtocolBuffers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProtocolBuffers.h; sourceTree = "<group>"; };
+		F2ACB984174033E40015E899 /* RingBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RingBuffer.h; sourceTree = "<group>"; };
+		F2ACB985174033E40015E899 /* RingBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RingBuffer.m; sourceTree = "<group>"; };
+		F2ACB986174033E40015E899 /* TextFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFormat.h; sourceTree = "<group>"; };
+		F2ACB987174033E40015E899 /* TextFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFormat.m; sourceTree = "<group>"; };
+		F2ACB988174033E40015E899 /* UnknownFieldSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnknownFieldSet.h; sourceTree = "<group>"; };
+		F2ACB989174033E40015E899 /* UnknownFieldSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnknownFieldSet.m; sourceTree = "<group>"; };
+		F2ACB98A174033E40015E899 /* UnknownFieldSet_Builder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnknownFieldSet_Builder.h; sourceTree = "<group>"; };
+		F2ACB98B174033E40015E899 /* UnknownFieldSet_Builder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnknownFieldSet_Builder.m; sourceTree = "<group>"; };
+		F2ACB98C174033E40015E899 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		F2ACB98D174033E40015E899 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
+		F2ACB98E174033E40015E899 /* WireFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WireFormat.h; sourceTree = "<group>"; };
+		F2ACB98F174033E40015E899 /* WireFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WireFormat.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +165,7 @@
 		F221F1F3173FCDB200A63B56 /* Piratenkarte */ = {
 			isa = PBXGroup;
 			children = (
+				F2ACB82917402FCC0015E899 /* protobuf */,
 				F221F1FC173FCDB200A63B56 /* PIKAppDelegate.h */,
 				F221F1FD173FCDB200A63B56 /* PIKAppDelegate.m */,
 				F221F205173FCDB200A63B56 /* PIKViewController.h */,
@@ -134,6 +207,81 @@
 				F221F218173FDAF600A63B56 /* PiratenkarteIcon57@2x.png */,
 			);
 			name = AppIcon;
+			sourceTree = "<group>";
+		};
+		F2ACB82917402FCC0015E899 /* protobuf */ = {
+			isa = PBXGroup;
+			children = (
+				F2ACB95F174033E40015E899 /* ProtocolBuffers */,
+				F2ACB9151740334D0015E899 /* objc */,
+			);
+			name = protobuf;
+			sourceTree = "<group>";
+		};
+		F2ACB9151740334D0015E899 /* objc */ = {
+			isa = PBXGroup;
+			children = (
+				F2ACB9161740334D0015E899 /* Api.pb.h */,
+				F2ACB9171740334D0015E899 /* Api.pb.m */,
+			);
+			name = objc;
+			path = protobuf/objc;
+			sourceTree = "<group>";
+		};
+		F2ACB95F174033E40015E899 /* ProtocolBuffers */ = {
+			isa = PBXGroup;
+			children = (
+				F2ACB960174033E40015E899 /* AbstractMessage.h */,
+				F2ACB961174033E40015E899 /* AbstractMessage.m */,
+				F2ACB962174033E40015E899 /* AbstractMessage_Builder.h */,
+				F2ACB963174033E40015E899 /* AbstractMessage_Builder.m */,
+				F2ACB964174033E40015E899 /* Bootstrap.h */,
+				F2ACB965174033E40015E899 /* CodedInputStream.h */,
+				F2ACB966174033E40015E899 /* CodedInputStream.m */,
+				F2ACB967174033E40015E899 /* CodedOutputStream.h */,
+				F2ACB968174033E40015E899 /* CodedOutputStream.m */,
+				F2ACB969174033E40015E899 /* ConcreteExtensionField.h */,
+				F2ACB96A174033E40015E899 /* ConcreteExtensionField.m */,
+				F2ACB96B174033E40015E899 /* Descriptor.pb.h */,
+				F2ACB96C174033E40015E899 /* Descriptor.pb.m */,
+				F2ACB96D174033E40015E899 /* ExtendableMessage.h */,
+				F2ACB96E174033E40015E899 /* ExtendableMessage.m */,
+				F2ACB96F174033E40015E899 /* ExtendableMessage_Builder.h */,
+				F2ACB970174033E40015E899 /* ExtendableMessage_Builder.m */,
+				F2ACB971174033E40015E899 /* ExtensionField.h */,
+				F2ACB972174033E40015E899 /* Field.h */,
+				F2ACB973174033E40015E899 /* Field.m */,
+				F2ACB974174033E40015E899 /* ForwardDeclarations.h */,
+				F2ACB975174033E40015E899 /* GeneratedMessage_Builder.h */,
+				F2ACB976174033E40015E899 /* GeneratedMessage_Builder.m */,
+				F2ACB977174033E40015E899 /* Message.h */,
+				F2ACB978174033E40015E899 /* Message_Builder.h */,
+				F2ACB979174033E40015E899 /* MutableField.h */,
+				F2ACB97A174033E40015E899 /* MutableField.m */,
+				F2ACB97B174033E40015E899 /* PBArray.h */,
+				F2ACB97C174033E40015E899 /* PBArray.m */,
+				F2ACB97D174033E40015E899 /* PBExtensionRegistry.h */,
+				F2ACB97E174033E40015E899 /* PBExtensionRegistry.m */,
+				F2ACB97F174033E40015E899 /* PBGeneratedMessage.h */,
+				F2ACB980174033E40015E899 /* PBGeneratedMessage.m */,
+				F2ACB981174033E40015E899 /* PBMutableExtensionRegistry.h */,
+				F2ACB982174033E40015E899 /* PBMutableExtensionRegistry.m */,
+				F2ACB983174033E40015E899 /* ProtocolBuffers.h */,
+				F2ACB984174033E40015E899 /* RingBuffer.h */,
+				F2ACB985174033E40015E899 /* RingBuffer.m */,
+				F2ACB986174033E40015E899 /* TextFormat.h */,
+				F2ACB987174033E40015E899 /* TextFormat.m */,
+				F2ACB988174033E40015E899 /* UnknownFieldSet.h */,
+				F2ACB989174033E40015E899 /* UnknownFieldSet.m */,
+				F2ACB98A174033E40015E899 /* UnknownFieldSet_Builder.h */,
+				F2ACB98B174033E40015E899 /* UnknownFieldSet_Builder.m */,
+				F2ACB98C174033E40015E899 /* Utilities.h */,
+				F2ACB98D174033E40015E899 /* Utilities.m */,
+				F2ACB98E174033E40015E899 /* WireFormat.h */,
+				F2ACB98F174033E40015E899 /* WireFormat.m */,
+			);
+			name = ProtocolBuffers;
+			path = "../../protobuf-objc/src/runtime/ProtocolBuffers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -209,6 +357,28 @@
 				F221F1FA173FCDB200A63B56 /* main.m in Sources */,
 				F221F1FE173FCDB200A63B56 /* PIKAppDelegate.m in Sources */,
 				F221F207173FCDB200A63B56 /* PIKViewController.m in Sources */,
+				F2ACB9181740334D0015E899 /* Api.pb.m in Sources */,
+				F2ACB990174033E40015E899 /* AbstractMessage.m in Sources */,
+				F2ACB991174033E40015E899 /* AbstractMessage_Builder.m in Sources */,
+				F2ACB992174033E40015E899 /* CodedInputStream.m in Sources */,
+				F2ACB993174033E40015E899 /* CodedOutputStream.m in Sources */,
+				F2ACB994174033E40015E899 /* ConcreteExtensionField.m in Sources */,
+				F2ACB995174033E40015E899 /* Descriptor.pb.m in Sources */,
+				F2ACB996174033E40015E899 /* ExtendableMessage.m in Sources */,
+				F2ACB997174033E40015E899 /* ExtendableMessage_Builder.m in Sources */,
+				F2ACB998174033E40015E899 /* Field.m in Sources */,
+				F2ACB999174033E40015E899 /* GeneratedMessage_Builder.m in Sources */,
+				F2ACB99A174033E40015E899 /* MutableField.m in Sources */,
+				F2ACB99B174033E40015E899 /* PBArray.m in Sources */,
+				F2ACB99C174033E40015E899 /* PBExtensionRegistry.m in Sources */,
+				F2ACB99D174033E40015E899 /* PBGeneratedMessage.m in Sources */,
+				F2ACB99E174033E40015E899 /* PBMutableExtensionRegistry.m in Sources */,
+				F2ACB99F174033E40015E899 /* RingBuffer.m in Sources */,
+				F2ACB9A0174033E40015E899 /* TextFormat.m in Sources */,
+				F2ACB9A1174033E40015E899 /* UnknownFieldSet.m in Sources */,
+				F2ACB9A2174033E40015E899 /* UnknownFieldSet_Builder.m in Sources */,
+				F2ACB9A3174033E40015E899 /* Utilities.m in Sources */,
+				F2ACB9A4174033E40015E899 /* WireFormat.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,6 +476,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Piratenkarte/Piratenkarte-Prefix.pch";
 				INFOPLIST_FILE = "Piratenkarte/Piratenkarte-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Piratenkarte/libraries\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -317,6 +491,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Piratenkarte/Piratenkarte-Prefix.pch";
 				INFOPLIST_FILE = "Piratenkarte/Piratenkarte-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Piratenkarte/libraries\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -341,6 +519,7 @@
 				F221F212173FCDB200A63B56 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -25,6 +25,12 @@
     BOOL setting = !self.o_mapView.showsUserLocation;
     self.o_mapView.showsUserLocation = setting;
     self.o_mapView.userTrackingMode = setting ? MKUserTrackingModeFollow : MKUserTrackingModeNone;
+    
+    Request_Builder *request = [Request builder];
+    request.username = @"guest";
+    request.password = @"pass";
+    Request *req = request.build;
+    NSLog(@"%s %@ | %@ | %@",__FUNCTION__,request, req, req.data);
 }
 
 // iOS 6 only
