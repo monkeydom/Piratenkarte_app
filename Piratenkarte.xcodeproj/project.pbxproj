@@ -20,6 +20,8 @@
 		F221F20A173FCDB200A63B56 /* PIKViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = F221F208173FCDB200A63B56 /* PIKViewController_iPhone.xib */; };
 		F221F20D173FCDB200A63B56 /* PIKViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = F221F20B173FCDB200A63B56 /* PIKViewController_iPad.xib */; };
 		F221F214173FD08700A63B56 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F221F213173FD08700A63B56 /* MapKit.framework */; };
+		F221F219173FDAF600A63B56 /* PiratenkarteIcon57.png in Resources */ = {isa = PBXBuildFile; fileRef = F221F217173FDAF600A63B56 /* PiratenkarteIcon57.png */; };
+		F221F21A173FDAF600A63B56 /* PiratenkarteIcon57@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F221F218173FDAF600A63B56 /* PiratenkarteIcon57@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +43,8 @@
 		F221F209173FCDB200A63B56 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PIKViewController_iPhone.xib; sourceTree = "<group>"; };
 		F221F20C173FCDB200A63B56 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PIKViewController_iPad.xib; sourceTree = "<group>"; };
 		F221F213173FD08700A63B56 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		F221F217173FDAF600A63B56 /* PiratenkarteIcon57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PiratenkarteIcon57.png; path = Images/Icon/PiratenkarteIcon57.png; sourceTree = "<group>"; };
+		F221F218173FDAF600A63B56 /* PiratenkarteIcon57@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "PiratenkarteIcon57@2x.png"; path = "Images/Icon/PiratenkarteIcon57@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +99,7 @@
 				F221F206173FCDB200A63B56 /* PIKViewController.m */,
 				F221F208173FCDB200A63B56 /* PIKViewController_iPhone.xib */,
 				F221F20B173FCDB200A63B56 /* PIKViewController_iPad.xib */,
+				F221F215173FDAD700A63B56 /* Images */,
 				F221F1F4173FCDB200A63B56 /* Supporting Files */,
 			);
 			path = Piratenkarte;
@@ -112,6 +117,23 @@
 				F221F203173FCDB200A63B56 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F221F215173FDAD700A63B56 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				F221F216173FDAE900A63B56 /* AppIcon */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		F221F216173FDAE900A63B56 /* AppIcon */ = {
+			isa = PBXGroup;
+			children = (
+				F221F217173FDAF600A63B56 /* PiratenkarteIcon57.png */,
+				F221F218173FDAF600A63B56 /* PiratenkarteIcon57@2x.png */,
+			);
+			name = AppIcon;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -172,6 +194,8 @@
 				F221F204173FCDB200A63B56 /* Default-568h@2x.png in Resources */,
 				F221F20A173FCDB200A63B56 /* PIKViewController_iPhone.xib in Resources */,
 				F221F20D173FCDB200A63B56 /* PIKViewController_iPad.xib in Resources */,
+				F221F219173FDAF600A63B56 /* PiratenkarteIcon57.png in Resources */,
+				F221F21A173FDAF600A63B56 /* PiratenkarteIcon57@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

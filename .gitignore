@@ -27,7 +27,7 @@ xcuserdata
 #
 
 .DS_Store
-Icon
+#Icon
 .Spotlight-V100
 .Trashes
 
@@ -41,8 +41,3 @@ Icon
 *.pyc
 *.pyo
 
-#
-# Tower
-#
-
-/Icon.png
