@@ -21,16 +21,34 @@
     self.o_mapView.userTrackingMode = MKUserTrackingModeFollow;
 }
 
+- (void)requestDataForVisibleViewRect {
+    Request_Builder *request = [Request builder];
+    request.username = @"guest";
+    request.password = @"pass";
+    
+    MKMapRect mapRect = self.o_mapView.visibleMapRect;
+    CLLocationCoordinate2D southwest = MKCoordinateForMapPoint(MKMapPointMake(MKMapRectGetMinX(mapRect), MKMapRectGetMinY(mapRect)));
+    CLLocationCoordinate2D northeast = MKCoordinateForMapPoint(MKMapPointMake(MKMapRectGetMaxX(mapRect), MKMapRectGetMaxY(mapRect)));
+    
+    BoundingBox_Builder *viewBoxBuilder = [BoundingBox builder];
+    viewBoxBuilder.west =  southwest.longitude;
+    viewBoxBuilder.south = southwest.latitude;
+    viewBoxBuilder.east =  northeast.longitude;
+    viewBoxBuilder.north = northeast.latitude;
+    
+    ViewRequest_Builder *viewRequestBuilder = [ViewRequest builder];
+    viewRequestBuilder.viewBox  = [viewBoxBuilder build];
+    request.viewRequest = [viewRequestBuilder build];
+    Request *req = request.build;
+    
+    NSLog(@"%s %@ | %@ | %@ ",__FUNCTION__,request, req, req.data);
+}
+
 - (IBAction)toggleShowUserLocation {
     BOOL setting = !self.o_mapView.showsUserLocation;
     self.o_mapView.showsUserLocation = setting;
     self.o_mapView.userTrackingMode = setting ? MKUserTrackingModeFollow : MKUserTrackingModeNone;
-    
-    Request_Builder *request = [Request builder];
-    request.username = @"guest";
-    request.password = @"pass";
-    Request *req = request.build;
-    NSLog(@"%s %@ | %@ | %@",__FUNCTION__,request, req, req.data);
+    [self requestDataForVisibleViewRect];
 }
 
 // iOS 6 only
