@@ -19,6 +19,7 @@
 		F221F207173FCDB200A63B56 /* PIKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F221F206173FCDB200A63B56 /* PIKViewController.m */; };
 		F221F20A173FCDB200A63B56 /* PIKViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = F221F208173FCDB200A63B56 /* PIKViewController_iPhone.xib */; };
 		F221F20D173FCDB200A63B56 /* PIKViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = F221F20B173FCDB200A63B56 /* PIKViewController_iPad.xib */; };
+		F221F214173FD08700A63B56 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F221F213173FD08700A63B56 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		F221F206173FCDB200A63B56 /* PIKViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PIKViewController.m; sourceTree = "<group>"; };
 		F221F209173FCDB200A63B56 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PIKViewController_iPhone.xib; sourceTree = "<group>"; };
 		F221F20C173FCDB200A63B56 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PIKViewController_iPad.xib; sourceTree = "<group>"; };
+		F221F213173FD08700A63B56 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F221F214173FD08700A63B56 /* MapKit.framework in Frameworks */,
 				F221F1EE173FCDB200A63B56 /* UIKit.framework in Frameworks */,
 				F221F1F0173FCDB200A63B56 /* Foundation.framework in Frameworks */,
 				F221F1F2173FCDB200A63B56 /* CoreGraphics.framework in Frameworks */,
@@ -75,6 +78,7 @@
 		F221F1EC173FCDB200A63B56 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F221F213173FD08700A63B56 /* MapKit.framework */,
 				F221F1ED173FCDB200A63B56 /* UIKit.framework */,
 				F221F1EF173FCDB200A63B56 /* Foundation.framework */,
 				F221F1F1173FCDB200A63B56 /* CoreGraphics.framework */,

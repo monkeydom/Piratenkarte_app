@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
 
 @interface PIKViewController : UIViewController
+@property (nonatomic, strong) IBOutlet MKMapView *o_mapView;
+
+- (IBAction)toggleShowUserLocation;
 
 @end

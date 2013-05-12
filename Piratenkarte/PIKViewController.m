@@ -14,16 +14,25 @@
 
 @implementation PIKViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    self.o_mapView.showsUserLocation = YES;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (IBAction)toggleShowUserLocation {
+    self.o_mapView.showsUserLocation = !self.o_mapView.showsUserLocation;
 }
+
+// iOS 6 only
+- (NSUInteger)supportedInterfaceOrientations {
+	return UIInterfaceOrientationMaskAllButUpsideDown;
+}
+
+//iOS 5 only
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)aToInterfaceOrientation {
+	return UIInterfaceOrientationIsLandscape(aToInterfaceOrientation) || UIInterfaceOrientationPortrait == aToInterfaceOrientation;
+}
+
 
 @end
