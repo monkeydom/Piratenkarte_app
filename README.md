@@ -14,4 +14,4 @@ This will be a port of the Piraten Karte Android App for iOS once it is finished
 * [MIT](http://www.opensource.org/licenses/mit-license.php)
 
 ## Author
-* [monkeydom](twitter.com/monkeydom) / [codingdom](twitter.com/codingdom)
+* [monkeydom](twitter.com/monkeydom) / [monkeydom_de](twitter.com/monkeydom_de)
