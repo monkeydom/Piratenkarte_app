@@ -6,7 +6,9 @@
 //  Copyright (c) 2013 Dominik Wagner. All rights reserved.
 //
 
+
 #import "PIKViewController.h"
+#import "AFNetworking.h"
 
 @interface PIKViewController ()
 
@@ -42,6 +44,25 @@
     Request *req = request.build;
     
     NSLog(@"%s %@ | %@ | %@ ",__FUNCTION__,request, req, req.data);
+    
+    NSData *postData = req.data;
+    
+    Request *parsedReq = [Request parseFromData:postData];
+    NSLog(@"%s parsed Request: %@ ",__FUNCTION__, parsedReq);
+    
+    NSString *testURLString = @"http://piraten.boombuler.de/testbtw/api.php";
+    NSURL *testURL = [NSURL URLWithString:testURLString];
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:testURL];
+    [urlRequest setHTTPBody:postData];
+    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
+    [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%s %@",__FUNCTION__,responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%s failure: %@",__FUNCTION__,error);
+    }];
+    
+    [requestOperation start];
+    
 }
 
 - (IBAction)toggleShowUserLocation {
