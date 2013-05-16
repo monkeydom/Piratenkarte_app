@@ -41,3 +41,5 @@ xcuserdata
 *.pyc
 *.pyo
 
+Piratenkarte/protobuf/cpp
+Piratenkarte/protobuf/headers
