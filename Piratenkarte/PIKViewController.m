@@ -25,8 +25,8 @@
 
 - (void)requestDataForVisibleViewRect {
     Request_Builder *request = [Request builder];
-    request.username = @"guest";
-    request.password = @"pass";
+    request.username = @"";
+    request.password = @"";
     
     MKMapRect mapRect = self.o_mapView.visibleMapRect;
     CLLocationCoordinate2D southwest = MKCoordinateForMapPoint(MKMapPointMake(MKMapRectGetMinX(mapRect), MKMapRectGetMinY(mapRect)));
@@ -47,18 +47,24 @@
     
     NSData *postData = req.data;
     
+    [postData writeToFile:@"/tmp/karten.post" atomically:NO];
+    
     Request *parsedReq = [Request parseFromData:postData];
     NSLog(@"%s parsed Request: %@ ",__FUNCTION__, parsedReq);
     
     NSString *testURLString = @"http://piraten.boombuler.de/testbtw/api.php";
+//    testURLString = @"http://piraten.boombuler.de/testbtw/api.php";
     NSURL *testURL = [NSURL URLWithString:testURLString];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:testURL];
-    [urlRequest setHTTPBody:postData];
+    [urlRequest setHTTPMethod:@"POST"];
+//    [urlRequest setHTTPBody:postData];
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s %@",__FUNCTION__,responseObject);
+        NSLog(@"%s success %@",__FUNCTION__,responseObject);
+        Response *response = [Response parseFromData:responseObject];
+        NSLog(@"%s parsed response = %@",__FUNCTION__,response);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s failure: %@",__FUNCTION__,error);
+        NSLog(@"%s failure: %@\n %@",__FUNCTION__,error, operation.response);
     }];
     
     [requestOperation start];
