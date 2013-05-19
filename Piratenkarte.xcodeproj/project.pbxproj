@@ -57,6 +57,7 @@
 		F2ACBA0B174587A00015E899 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2ACBA0A174587A00015E899 /* SystemConfiguration.framework */; };
 		F2ACBA0E17494C370015E899 /* PIKPlakatServer.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACBA0D17494C360015E899 /* PIKPlakatServer.m */; };
 		F2ACBA1117494EDC0015E899 /* PIKPlakatServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACBA1017494EDC0015E899 /* PIKPlakatServerManager.m */; };
+		F2ACBA1417495C780015E899 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2ACBA1317495C780015E899 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -155,6 +156,7 @@
 		F2ACBA0D17494C360015E899 /* PIKPlakatServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PIKPlakatServer.m; path = Model/PIKPlakatServer.m; sourceTree = "<group>"; };
 		F2ACBA0F17494EDC0015E899 /* PIKPlakatServerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PIKPlakatServerManager.h; path = Model/PIKPlakatServerManager.h; sourceTree = "<group>"; };
 		F2ACBA1017494EDC0015E899 /* PIKPlakatServerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PIKPlakatServerManager.m; path = Model/PIKPlakatServerManager.m; sourceTree = "<group>"; };
+		F2ACBA1317495C780015E899 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +164,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2ACBA1417495C780015E899 /* CoreLocation.framework in Frameworks */,
 				F2ACBA0B174587A00015E899 /* SystemConfiguration.framework in Frameworks */,
 				F2ACBA09174587890015E899 /* MobileCoreServices.framework in Frameworks */,
 				F221F214173FD08700A63B56 /* MapKit.framework in Frameworks */,
@@ -177,6 +180,7 @@
 		F221F1E1173FCDB200A63B56 = {
 			isa = PBXGroup;
 			children = (
+				F2ACBA1317495C780015E899 /* CoreLocation.framework */,
 				F221F1F3173FCDB200A63B56 /* Piratenkarte */,
 				F221F1EC173FCDB200A63B56 /* Frameworks */,
 				F221F1EB173FCDB200A63B56 /* Products */,
