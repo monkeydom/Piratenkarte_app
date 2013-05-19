@@ -58,6 +58,14 @@
 		F2ACBA0E17494C370015E899 /* PIKPlakatServer.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACBA0D17494C360015E899 /* PIKPlakatServer.m */; };
 		F2ACBA1117494EDC0015E899 /* PIKPlakatServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACBA1017494EDC0015E899 /* PIKPlakatServerManager.m */; };
 		F2ACBA1417495C780015E899 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2ACBA1317495C780015E899 /* CoreLocation.framework */; };
+		F2ACBA1E17496F5F0015E899 /* PIKAnnotation_plakat_a0.png in Resources */ = {isa = PBXBuildFile; fileRef = F2ACBA1617496F5F0015E899 /* PIKAnnotation_plakat_a0.png */; };
+		F2ACBA1F17496F5F0015E899 /* PIKAnnotation_plakat_default.png in Resources */ = {isa = PBXBuildFile; fileRef = F2ACBA1717496F5F0015E899 /* PIKAnnotation_plakat_default.png */; };
+		F2ACBA2017496F5F0015E899 /* PIKAnnotation_plakat_dieb.png in Resources */ = {isa = PBXBuildFile; fileRef = F2ACBA1817496F5F0015E899 /* PIKAnnotation_plakat_dieb.png */; };
+		F2ACBA2117496F5F0015E899 /* PIKAnnotation_plakat_niceplace.png in Resources */ = {isa = PBXBuildFile; fileRef = F2ACBA1917496F5F0015E899 /* PIKAnnotation_plakat_niceplace.png */; };
+		F2ACBA2217496F5F0015E899 /* PIKAnnotation_plakat_ok.png in Resources */ = {isa = PBXBuildFile; fileRef = F2ACBA1A17496F5F0015E899 /* PIKAnnotation_plakat_ok.png */; };
+		F2ACBA2317496F5F0015E899 /* PIKAnnotation_plakat_wrecked.png in Resources */ = {isa = PBXBuildFile; fileRef = F2ACBA1B17496F5F0015E899 /* PIKAnnotation_plakat_wrecked.png */; };
+		F2ACBA2417496F5F0015E899 /* PIKAnnotation_wand.png in Resources */ = {isa = PBXBuildFile; fileRef = F2ACBA1C17496F5F0015E899 /* PIKAnnotation_wand.png */; };
+		F2ACBA2517496F5F0015E899 /* PIKAnnotation_wand_ok.png in Resources */ = {isa = PBXBuildFile; fileRef = F2ACBA1D17496F5F0015E899 /* PIKAnnotation_wand_ok.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -157,6 +165,14 @@
 		F2ACBA0F17494EDC0015E899 /* PIKPlakatServerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PIKPlakatServerManager.h; path = Model/PIKPlakatServerManager.h; sourceTree = "<group>"; };
 		F2ACBA1017494EDC0015E899 /* PIKPlakatServerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PIKPlakatServerManager.m; path = Model/PIKPlakatServerManager.m; sourceTree = "<group>"; };
 		F2ACBA1317495C780015E899 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		F2ACBA1617496F5F0015E899 /* PIKAnnotation_plakat_a0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PIKAnnotation_plakat_a0.png; sourceTree = "<group>"; };
+		F2ACBA1717496F5F0015E899 /* PIKAnnotation_plakat_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PIKAnnotation_plakat_default.png; sourceTree = "<group>"; };
+		F2ACBA1817496F5F0015E899 /* PIKAnnotation_plakat_dieb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PIKAnnotation_plakat_dieb.png; sourceTree = "<group>"; };
+		F2ACBA1917496F5F0015E899 /* PIKAnnotation_plakat_niceplace.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PIKAnnotation_plakat_niceplace.png; sourceTree = "<group>"; };
+		F2ACBA1A17496F5F0015E899 /* PIKAnnotation_plakat_ok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PIKAnnotation_plakat_ok.png; sourceTree = "<group>"; };
+		F2ACBA1B17496F5F0015E899 /* PIKAnnotation_plakat_wrecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PIKAnnotation_plakat_wrecked.png; sourceTree = "<group>"; };
+		F2ACBA1C17496F5F0015E899 /* PIKAnnotation_wand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PIKAnnotation_wand.png; sourceTree = "<group>"; };
+		F2ACBA1D17496F5F0015E899 /* PIKAnnotation_wand_ok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PIKAnnotation_wand_ok.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,7 +196,6 @@
 		F221F1E1173FCDB200A63B56 = {
 			isa = PBXGroup;
 			children = (
-				F2ACBA1317495C780015E899 /* CoreLocation.framework */,
 				F221F1F3173FCDB200A63B56 /* Piratenkarte */,
 				F221F1EC173FCDB200A63B56 /* Frameworks */,
 				F221F1EB173FCDB200A63B56 /* Products */,
@@ -198,6 +213,7 @@
 		F221F1EC173FCDB200A63B56 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F2ACBA1317495C780015E899 /* CoreLocation.framework */,
 				F2ACBA0A174587A00015E899 /* SystemConfiguration.framework */,
 				F2ACBA08174587890015E899 /* MobileCoreServices.framework */,
 				F221F213173FD08700A63B56 /* MapKit.framework */,
@@ -243,6 +259,7 @@
 		F221F215173FDAD700A63B56 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				F2ACBA1517496F5F0015E899 /* AnnotationGraphics */,
 				F221F216173FDAE900A63B56 /* AppIcon */,
 			);
 			name = Images;
@@ -369,6 +386,22 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		F2ACBA1517496F5F0015E899 /* AnnotationGraphics */ = {
+			isa = PBXGroup;
+			children = (
+				F2ACBA1617496F5F0015E899 /* PIKAnnotation_plakat_a0.png */,
+				F2ACBA1717496F5F0015E899 /* PIKAnnotation_plakat_default.png */,
+				F2ACBA1817496F5F0015E899 /* PIKAnnotation_plakat_dieb.png */,
+				F2ACBA1917496F5F0015E899 /* PIKAnnotation_plakat_niceplace.png */,
+				F2ACBA1A17496F5F0015E899 /* PIKAnnotation_plakat_ok.png */,
+				F2ACBA1B17496F5F0015E899 /* PIKAnnotation_plakat_wrecked.png */,
+				F2ACBA1C17496F5F0015E899 /* PIKAnnotation_wand.png */,
+				F2ACBA1D17496F5F0015E899 /* PIKAnnotation_wand_ok.png */,
+			);
+			name = AnnotationGraphics;
+			path = Images/AnnotationGraphics;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -429,6 +462,14 @@
 				F221F20D173FCDB200A63B56 /* PIKViewController_iPad.xib in Resources */,
 				F221F219173FDAF600A63B56 /* PiratenkarteIcon57.png in Resources */,
 				F221F21A173FDAF600A63B56 /* PiratenkarteIcon57@2x.png in Resources */,
+				F2ACBA1E17496F5F0015E899 /* PIKAnnotation_plakat_a0.png in Resources */,
+				F2ACBA1F17496F5F0015E899 /* PIKAnnotation_plakat_default.png in Resources */,
+				F2ACBA2017496F5F0015E899 /* PIKAnnotation_plakat_dieb.png in Resources */,
+				F2ACBA2117496F5F0015E899 /* PIKAnnotation_plakat_niceplace.png in Resources */,
+				F2ACBA2217496F5F0015E899 /* PIKAnnotation_plakat_ok.png in Resources */,
+				F2ACBA2317496F5F0015E899 /* PIKAnnotation_plakat_wrecked.png in Resources */,
+				F2ACBA2417496F5F0015E899 /* PIKAnnotation_wand.png in Resources */,
+				F2ACBA2517496F5F0015E899 /* PIKAnnotation_wand_ok.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

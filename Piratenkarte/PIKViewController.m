@@ -35,14 +35,35 @@
     return [resultArray componentsJoinedByString:@" | "];
 }
 
+- (UIImage *)annotationImage {
+    UIImage *result = [UIImage imageNamed:[NSString stringWithFormat:@"PIKAnnotation_%@",self.type]];
+    return result;
+}
+
 @end
 
 
-@interface PIKViewController ()
-
+@interface PIKViewController () <MKMapViewDelegate>
 @end
 
 @implementation PIKViewController
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+    MKAnnotationView *result;
+    if ([annotation isKindOfClass:[Plakat class]]) {
+        Plakat *plakat = (Plakat *)annotation;
+        result = [mapView dequeueReusableAnnotationViewWithIdentifier:@"Pirate"];
+        if (!result) {
+            result = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Pirate"];
+        }
+        result.annotation = annotation;
+        result.canShowCallout = YES;
+        UIImage *plakatImage = plakat.annotationImage;
+        if (plakatImage) result.image = plakatImage;
+    }
+    return result;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -91,7 +112,7 @@
     [urlRequest setHTTPBody:postData];
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success %@, %@",__FUNCTION__,operation.response, responseObject);
+//        NSLog(@"%s success %@, %@",__FUNCTION__,operation.response, responseObject);
 //        NSLog(@"%s all Headers %@",__FUNCTION__,[operation.response allHeaderFields]);
         Response *response = [Response parseFromData:responseObject];
         NSLog(@"%s parsed response = %@",__FUNCTION__,response);
@@ -99,7 +120,7 @@
         [[response.description dataUsingEncoding:NSUTF8StringEncoding] writeToFile:@"/tmp/plakate.txt" atomically:NO];
         
         [self.o_mapView addAnnotations:response.plakate];
-        
+        [self.o_mapView setCenterCoordinate:[response.plakate.lastObject coordinate] animated:YES];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%s failure: %@\n %@",__FUNCTION__,error, operation.response);
     }];
