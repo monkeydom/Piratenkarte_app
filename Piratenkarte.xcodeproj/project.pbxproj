@@ -55,6 +55,8 @@
 		F2ACBA071745829D0015E899 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACB9FE1745829D0015E899 /* UIImageView+AFNetworking.m */; };
 		F2ACBA09174587890015E899 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2ACBA08174587890015E899 /* MobileCoreServices.framework */; };
 		F2ACBA0B174587A00015E899 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2ACBA0A174587A00015E899 /* SystemConfiguration.framework */; };
+		F2ACBA0E17494C370015E899 /* PIKPlakatServer.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACBA0D17494C360015E899 /* PIKPlakatServer.m */; };
+		F2ACBA1117494EDC0015E899 /* PIKPlakatServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACBA1017494EDC0015E899 /* PIKPlakatServerManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -149,6 +151,10 @@
 		F2ACB9FE1745829D0015E899 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
 		F2ACBA08174587890015E899 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		F2ACBA0A174587A00015E899 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		F2ACBA0C17494C360015E899 /* PIKPlakatServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PIKPlakatServer.h; path = Model/PIKPlakatServer.h; sourceTree = "<group>"; };
+		F2ACBA0D17494C360015E899 /* PIKPlakatServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PIKPlakatServer.m; path = Model/PIKPlakatServer.m; sourceTree = "<group>"; };
+		F2ACBA0F17494EDC0015E899 /* PIKPlakatServerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PIKPlakatServerManager.h; path = Model/PIKPlakatServerManager.h; sourceTree = "<group>"; };
+		F2ACBA1017494EDC0015E899 /* PIKPlakatServerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PIKPlakatServerManager.m; path = Model/PIKPlakatServerManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +211,7 @@
 				F2ACB9EB1745829D0015E899 /* AFNetworking */,
 				F221F1FC173FCDB200A63B56 /* PIKAppDelegate.h */,
 				F221F1FD173FCDB200A63B56 /* PIKAppDelegate.m */,
+				F2ACBA12174950F60015E899 /* Model */,
 				F221F205173FCDB200A63B56 /* PIKViewController.h */,
 				F221F206173FCDB200A63B56 /* PIKViewController.m */,
 				F221F208173FCDB200A63B56 /* PIKViewController_iPhone.xib */,
@@ -347,6 +354,17 @@
 			path = AFNetworking;
 			sourceTree = "<group>";
 		};
+		F2ACBA12174950F60015E899 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F2ACBA0F17494EDC0015E899 /* PIKPlakatServerManager.h */,
+				F2ACBA1017494EDC0015E899 /* PIKPlakatServerManager.m */,
+				F2ACBA0C17494C360015E899 /* PIKPlakatServer.h */,
+				F2ACBA0D17494C360015E899 /* PIKPlakatServer.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -451,6 +469,8 @@
 				F2ACBA051745829D0015E899 /* AFURLConnectionOperation.m in Sources */,
 				F2ACBA061745829D0015E899 /* AFXMLRequestOperation.m in Sources */,
 				F2ACBA071745829D0015E899 /* UIImageView+AFNetworking.m in Sources */,
+				F2ACBA0E17494C370015E899 /* PIKPlakatServer.m in Sources */,
+				F2ACBA1117494EDC0015E899 /* PIKPlakatServerManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

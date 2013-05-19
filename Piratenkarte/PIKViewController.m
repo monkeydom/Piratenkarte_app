@@ -29,14 +29,14 @@
     request.password = @"";
     
     MKMapRect mapRect = self.o_mapView.visibleMapRect;
-    CLLocationCoordinate2D southwest = MKCoordinateForMapPoint(MKMapPointMake(MKMapRectGetMinX(mapRect), MKMapRectGetMinY(mapRect)));
-    CLLocationCoordinate2D northeast = MKCoordinateForMapPoint(MKMapPointMake(MKMapRectGetMaxX(mapRect), MKMapRectGetMaxY(mapRect)));
+    CLLocationCoordinate2D northwest = MKCoordinateForMapPoint(MKMapPointMake(MKMapRectGetMinX(mapRect), MKMapRectGetMinY(mapRect)));
+    CLLocationCoordinate2D southeast = MKCoordinateForMapPoint(MKMapPointMake(MKMapRectGetMaxX(mapRect), MKMapRectGetMaxY(mapRect)));
     
     BoundingBox_Builder *viewBoxBuilder = [BoundingBox builder];
-    viewBoxBuilder.west =  southwest.longitude;
-    viewBoxBuilder.south = southwest.latitude;
-    viewBoxBuilder.east =  northeast.longitude;
-    viewBoxBuilder.north = northeast.latitude;
+    viewBoxBuilder.west =  northwest.longitude -2;
+    viewBoxBuilder.south = southeast.latitude  -2;
+    viewBoxBuilder.east =  southeast.longitude +2;
+    viewBoxBuilder.north = northwest.latitude  +2;
     
     ViewRequest_Builder *viewRequestBuilder = [ViewRequest builder];
     viewRequestBuilder.viewBox  = [viewBoxBuilder build];
@@ -57,10 +57,11 @@
     NSURL *testURL = [NSURL URLWithString:testURLString];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:testURL];
     [urlRequest setHTTPMethod:@"POST"];
-//    [urlRequest setHTTPBody:postData];
+    [urlRequest setHTTPBody:postData];
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success %@",__FUNCTION__,responseObject);
+        NSLog(@"%s success %@, %@",__FUNCTION__,operation.response, responseObject);
+        NSLog(@"%s all Headers %@",__FUNCTION__,[operation.response allHeaderFields]);
         Response *response = [Response parseFromData:responseObject];
         NSLog(@"%s parsed response = %@",__FUNCTION__,response);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
