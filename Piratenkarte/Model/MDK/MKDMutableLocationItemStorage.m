@@ -186,6 +186,15 @@ BOOL MKDCoordinateRegionContainsRegion(MKCoordinateRegion aRegion, MKCoordinateR
     return result;
 }
 
+- (void)removeLocationItemForItemIdentifier:(NSString *)aLocationItemIdentifier {
+    id <MKDLocationItem> locationItem = [self locationItemForItemIdentifier:aLocationItemIdentifier];
+    if (locationItem) {
+        [self removeLocationItem:locationItem];
+    }
+}
+
+
+
 - (NSArray *)allLocationItems {
     NSArray *result = self.locationItemsByLocationItemIdentifier.allValues;
     return result;

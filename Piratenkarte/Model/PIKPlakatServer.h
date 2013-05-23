@@ -7,6 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+@class PIKPlakatServer;
+
+#import "MKDMutableLocationItemStorage.h"
+#import "PIKPlakat.h"
+#import "AFHTTPRequestOperation.h"
 
 @interface PIKPlakatServer : NSObject
 @property (nonatomic, strong) NSString *identifier;
@@ -15,9 +20,12 @@
 @property (nonatomic, strong) NSString *serverName;
 @property (nonatomic, strong) NSString *serverBaseURL;
 @property (nonatomic, strong) NSURL *serverAPIURL;
+@property (nonatomic, strong) MKDMutableLocationItemStorage *locationItemStorage;
 
 + (NSArray *)parseFromJSONObject:(NSDictionary *)aJSONObject;
 
 - (void)updateWithServer:(PIKPlakatServer *)aServer;
+
+- (void)requestAllPlakate;
 
 @end

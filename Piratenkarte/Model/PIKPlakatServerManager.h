@@ -7,10 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+@class PIKPlakatServerManager;
+
+#import "PIKPlakatServer.h"
 
 @interface PIKPlakatServerManager : NSObject
 
 + (instancetype)plakatServerManager;
 - (void)refreshServerList;
+
+@property (nonatomic, readonly) PIKPlakatServer *selectedPlakatServer;
+
 
 @end

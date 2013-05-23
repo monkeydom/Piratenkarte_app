@@ -12,7 +12,7 @@
 
 @interface PIKPlakatServerManager ()
 @property (nonatomic, strong) NSMutableArray *serverArray;
-@property (nonatomic, strong) PIKPlakatServer *selectedServer;
+@property (nonatomic, strong) NSString *selectedServerIdentifier;
 @end
 
 @implementation PIKPlakatServerManager
@@ -38,6 +38,7 @@
         myTestServer.serverInfoText = @"Testserver für die Bundestagswahl";
         myTestServer.serverBaseURL = @"http://piraten.boombuler.de/testbtw/";
         [_serverArray addObject:myTestServer];
+//        self.selectedServerIdentifier = myTestServer.identifier;
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             [self refreshServerList];
         }];
@@ -64,6 +65,35 @@
     for (PIKPlakatServer *server in aServerArray) {
         [self updateListWithServer:server];
     }
+    [self.selectedPlakatServer requestAllPlakate];
+}
+
+- (PIKPlakatServer *)serverForIdentifier:(NSString *)anIdentifier {
+    for (PIKPlakatServer *server in self.serverArray) {
+        if ([server.identifier isEqualToString:anIdentifier]) {
+            return server;
+        }
+    }
+    return nil;
+}
+
+- (PIKPlakatServer *)selectedPlakatServer {
+    PIKPlakatServer *result;
+    if (self.selectedServerIdentifier) {
+        result = [self serverForIdentifier:self.selectedServerIdentifier];
+    }
+    if (!result) {
+        for (PIKPlakatServer *server in self.serverArray) {
+            if (server.isDefault) {
+                result = server;
+                break;
+            }
+        }
+    }
+    if (!result && self.serverArray.count > 0) {
+        result = [self.serverArray objectAtIndex:0];
+    }
+    return result;
 }
 
 - (void)refreshServerList {
