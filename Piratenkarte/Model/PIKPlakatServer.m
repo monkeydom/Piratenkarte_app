@@ -85,12 +85,13 @@
     
 }
 
-- (void)requestAllPlakate {
+- (void)requestPlakateWithBoundingBox:(BoundingBox *)aBoundingBox {
     Request_Builder *request = [Request builder];
     request.username = @"";
     request.password = @"";
     
     ViewRequest_Builder *viewRequestBuilder = [ViewRequest builder];
+    if (aBoundingBox) viewRequestBuilder.viewBox = aBoundingBox;
     request.viewRequest = [viewRequestBuilder build];
     Request *req = request.build;
     NSData *postData = req.data;
@@ -117,6 +118,15 @@
     }];
     
     [requestOperation start];
+}
+
+
+- (void)requestAllPlakate {
+    [self requestPlakateWithBoundingBox:nil];
+}
+
+- (void)requestPlakateInCoordinateRegion:(MKCoordinateRegion)aCoordinateRegion {
+    [self requestPlakateWithBoundingBox:[self.class viewBoxForMKCoordinateRegion:aCoordinateRegion]];
 }
 
 

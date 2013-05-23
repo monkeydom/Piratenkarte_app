@@ -27,5 +27,6 @@
 - (void)updateWithServer:(PIKPlakatServer *)aServer;
 
 - (void)requestAllPlakate;
+- (void)requestPlakateInCoordinateRegion:(MKCoordinateRegion)aCoordinateRegion;
 
 @end

@@ -82,19 +82,27 @@
 }
 
 - (void)requestDataForVisibleViewRect {
-    [[[PIKPlakatServerManager plakatServerManager] selectedPlakatServer] requestAllPlakate];
+    MKCoordinateRegion region = self.o_mapView.region;
+    region.span.latitudeDelta *= 2.0;
+    region.span.longitudeDelta *= 2.0;
+    
+    [[[PIKPlakatServerManager plakatServerManager] selectedPlakatServer] requestPlakateInCoordinateRegion:region];
 }
 
 - (IBAction)queryItemStorage {
     MKCoordinateRegion region = self.o_mapView.region;
-    NSArray *items = [self.locationItemStorage locationItemsForCoordinateRegion:region];
-    NSLog(@"%s %@",__FUNCTION__,items);
+    NSArray *items = [[[[PIKPlakatServerManager plakatServerManager] selectedPlakatServer] locationItemStorage]locationItemsForCoordinateRegion:region];
+    if (items) {
+        [self.o_mapView removeAnnotations:self.o_mapView.annotations];
+        [self.o_mapView addAnnotations:items];
+    }
 }
 
 - (IBAction)toggleShowUserLocation {
-    BOOL setting = !self.o_mapView.showsUserLocation;
-    self.o_mapView.showsUserLocation = setting;
-    self.o_mapView.userTrackingMode = setting ? MKUserTrackingModeFollow : MKUserTrackingModeNone;
+    self.o_mapView.userTrackingMode = self.o_mapView.userTrackingMode == MKUserTrackingModeNone ? MKUserTrackingModeFollow : MKUserTrackingModeNone;
+}
+
+- (IBAction)queryServer {
     [self requestDataForVisibleViewRect];
 }
 
