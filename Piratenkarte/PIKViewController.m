@@ -12,39 +12,26 @@
 #import <CoreLocation/CoreLocation.h>
 #import "MKDMutableLocationItemStorage.h"
 #import "PIKPlakatServerManager.h"
+#import "PIKPlakat.h"
 
-@interface Plakat (AnnotationAdditions) <MKAnnotation,MKDLocationItem>
+@interface PIKPlakat (AnnotationAdditions)
 @end
 
-@implementation Plakat (AnnotationAdditions)
-
-- (NSString *)locationItemIdentifier {
-    return [@(self.id) stringValue];
-}
-
-- (CLLocationCoordinate2D)coordinate {
-    CLLocationCoordinate2D result = CLLocationCoordinate2DMake(self.lat, self.lon);
-    return result;
-}
+@implementation PIKPlakat (AnnotationAdditions)
 
 - (NSString *)title {
     NSDateFormatter *formatter = [NSDateFormatter new];
     [formatter setDateStyle:NSDateFormatterMediumStyle];
     [formatter setTimeStyle:NSDateFormatterMediumStyle];
-    NSString *result = [NSString stringWithFormat:@"%@ | %@", self.type, [formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.lastModifiedTime]]];
+    NSString *result = [NSString stringWithFormat:@"%@ | %@ | %@", [self localizedType],[formatter stringFromDate:self.lastModifiedDate], [formatter stringFromDate:self.lastServerFetchDate]];
     return result;
 }
 
 - (NSString *)subtitle {
     NSMutableArray *resultArray = [NSMutableArray array];
-    if (self.lastModifiedUser) [resultArray addObject:self.lastModifiedUser];
+    if (self.usernameOfLastChange) [resultArray addObject:self.usernameOfLastChange];
     if (self.comment) [resultArray addObject:self.comment];
     return [resultArray componentsJoinedByString:@" | "];
-}
-
-- (UIImage *)annotationImage {
-    UIImage *result = [UIImage imageNamed:[NSString stringWithFormat:@"PIKAnnotation_%@",self.type]];
-    return result;
 }
 
 @end
@@ -58,27 +45,59 @@
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
     MKAnnotationView *result;
-    if ([annotation isKindOfClass:[Plakat class]]) {
-        Plakat *plakat = (Plakat *)annotation;
+    if ([annotation isKindOfClass:[PIKPlakat class]]) {
+        PIKPlakat *plakat = (PIKPlakat *)annotation;
         result = [mapView dequeueReusableAnnotationViewWithIdentifier:@"Pirate"];
         if (!result) {
             result = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Pirate"];
         }
         result.annotation = annotation;
         result.canShowCallout = YES;
+        
+        
         UIImage *plakatImage = plakat.annotationImage;
-        if (plakatImage) result.image = plakatImage;
+        if (plakatImage) {
+            UIImageView *sfIconView = [[UIImageView alloc] initWithImage:plakatImage];
+            result.leftCalloutAccessoryView = sfIconView;
+        }
+        result.image = plakatImage;
     }
     return result;
 }
 
+#define CURRENTPOSITIONBASEKEY @"CurrentMapRect"
+
+- (void)restoreLocationFromDefaults {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults doubleForKey:CURRENTPOSITIONBASEKEY@"Lon"]) {
+        MKCoordinateRegion region;
+        region.center.longitude = [defaults doubleForKey:CURRENTPOSITIONBASEKEY@"Lon"];
+        region.center.latitude = [defaults doubleForKey:CURRENTPOSITIONBASEKEY@"Lat"];
+        region.span.longitudeDelta = [defaults doubleForKey:CURRENTPOSITIONBASEKEY@"LonD"];
+        region.span.latitudeDelta = [defaults doubleForKey:CURRENTPOSITIONBASEKEY@"LatD"];
+        self.o_mapView.region = region;
+    }
+}
+
+- (void)storeLocationToDefaults {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    MKCoordinateRegion region = self.o_mapView.region;
+    [defaults setDouble:region.center.longitude forKey:CURRENTPOSITIONBASEKEY@"Lon"];
+    [defaults setDouble:region.center.latitude  forKey:CURRENTPOSITIONBASEKEY@"Lat"];
+    [defaults setDouble:region.span.longitudeDelta forKey:CURRENTPOSITIONBASEKEY@"LonD"];
+    [defaults setDouble:region.span.latitudeDelta forKey:CURRENTPOSITIONBASEKEY@"LatD"];
+    [defaults synchronize];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     self.o_mapView.showsUserLocation = YES;
-    self.o_mapView.userTrackingMode = MKUserTrackingModeFollow;
-    self.locationItemStorage = [MKDMutableLocationItemStorage new];
+
+//    self.o_mapView.userTrackingMode = MKUserTrackingModeFollow;
+
+    [self restoreLocationFromDefaults];
+    
 }
 
 - (void)requestDataForVisibleViewRect {
@@ -90,6 +109,7 @@
 }
 
 - (IBAction)queryItemStorage {
+    [self storeLocationToDefaults];
     MKCoordinateRegion region = self.o_mapView.region;
     NSArray *items = [[[[PIKPlakatServerManager plakatServerManager] selectedPlakatServer] locationItemStorage]locationItemsForCoordinateRegion:region];
     if (items) {
@@ -103,6 +123,7 @@
 }
 
 - (IBAction)queryServer {
+    [self storeLocationToDefaults];
     [self requestDataForVisibleViewRect];
 }
 

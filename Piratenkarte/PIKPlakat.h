@@ -21,6 +21,8 @@
 @property (nonatomic, strong) NSString *comment;
 @property (nonatomic, strong) NSString *imageURLString;
 @property (nonatomic, strong) NSString *usernameOfLastChange;
+@property (nonatomic, readonly) NSString *localizedType;
+- (UIImage *)annotationImage;
 
 - (instancetype)initWithPlakat:(Plakat *)aPlakat serverFetchDate:(NSDate *)aServerFetchDate;
 

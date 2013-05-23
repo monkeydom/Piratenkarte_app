@@ -8,6 +8,15 @@
 
 #import "PIKPlakat.h"
 
+NSString * const PIKPlakatTypeDefault   = @"plakat_default";
+NSString * const PIKPlakatTypeA0        = @"plakat_a0";
+NSString * const PIKPlakatTypeStolen    = @"plakat_dieb";
+NSString * const PIKPlakatTypeNicePlace = @"plakat_niceplace";
+NSString * const PIKPlakatTypeOK        = @"plakat_ok";
+NSString * const PIKPlakatTypeWrecked   = @"plakat_wrecked";
+NSString * const PIKPlakatTypeWall      = @"wand";
+NSString * const PIKPlakatTypeWallOK    = @"wand_ok";
+
 @interface PIKPlakat ()
 @property (nonatomic, strong, readwrite) NSString *locationItemIdentifier;
 @end
@@ -23,6 +32,47 @@
     return self;
 }
 
++ (NSArray *)orderdPlakatTypes {
+    return @[
+             PIKPlakatTypeNicePlace,
+             PIKPlakatTypeOK,
+             PIKPlakatTypeA0,
+             PIKPlakatTypeStolen,
+             PIKPlakatTypeWrecked,
+             PIKPlakatTypeWall,
+             PIKPlakatTypeWallOK,
+             ];
+}
+
+- (UIImage *)annotationImage {
+    UIImage *result = [UIImage imageNamed:[NSString stringWithFormat:@"PIKAnnotation_%@",self.plakatType]];
+    return result;
+}
+
+
+
+- (NSString *)localizedType {
+    NSString *type = self.plakatType;
+    if ([type isEqualToString:PIKPlakatTypeDefault]) {
+        return @"??";
+    } else if ([type isEqualToString:PIKPlakatTypeOK]) {
+        return @"Hängt";
+    } else if ([type isEqualToString:PIKPlakatTypeA0]) {
+        return @"A0 steht";
+    } else if ([type isEqualToString:PIKPlakatTypeStolen]) {
+        return @"Gestohlen";
+    } else if ([type isEqualToString:PIKPlakatTypeNicePlace]) {
+        return @"Gute Stelle";
+    } else if ([type isEqualToString:PIKPlakatTypeWrecked]) {
+        return @"Beschädigt";
+    } else if ([type isEqualToString:PIKPlakatTypeWall]) {
+        return @"Plakatwand";
+    } else if ([type isEqualToString:PIKPlakatTypeWallOK]) {
+        return @"Plakat an Plakatwand";
+    } else {
+        return type;
+    }
+}
 
 - (void)setPlakatID:(uint32_t)aPlakatID {
     _plakatID = aPlakatID;
