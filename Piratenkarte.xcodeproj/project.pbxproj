@@ -66,6 +66,7 @@
 		F2ACBA2317496F5F0015E899 /* PIKAnnotation_plakat_wrecked.png in Resources */ = {isa = PBXBuildFile; fileRef = F2ACBA1B17496F5F0015E899 /* PIKAnnotation_plakat_wrecked.png */; };
 		F2ACBA2417496F5F0015E899 /* PIKAnnotation_wand.png in Resources */ = {isa = PBXBuildFile; fileRef = F2ACBA1C17496F5F0015E899 /* PIKAnnotation_wand.png */; };
 		F2ACBA2517496F5F0015E899 /* PIKAnnotation_wand_ok.png in Resources */ = {isa = PBXBuildFile; fileRef = F2ACBA1D17496F5F0015E899 /* PIKAnnotation_wand_ok.png */; };
+		F2B03799174E043F001D8736 /* MKDMutableLocationItemStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = F2B03798174E043F001D8736 /* MKDMutableLocationItemStorage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -173,6 +174,8 @@
 		F2ACBA1B17496F5F0015E899 /* PIKAnnotation_plakat_wrecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PIKAnnotation_plakat_wrecked.png; sourceTree = "<group>"; };
 		F2ACBA1C17496F5F0015E899 /* PIKAnnotation_wand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PIKAnnotation_wand.png; sourceTree = "<group>"; };
 		F2ACBA1D17496F5F0015E899 /* PIKAnnotation_wand_ok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PIKAnnotation_wand_ok.png; sourceTree = "<group>"; };
+		F2B03797174E043F001D8736 /* MKDMutableLocationItemStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MKDMutableLocationItemStorage.h; path = Model/MDK/MKDMutableLocationItemStorage.h; sourceTree = "<group>"; };
+		F2B03798174E043F001D8736 /* MKDMutableLocationItemStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MKDMutableLocationItemStorage.m; path = Model/MDK/MKDMutableLocationItemStorage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -382,6 +385,8 @@
 				F2ACBA1017494EDC0015E899 /* PIKPlakatServerManager.m */,
 				F2ACBA0C17494C360015E899 /* PIKPlakatServer.h */,
 				F2ACBA0D17494C360015E899 /* PIKPlakatServer.m */,
+				F2B03797174E043F001D8736 /* MKDMutableLocationItemStorage.h */,
+				F2B03798174E043F001D8736 /* MKDMutableLocationItemStorage.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -516,6 +521,7 @@
 				F2ACBA071745829D0015E899 /* UIImageView+AFNetworking.m in Sources */,
 				F2ACBA0E17494C370015E899 /* PIKPlakatServer.m in Sources */,
 				F2ACBA1117494EDC0015E899 /* PIKPlakatServerManager.m in Sources */,
+				F2B03799174E043F001D8736 /* MKDMutableLocationItemStorage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

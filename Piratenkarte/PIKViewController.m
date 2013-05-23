@@ -10,11 +10,17 @@
 #import "PIKViewController.h"
 #import "AFNetworking.h"
 #import <CoreLocation/CoreLocation.h>
+#import "MKDMutableLocationItemStorage.h"
 
-@interface Plakat (AnnotationAdditions) <MKAnnotation>
+@interface Plakat (AnnotationAdditions) <MKAnnotation,MKDLocationItem>
 @end
 
 @implementation Plakat (AnnotationAdditions)
+
+- (NSString *)locationItemIdentifier {
+    return [@(self.id) stringValue];
+}
+
 - (CLLocationCoordinate2D)coordinate {
     CLLocationCoordinate2D result = CLLocationCoordinate2DMake(self.lat, self.lon);
     return result;
@@ -44,6 +50,7 @@
 
 
 @interface PIKViewController () <MKMapViewDelegate>
+@property (nonatomic,strong) MKDMutableLocationItemStorage *locationItemStorage;
 @end
 
 @implementation PIKViewController
@@ -70,12 +77,13 @@
 	// Do any additional setup after loading the view, typically from a nib.
     self.o_mapView.showsUserLocation = YES;
     self.o_mapView.userTrackingMode = MKUserTrackingModeFollow;
+    self.locationItemStorage = [MKDMutableLocationItemStorage new];
 }
 
 - (void)requestDataForVisibleViewRect {
     Request_Builder *request = [Request builder];
-    request.username = @"";
-    request.password = @"";
+    request.username = @"monkeydom";
+    request.password = @"XQtx9M6mZ";
     
     MKMapRect mapRect = self.o_mapView.visibleMapRect;
     CLLocationCoordinate2D northwest = MKCoordinateForMapPoint(MKMapPointMake(MKMapRectGetMinX(mapRect), MKMapRectGetMinY(mapRect)));
@@ -120,6 +128,9 @@
         [[response.description dataUsingEncoding:NSUTF8StringEncoding] writeToFile:@"/tmp/plakate.txt" atomically:NO];
         
         [self.o_mapView addAnnotations:response.plakate];
+        for (Plakat *plakat in response.plakate) {
+            [self.locationItemStorage addLocationItem:plakat];
+        }
         [self.o_mapView setCenterCoordinate:[response.plakate.lastObject coordinate] animated:YES];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%s failure: %@\n %@",__FUNCTION__,error, operation.response);
@@ -127,6 +138,12 @@
     
     [requestOperation start];
     
+}
+
+- (IBAction)queryItemStorage {
+    MKCoordinateRegion region = self.o_mapView.region;
+    NSArray *items = [self.locationItemStorage locationItemsForCoordinateRegion:region];
+    NSLog(@"%s %@",__FUNCTION__,items);
 }
 
 - (IBAction)toggleShowUserLocation {

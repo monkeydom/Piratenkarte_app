@@ -14,5 +14,6 @@
 @property (nonatomic, strong) IBOutlet MKMapView *o_mapView;
 
 - (IBAction)toggleShowUserLocation;
+- (IBAction)queryItemStorage;
 
 @end
