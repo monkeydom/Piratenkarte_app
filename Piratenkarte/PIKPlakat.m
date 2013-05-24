@@ -55,7 +55,7 @@ NSString * const PIKPlakatTypeWallOK    = @"wand_ok";
 }
 
 - (CGPoint)pinImageCenterOffset {
-    CGPoint result = CGPointMake(10, -21);
+    CGPoint result = CGPointMake(8, -21);
     return result;
 }
 

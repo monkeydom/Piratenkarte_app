@@ -66,6 +66,7 @@
         if (pinImage) {
             result.image = pinImage;
             result.centerOffset = plakat.pinImageCenterOffset;
+            result.calloutOffset = CGPointMake(-plakat.pinImageCenterOffset.x,2);
         }
     }
     return result;
