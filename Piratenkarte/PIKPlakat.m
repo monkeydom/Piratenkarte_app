@@ -26,7 +26,7 @@ NSString * const PIKPlakatTypeWallOK    = @"wand_ok";
 - (instancetype)initWithPlakat:(Plakat *)aPlakat serverFetchDate:(NSDate *)aServerFetchDate {
     self = [self init];
     if (self) {
-        self.lastModifiedDate = aServerFetchDate;
+        self.lastServerFetchDate = aServerFetchDate;
         [self updateValuesWithPlakat:(Plakat *)aPlakat];
     }
     return self;

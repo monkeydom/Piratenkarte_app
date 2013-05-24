@@ -19,19 +19,29 @@
 
 @implementation PIKPlakat (AnnotationAdditions)
 
++ (NSDateFormatter *)dateFormatter {
+    static NSDateFormatter *formatter;
+    if (!formatter) {
+        formatter = [NSDateFormatter new];
+        [formatter setDateStyle:NSDateFormatterShortStyle];
+        [formatter setTimeStyle:NSDateFormatterShortStyle];
+    }
+    return formatter;
+}
+
 - (NSString *)title {
-    NSDateFormatter *formatter = [NSDateFormatter new];
-    [formatter setDateStyle:NSDateFormatterMediumStyle];
-    [formatter setTimeStyle:NSDateFormatterMediumStyle];
-    NSString *result = [NSString stringWithFormat:@"%@ | %@ | %@", [self localizedType],[formatter stringFromDate:self.lastModifiedDate], [formatter stringFromDate:self.lastServerFetchDate]];
+    NSDateFormatter *formatter = [self.class dateFormatter];
+    NSString *result = [NSString stringWithFormat:@"%@ (%@ am %@)", [self localizedType],self.usernameOfLastChange,[formatter stringFromDate:self.lastModifiedDate]];
     return result;
 }
 
 - (NSString *)subtitle {
+    NSDateFormatter *formatter = [self.class dateFormatter];
     NSMutableArray *resultArray = [NSMutableArray array];
-    if (self.usernameOfLastChange) [resultArray addObject:self.usernameOfLastChange];
-    if (self.comment) [resultArray addObject:self.comment];
-    return [resultArray componentsJoinedByString:@" | "];
+    if (self.comment.length > 0) [resultArray addObject:self.comment];
+    if (self.imageURLString.length > 0) [resultArray addObject:self.imageURLString];
+    [resultArray addObject:[NSString stringWithFormat:@"(fetched %@)",[formatter stringFromDate:self.lastServerFetchDate]]];
+    return [resultArray componentsJoinedByString:@" – "];
 }
 
 @end
