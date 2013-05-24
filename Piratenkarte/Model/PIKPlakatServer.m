@@ -96,7 +96,7 @@
     Request *req = request.build;
     NSData *postData = req.data;
     
-    [postData writeToFile:@"/tmp/karten.post" atomically:NO];
+//    [postData writeToFile:@"/tmp/karten.post" atomically:NO];
     
     NSDate *requestDate = [NSDate new];
     
@@ -108,9 +108,9 @@
         //        NSLog(@"%s success %@, %@",__FUNCTION__,operation.response, responseObject);
         //        NSLog(@"%s all Headers %@",__FUNCTION__,[operation.response allHeaderFields]);
         Response *response = [Response parseFromData:responseObject];
-        NSLog(@"%s parsed response = %@",__FUNCTION__,response);
-        [responseObject writeToFile:@"/tmp/plakate.protobuf" atomically:NO];
-        [[response.description dataUsingEncoding:NSUTF8StringEncoding] writeToFile:@"/tmp/plakate.txt" atomically:NO];
+ //       NSLog(@"%s parsed response = %@",__FUNCTION__,response);
+ //       [responseObject writeToFile:@"/tmp/plakate.protobuf" atomically:NO];
+ //       [[response.description dataUsingEncoding:NSUTF8StringEncoding] writeToFile:@"/tmp/plakate.txt" atomically:NO];
         
         [self handleViewRequestResponse:response requestDate:requestDate];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
