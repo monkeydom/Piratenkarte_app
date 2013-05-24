@@ -80,6 +80,16 @@
 		F2B037B0174F8A8D001D8736 /* PIKPin_plakat_ok@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B037AE174F8A8D001D8736 /* PIKPin_plakat_ok@2x.png */; };
 		F2B037B3174F961D001D8736 /* PIKPin_plakat_a0.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B037B1174F961D001D8736 /* PIKPin_plakat_a0.png */; };
 		F2B037B4174F961D001D8736 /* PIKPin_plakat_a0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B037B2174F961D001D8736 /* PIKPin_plakat_a0@2x.png */; };
+		F2B037B7174FA23C001D8736 /* PIKPin_plakat_niceplace.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B037B5174FA23C001D8736 /* PIKPin_plakat_niceplace.png */; };
+		F2B037B8174FA23C001D8736 /* PIKPin_plakat_niceplace@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B037B6174FA23C001D8736 /* PIKPin_plakat_niceplace@2x.png */; };
+		F2B037C1174FA83D001D8736 /* PIKPin_plakat_dieb.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B037B9174FA83D001D8736 /* PIKPin_plakat_dieb.png */; };
+		F2B037C2174FA83D001D8736 /* PIKPin_plakat_dieb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B037BA174FA83D001D8736 /* PIKPin_plakat_dieb@2x.png */; };
+		F2B037C3174FA83D001D8736 /* PIKPin_plakat_wrecked.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B037BB174FA83D001D8736 /* PIKPin_plakat_wrecked.png */; };
+		F2B037C4174FA83D001D8736 /* PIKPin_plakat_wrecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B037BC174FA83D001D8736 /* PIKPin_plakat_wrecked@2x.png */; };
+		F2B037C5174FA83D001D8736 /* PIKPin_wand_ok.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B037BD174FA83D001D8736 /* PIKPin_wand_ok.png */; };
+		F2B037C6174FA83D001D8736 /* PIKPin_wand_ok@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B037BE174FA83D001D8736 /* PIKPin_wand_ok@2x.png */; };
+		F2B037C7174FA83D001D8736 /* PIKPin_wand.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B037BF174FA83D001D8736 /* PIKPin_wand.png */; };
+		F2B037C8174FA83D001D8736 /* PIKPin_wand@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B037C0174FA83D001D8736 /* PIKPin_wand@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -203,6 +213,16 @@
 		F2B037AE174F8A8D001D8736 /* PIKPin_plakat_ok@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PIKPin_plakat_ok@2x.png"; sourceTree = "<group>"; };
 		F2B037B1174F961D001D8736 /* PIKPin_plakat_a0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PIKPin_plakat_a0.png; sourceTree = "<group>"; };
 		F2B037B2174F961D001D8736 /* PIKPin_plakat_a0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PIKPin_plakat_a0@2x.png"; sourceTree = "<group>"; };
+		F2B037B5174FA23C001D8736 /* PIKPin_plakat_niceplace.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PIKPin_plakat_niceplace.png; sourceTree = "<group>"; };
+		F2B037B6174FA23C001D8736 /* PIKPin_plakat_niceplace@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PIKPin_plakat_niceplace@2x.png"; sourceTree = "<group>"; };
+		F2B037B9174FA83D001D8736 /* PIKPin_plakat_dieb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PIKPin_plakat_dieb.png; sourceTree = "<group>"; };
+		F2B037BA174FA83D001D8736 /* PIKPin_plakat_dieb@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PIKPin_plakat_dieb@2x.png"; sourceTree = "<group>"; };
+		F2B037BB174FA83D001D8736 /* PIKPin_plakat_wrecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PIKPin_plakat_wrecked.png; sourceTree = "<group>"; };
+		F2B037BC174FA83D001D8736 /* PIKPin_plakat_wrecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PIKPin_plakat_wrecked@2x.png"; sourceTree = "<group>"; };
+		F2B037BD174FA83D001D8736 /* PIKPin_wand_ok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PIKPin_wand_ok.png; sourceTree = "<group>"; };
+		F2B037BE174FA83D001D8736 /* PIKPin_wand_ok@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PIKPin_wand_ok@2x.png"; sourceTree = "<group>"; };
+		F2B037BF174FA83D001D8736 /* PIKPin_wand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PIKPin_wand.png; sourceTree = "<group>"; };
+		F2B037C0174FA83D001D8736 /* PIKPin_wand@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PIKPin_wand@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -423,6 +443,16 @@
 		F2ACBA1517496F5F0015E899 /* AnnotationGraphics */ = {
 			isa = PBXGroup;
 			children = (
+				F2B037B9174FA83D001D8736 /* PIKPin_plakat_dieb.png */,
+				F2B037BA174FA83D001D8736 /* PIKPin_plakat_dieb@2x.png */,
+				F2B037BB174FA83D001D8736 /* PIKPin_plakat_wrecked.png */,
+				F2B037BC174FA83D001D8736 /* PIKPin_plakat_wrecked@2x.png */,
+				F2B037BD174FA83D001D8736 /* PIKPin_wand_ok.png */,
+				F2B037BE174FA83D001D8736 /* PIKPin_wand_ok@2x.png */,
+				F2B037BF174FA83D001D8736 /* PIKPin_wand.png */,
+				F2B037C0174FA83D001D8736 /* PIKPin_wand@2x.png */,
+				F2B037B5174FA23C001D8736 /* PIKPin_plakat_niceplace.png */,
+				F2B037B6174FA23C001D8736 /* PIKPin_plakat_niceplace@2x.png */,
 				F2B037B1174F961D001D8736 /* PIKPin_plakat_a0.png */,
 				F2B037B2174F961D001D8736 /* PIKPin_plakat_a0@2x.png */,
 				F2B037AD174F8A8D001D8736 /* PIKPin_plakat_ok.png */,
@@ -528,6 +558,16 @@
 				F2B037B0174F8A8D001D8736 /* PIKPin_plakat_ok@2x.png in Resources */,
 				F2B037B3174F961D001D8736 /* PIKPin_plakat_a0.png in Resources */,
 				F2B037B4174F961D001D8736 /* PIKPin_plakat_a0@2x.png in Resources */,
+				F2B037B7174FA23C001D8736 /* PIKPin_plakat_niceplace.png in Resources */,
+				F2B037B8174FA23C001D8736 /* PIKPin_plakat_niceplace@2x.png in Resources */,
+				F2B037C1174FA83D001D8736 /* PIKPin_plakat_dieb.png in Resources */,
+				F2B037C2174FA83D001D8736 /* PIKPin_plakat_dieb@2x.png in Resources */,
+				F2B037C3174FA83D001D8736 /* PIKPin_plakat_wrecked.png in Resources */,
+				F2B037C4174FA83D001D8736 /* PIKPin_plakat_wrecked@2x.png in Resources */,
+				F2B037C5174FA83D001D8736 /* PIKPin_wand_ok.png in Resources */,
+				F2B037C6174FA83D001D8736 /* PIKPin_wand_ok@2x.png in Resources */,
+				F2B037C7174FA83D001D8736 /* PIKPin_wand.png in Resources */,
+				F2B037C8174FA83D001D8736 /* PIKPin_wand@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
