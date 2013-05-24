@@ -90,6 +90,8 @@
 		F2B037C6174FA83D001D8736 /* PIKPin_wand_ok@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B037BE174FA83D001D8736 /* PIKPin_wand_ok@2x.png */; };
 		F2B037C7174FA83D001D8736 /* PIKPin_wand.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B037BF174FA83D001D8736 /* PIKPin_wand.png */; };
 		F2B037C8174FA83D001D8736 /* PIKPin_wand@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B037C0174FA83D001D8736 /* PIKPin_wand@2x.png */; };
+		F2B037CB174FEE4E001D8736 /* PiratenkarteIcon72.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B037C9174FEE4E001D8736 /* PiratenkarteIcon72.png */; };
+		F2B037CC174FEE4E001D8736 /* PiratenkarteIcon72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B037CA174FEE4E001D8736 /* PiratenkarteIcon72@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -223,6 +225,8 @@
 		F2B037BE174FA83D001D8736 /* PIKPin_wand_ok@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PIKPin_wand_ok@2x.png"; sourceTree = "<group>"; };
 		F2B037BF174FA83D001D8736 /* PIKPin_wand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PIKPin_wand.png; sourceTree = "<group>"; };
 		F2B037C0174FA83D001D8736 /* PIKPin_wand@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PIKPin_wand@2x.png"; sourceTree = "<group>"; };
+		F2B037C9174FEE4E001D8736 /* PiratenkarteIcon72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PiratenkarteIcon72.png; path = Images/Icon/PiratenkarteIcon72.png; sourceTree = "<group>"; };
+		F2B037CA174FEE4E001D8736 /* PiratenkarteIcon72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "PiratenkarteIcon72@2x.png"; path = "Images/Icon/PiratenkarteIcon72@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -318,6 +322,8 @@
 		F221F216173FDAE900A63B56 /* AppIcon */ = {
 			isa = PBXGroup;
 			children = (
+				F2B037C9174FEE4E001D8736 /* PiratenkarteIcon72.png */,
+				F2B037CA174FEE4E001D8736 /* PiratenkarteIcon72@2x.png */,
 				F221F217173FDAF600A63B56 /* PiratenkarteIcon57.png */,
 				F221F218173FDAF600A63B56 /* PiratenkarteIcon57@2x.png */,
 			);
@@ -568,6 +574,8 @@
 				F2B037C6174FA83D001D8736 /* PIKPin_wand_ok@2x.png in Resources */,
 				F2B037C7174FA83D001D8736 /* PIKPin_wand.png in Resources */,
 				F2B037C8174FA83D001D8736 /* PIKPin_wand@2x.png in Resources */,
+				F2B037CB174FEE4E001D8736 /* PiratenkarteIcon72.png in Resources */,
+				F2B037CC174FEE4E001D8736 /* PiratenkarteIcon72@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

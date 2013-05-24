@@ -15,6 +15,7 @@
 			<key>CFBundleIconFiles</key>
 			<array>
 				<string>PiratenkarteIcon57</string>
+				<string>PiratenkarteIcon72</string>
 			</array>
 			<key>UIPrerenderedIcon</key>
 			<true/>
