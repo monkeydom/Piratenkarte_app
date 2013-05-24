@@ -47,9 +47,12 @@
     MKAnnotationView *result;
     if ([annotation isKindOfClass:[PIKPlakat class]]) {
         PIKPlakat *plakat = (PIKPlakat *)annotation;
-        result = [mapView dequeueReusableAnnotationViewWithIdentifier:@"Pirate"];
+        UIImage *pinImage = plakat.pinImage;
+
+        NSString *identifier = pinImage ? @"Pirate" : @"PiratePin";
+        result = [mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
         if (!result) {
-            result = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Pirate"];
+            result = [[(pinImage ? [MKAnnotationView class] : [MKPinAnnotationView class]) alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
         }
         result.annotation = annotation;
         result.canShowCallout = YES;
@@ -57,10 +60,13 @@
         
         UIImage *plakatImage = plakat.annotationImage;
         if (plakatImage) {
-            UIImageView *sfIconView = [[UIImageView alloc] initWithImage:plakatImage];
-            result.leftCalloutAccessoryView = sfIconView;
+            UIImageView *detailView = [[UIImageView alloc] initWithImage:plakatImage];
+            result.leftCalloutAccessoryView = detailView;
         }
-        result.image = plakatImage;
+        if (pinImage) {
+            result.image = pinImage;
+            result.centerOffset = plakat.pinImageCenterOffset;
+        }
     }
     return result;
 }

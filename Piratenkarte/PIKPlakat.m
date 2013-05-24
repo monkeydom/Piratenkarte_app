@@ -49,7 +49,15 @@ NSString * const PIKPlakatTypeWallOK    = @"wand_ok";
     return result;
 }
 
+- (UIImage *)pinImage {
+    UIImage *result = [UIImage imageNamed:[NSString stringWithFormat:@"PIKPin_%@",self.plakatType]];
+    return result;
+}
 
+- (CGPoint)pinImageCenterOffset {
+    CGPoint result = CGPointMake(10, -21);
+    return result;
+}
 
 - (NSString *)localizedType {
     NSString *type = self.plakatType;

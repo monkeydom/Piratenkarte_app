@@ -22,7 +22,10 @@
 @property (nonatomic, strong) NSString *imageURLString;
 @property (nonatomic, strong) NSString *usernameOfLastChange;
 @property (nonatomic, readonly) NSString *localizedType;
-- (UIImage *)annotationImage;
+
+@property (nonatomic, readonly) UIImage *annotationImage;
+@property (nonatomic, readonly) UIImage *pinImage;
+@property (nonatomic, readonly) CGPoint pinImageCenterOffset;
 
 - (instancetype)initWithPlakat:(Plakat *)aPlakat serverFetchDate:(NSDate *)aServerFetchDate;
 
