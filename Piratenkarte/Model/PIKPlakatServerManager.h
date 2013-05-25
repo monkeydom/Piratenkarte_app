@@ -11,6 +11,8 @@
 
 #import "PIKPlakatServer.h"
 
+extern NSString * const PIKPlakatServerManagerSelectedServerDidChangeNotification;
+
 @interface PIKPlakatServerManager : NSObject
 
 + (instancetype)plakatServerManager;

@@ -13,6 +13,7 @@
 #import "MKDMutableLocationItemStorage.h"
 #import "PIKPlakatServerManager.h"
 #import "PIKPlakat.h"
+#import "PIKPlakatServerButtonView.h"
 
 @interface PIKPlakat (AnnotationAdditions)
 @end
@@ -49,6 +50,7 @@
 
 @interface PIKViewController () <MKMapViewDelegate>
 @property (nonatomic,strong) MKDMutableLocationItemStorage *locationItemStorage;
+@property (nonatomic, strong) PIKPlakatServerButtonView *plakatServerButtonView;
 @end
 
 @implementation PIKViewController
@@ -123,9 +125,25 @@
     self.o_toolbar.items = items;
     [self restoreLocationFromDefaults];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(plakatServerDidReceiveData:) name:PIKPlakatServerDidReceiveDataNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectedPlakatServerDidChange:) name:PIKPlakatServerManagerSelectedServerDidChangeNotification object:nil];
+    
+    self.plakatServerButtonView = [[PIKPlakatServerButtonView alloc] initWithFrame:CGRectZero];
+    self.plakatServerButtonView.center = CGPointMake(10,10);
+    [self.view addSubview:self.plakatServerButtonView];
+    [self.plakatServerButtonView setPlakatServer:[[PIKPlakatServerManager plakatServerManager] selectedPlakatServer]];
+    [self.plakatServerButtonView addTarget:self action:@selector(changePlakatServer:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)changePlakatServer:(id)aSender {
+    NSLog(@"%s",__FUNCTION__);
 }
 
 - (void)plakatServerDidReceiveData:(NSNotification *)aNotification {
+    [self queryItemStorage];
+}
+
+- (void)selectedPlakatServerDidChange:(NSNotification *)aNotification {
+    [self.plakatServerButtonView setPlakatServer:[[PIKPlakatServerManager plakatServerManager] selectedPlakatServer]];
     [self queryItemStorage];
 }
 

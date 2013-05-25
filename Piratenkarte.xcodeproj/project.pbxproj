@@ -92,6 +92,7 @@
 		F2B037C8174FA83D001D8736 /* PIKPin_wand@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B037C0174FA83D001D8736 /* PIKPin_wand@2x.png */; };
 		F2B037CB174FEE4E001D8736 /* PiratenkarteIcon72.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B037C9174FEE4E001D8736 /* PiratenkarteIcon72.png */; };
 		F2B037CC174FEE4E001D8736 /* PiratenkarteIcon72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B037CA174FEE4E001D8736 /* PiratenkarteIcon72@2x.png */; };
+		F2B037CF17513A7F001D8736 /* PIKPlakatServerButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = F2B037CE17513A7F001D8736 /* PIKPlakatServerButtonView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -227,6 +228,8 @@
 		F2B037C0174FA83D001D8736 /* PIKPin_wand@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PIKPin_wand@2x.png"; sourceTree = "<group>"; };
 		F2B037C9174FEE4E001D8736 /* PiratenkarteIcon72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PiratenkarteIcon72.png; path = Images/Icon/PiratenkarteIcon72.png; sourceTree = "<group>"; };
 		F2B037CA174FEE4E001D8736 /* PiratenkarteIcon72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "PiratenkarteIcon72@2x.png"; path = "Images/Icon/PiratenkarteIcon72@2x.png"; sourceTree = "<group>"; };
+		F2B037CD17513A7E001D8736 /* PIKPlakatServerButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PIKPlakatServerButtonView.h; path = Views/PIKPlakatServerButtonView.h; sourceTree = "<group>"; };
+		F2B037CE17513A7F001D8736 /* PIKPlakatServerButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PIKPlakatServerButtonView.m; path = Views/PIKPlakatServerButtonView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -288,6 +291,7 @@
 				F2ACBA12174950F60015E899 /* Model */,
 				F221F205173FCDB200A63B56 /* PIKViewController.h */,
 				F221F206173FCDB200A63B56 /* PIKViewController.m */,
+				F2B037D017513A85001D8736 /* Views */,
 				F221F208173FCDB200A63B56 /* PIKViewController_iPhone.xib */,
 				F221F20B173FCDB200A63B56 /* PIKViewController_iPad.xib */,
 				F221F215173FDAD700A63B56 /* Images */,
@@ -484,6 +488,15 @@
 			path = Images/AnnotationGraphics;
 			sourceTree = "<group>";
 		};
+		F2B037D017513A85001D8736 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F2B037CD17513A7E001D8736 /* PIKPlakatServerButtonView.h */,
+				F2B037CE17513A7F001D8736 /* PIKPlakatServerButtonView.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -624,6 +637,7 @@
 				F2ACBA1117494EDC0015E899 /* PIKPlakatServerManager.m in Sources */,
 				F2B03799174E043F001D8736 /* MKDMutableLocationItemStorage.m in Sources */,
 				F2B0379C174E314C001D8736 /* PIKPlakat.m in Sources */,
+				F2B037CF17513A7F001D8736 /* PIKPlakatServerButtonView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -25,6 +25,8 @@ extern NSString * const PIKPlakatServerDidReceiveDataNotification;
 @property (nonatomic, strong) MKDMutableLocationItemStorage *locationItemStorage;
 
 + (NSArray *)parseFromJSONObject:(NSDictionary *)aJSONObject;
+- (NSDictionary *)JSONDescription;
++ (instancetype)serverWithJSONRepresentation:(NSDictionary *)aServerJSONDictionary;
 
 - (void)updateWithServer:(PIKPlakatServer *)aServer;
 

@@ -39,6 +39,15 @@ NSString * const PIKPlakatServerDidReceiveDataNotification = @"PIKPlakatServerDi
     return result;
 }
 
+- (NSDictionary *)JSONDescription {
+    NSMutableDictionary *result = [NSMutableDictionary new];
+    result[@"ID"] = self.identifier;
+    result[@"Name"] = self.serverName;
+    result[@"URL"] = self.serverBaseURL;
+    if (self.serverInfoText) result[@"Info"] = self.serverInfoText;
+    return result;
+}
+
 - (void)updateWithServer:(PIKPlakatServer *)aServer {
     self.serverName = aServer.serverName;
     self.serverBaseURL = aServer.serverBaseURL;
