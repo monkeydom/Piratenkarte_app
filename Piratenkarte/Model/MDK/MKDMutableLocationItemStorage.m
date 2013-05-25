@@ -140,6 +140,29 @@ BOOL MKDCoordinateRegionContainsRegion(MKCoordinateRegion aRegion, MKCoordinateR
     }
 }
 
+- (NSUInteger)countOfLocationItemsForCoordinateRegion:(MKCoordinateRegion)aCoordinateRegion {
+    if (MKDCoordinateRegionContainsRegion(aCoordinateRegion,self.coordinateRegion)) {
+        // total containment - give it all
+        // TODO: fix issues with going over the 180degree area
+        return [self count];
+    } else if (MKDCoordinateRegionIntersectsRegion(aCoordinateRegion, self.coordinateRegion)) {
+        NSUInteger result = 0;
+        // only a subregion intersects, find out the items
+        for (id<MKDLocationItem> locationItem in self.locationItems) {
+            if (MKDCoordinateRegionContainsCoordinate(aCoordinateRegion, locationItem.coordinate)) {
+                result += 1;
+            }
+        }
+        for (MKDMutableLocationItemStorageArea *subArea in self.subAreas) {
+            NSUInteger subCount = [subArea countOfLocationItemsForCoordinateRegion:aCoordinateRegion];
+            result += subCount;
+        }
+        return result;
+    } else {
+        return 0;
+    }
+}
+
 // quick path for count of all items and items in the subarea
 - (NSUInteger)count {
     NSUInteger result = self.locationItems.count;

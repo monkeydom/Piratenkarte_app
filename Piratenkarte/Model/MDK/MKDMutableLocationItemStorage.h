@@ -27,7 +27,7 @@ BOOL MKDCoordinateRegionContainsRegion(MKCoordinateRegion aRegion, MKCoordinateR
 @interface MKDMutableLocationItemStorage : NSObject
 
 - (id)locationItemForItemIdentifier:(NSString *)aLocationItemIdentifier;
-- (void)removeLocationItemForIdentifier:(NSString *)aLocationItemIdentifier;
+- (void)removeLocationItemForItemIdentifier:(NSString *)aLocationItemIdentifier;
 - (void)addLocationItem:(id<MKDLocationItem>)aLocationItem;
 - (void)removeLocationItem:(id<MKDLocationItem>)aLocationItem;
 
