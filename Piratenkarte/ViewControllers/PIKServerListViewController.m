@@ -127,7 +127,7 @@
     PIKPlakatServer *server = [self plakatServerAtIndexPath:indexPath];
     self.measurementLabel.frame = CGRectMake(0,0,280,640);
     
-    CGSize testSize = CGSizeMake(260, 640);
+    CGSize testSize = CGSizeMake(CGRectGetWidth(self.view.bounds) - 60, 640);
     CGSize realSize = [[self detailForPlakatServer:server] sizeWithFont:self.measurementLabel.font constrainedToSize:testSize lineBreakMode:UILineBreakModeWordWrap];
     
     
