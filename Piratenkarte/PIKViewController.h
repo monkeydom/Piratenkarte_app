@@ -12,6 +12,7 @@
 
 @interface PIKViewController : UIViewController
 @property (nonatomic, strong) IBOutlet MKMapView *o_mapView;
+@property (nonatomic, strong) IBOutlet UIToolbar *o_toolbar;
 
 - (IBAction)toggleShowUserLocation;
 - (IBAction)queryItemStorage;

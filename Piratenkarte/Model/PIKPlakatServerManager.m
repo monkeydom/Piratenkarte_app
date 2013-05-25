@@ -10,12 +10,35 @@
 #import "PIKPlakatServer.h"
 #import "AFNetworking.h"
 
+NSString * const PIKPlakatServerManagerSelectedServerDidChangeNotification = @"PIKPlakatServerManagerSelectedServerDidChangeNotification";
+
+
 @interface PIKPlakatServerManager ()
 @property (nonatomic, strong) NSMutableArray *serverArray;
 @property (nonatomic, strong) NSString *selectedServerIdentifier;
 @end
 
+static NSInteger s_activityCount = 0;
+
 @implementation PIKPlakatServerManager
+
++ (void)increaseNetworkActivityCount {
+    s_activityCount++;
+    if (s_activityCount == 1) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    }
+}
+
++ (void)decreaseNetworkActivityCount {
+    s_activityCount--;
+    if (s_activityCount <= 0) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }
+}
+
++ (BOOL)hasNetworkActivity {
+    return s_activityCount > 0;
+}
 
 + (instancetype)plakatServerManager {
     static PIKPlakatServerManager *s_sharedInstance;
@@ -24,6 +47,10 @@
         s_sharedInstance = [PIKPlakatServerManager new];
     });
     return s_sharedInstance;
+}
+
+- (NSArray *)serverList {
+    return [self.serverArray copy];
 }
 
 - (id)init {
@@ -37,8 +64,10 @@
         myTestServer.serverName = @"BTW Testserver";
         myTestServer.serverInfoText = @"Testserver für die Bundestagswahl";
         myTestServer.serverBaseURL = @"http://piraten.boombuler.de/testbtw/";
+        myTestServer.isDevelopment = YES;
         [_serverArray addObject:myTestServer];
 //        self.selectedServerIdentifier = myTestServer.identifier;
+        [self restoreServerListFromDefaults];
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             [self refreshServerList];
         }];
@@ -58,7 +87,7 @@
     if (!didFindServer) {
         [self.serverArray addObject:aPlakatServer];
     }
-    NSLog(@"%s %@",__FUNCTION__,self.serverArray);
+//    NSLog(@"%s %@",__FUNCTION__,self.serverArray);
 }
 
 - (void)updateListWithServerArray:(NSArray *)aServerArray {
@@ -76,6 +105,13 @@
     }
     return nil;
 }
+
+- (void)selectPlakatServer:(PIKPlakatServer *)aPlakatServer {
+    self.selectedServerIdentifier = aPlakatServer.identifier;
+    [self selectedServerDidChange];
+    [self.selectedPlakatServer requestAllPlakate];
+}
+
 
 - (PIKPlakatServer *)selectedPlakatServer {
     PIKPlakatServer *result;
@@ -96,15 +132,53 @@
     return result;
 }
 
+- (void)restoreServerListFromDefaults {
+    NSString *selectedIdentifier = [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedPlakatServerIdentifier"];
+    if (selectedIdentifier) {
+        self.selectedServerIdentifier = selectedIdentifier;
+    }
+    
+    NSArray *serverList = [[NSUserDefaults standardUserDefaults] objectForKey:@"AvailablePlakatServers"];
+    if (serverList) {
+        for (NSDictionary *serverJSON in serverList) {
+            PIKPlakatServer *plakatServer = [PIKPlakatServer serverWithJSONRepresentation:serverJSON];
+            if (plakatServer) {
+                [self updateListWithServer:plakatServer];
+            }
+        }
+    }
+
+}
+
+- (void)storeServerListToDefaults {
+    NSMutableArray *serverList = [NSMutableArray new];
+    for (PIKPlakatServer *server in self.serverArray) {
+        [serverList addObject:server.JSONDescription];
+    }
+    [[NSUserDefaults standardUserDefaults] setObject:serverList forKey:@"AvailablePlakatServers"];
+}
+
+- (void)selectedServerDidChange {
+    PIKPlakatServer *selectedServer = self.selectedPlakatServer;
+    [[NSUserDefaults standardUserDefaults] setObject:selectedServer.identifier forKey:@"SelectedPlakatServerIdentifier"];
+    self.selectedServerIdentifier = selectedServer.identifier;
+    [self storeServerListToDefaults];
+    [[NSNotificationCenter defaultCenter] postNotificationName:PIKPlakatServerManagerSelectedServerDidChangeNotification object:self];
+}
+
 - (void)refreshServerList {
+    [PIKPlakatServerManager increaseNetworkActivityCount];
     NSURL *serverURL = [NSURL URLWithString:@"http://piratemap.github.io/servers.json"];
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:serverURL];
     [[AFJSONRequestOperation JSONRequestOperationWithRequest:urlRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
 //        NSLog(@"%s success %@",__FUNCTION__,JSON);
         NSArray *serverList = [PIKPlakatServer parseFromJSONObject:JSON];
         [self updateListWithServerArray:serverList];
+        [self selectedServerDidChange];
+        [PIKPlakatServerManager decreaseNetworkActivityCount];
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"%s failure %@",__FUNCTION__,JSON);
+        [PIKPlakatServerManager decreaseNetworkActivityCount];
     }] start];
 }
 

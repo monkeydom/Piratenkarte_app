@@ -11,10 +11,19 @@
 
 #import "PIKPlakatServer.h"
 
+extern NSString * const PIKPlakatServerManagerSelectedServerDidChangeNotification;
+
 @interface PIKPlakatServerManager : NSObject
 
 + (instancetype)plakatServerManager;
 - (void)refreshServerList;
+- (NSArray *)serverList;
+
+- (void)selectPlakatServer:(PIKPlakatServer *)aPlakatServer;
+
++ (void)increaseNetworkActivityCount;
++ (void)decreaseNetworkActivityCount;
++ (BOOL)hasNetworkActivity;
 
 @property (nonatomic, readonly) PIKPlakatServer *selectedPlakatServer;
 

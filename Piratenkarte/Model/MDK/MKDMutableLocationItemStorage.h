@@ -10,6 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
+MKCoordinateRegion MKDCoordinateRegionWholeWorld;
 CLLocationDegrees MKDCoordnateRegionGetMinLatitude(MKCoordinateRegion aRegion);
 CLLocationDegrees MKDCoordnateRegionGetMaxLatitude(MKCoordinateRegion aRegion);
 CLLocationDegrees MKDCoordnateRegionGetMinLongitude(MKCoordinateRegion aRegion);
@@ -27,7 +28,7 @@ BOOL MKDCoordinateRegionContainsRegion(MKCoordinateRegion aRegion, MKCoordinateR
 @interface MKDMutableLocationItemStorage : NSObject
 
 - (id)locationItemForItemIdentifier:(NSString *)aLocationItemIdentifier;
-- (void)removeLocationItemForIdentifier:(NSString *)aLocationItemIdentifier;
+- (void)removeLocationItemForItemIdentifier:(NSString *)aLocationItemIdentifier;
 - (void)addLocationItem:(id<MKDLocationItem>)aLocationItem;
 - (void)removeLocationItem:(id<MKDLocationItem>)aLocationItem;
 

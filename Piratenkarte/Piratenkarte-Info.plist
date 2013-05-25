@@ -41,6 +41,27 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleBlackTranslucent</string>
+	<key>UIStatusBarTintParameters</key>
+	<dict>
+		<key>UINavigationBar</key>
+		<dict>
+			<key>Style</key>
+			<string>UIBarStyleDefault</string>
+			<key>TintColor</key>
+			<dict>
+				<key>Blue</key>
+				<real>0.35759285092353821</real>
+				<key>Green</key>
+				<real>0.62447094917297363</real>
+				<key>Red</key>
+				<real>0.99234950542449951</real>
+			</dict>
+			<key>Translucent</key>
+			<false/>
+		</dict>
+	</dict>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
