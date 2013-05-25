@@ -119,7 +119,8 @@
 //    self.o_mapView.userTrackingMode = MKUserTrackingModeFollow;
 
     MKUserTrackingBarButtonItem *buttonItem = [[MKUserTrackingBarButtonItem alloc] initWithMapView:self.o_mapView];
-    self.o_toolbar.items  = [@[buttonItem] arrayByAddingObjectsFromArray:self.o_toolbar.items];
+    NSArray *items = [@[buttonItem] arrayByAddingObjectsFromArray:self.o_toolbar.items];
+    self.o_toolbar.items = items;
     [self restoreLocationFromDefaults];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(plakatServerDidReceiveData:) name:PIKPlakatServerDidReceiveDataNotification object:nil];
 }
