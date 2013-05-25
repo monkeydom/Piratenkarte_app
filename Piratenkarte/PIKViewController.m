@@ -52,6 +52,7 @@
 @interface PIKViewController () <MKMapViewDelegate>
 @property (nonatomic,strong) MKDMutableLocationItemStorage *locationItemStorage;
 @property (nonatomic, strong) PIKPlakatServerButtonView *plakatServerButtonView;
+@property (nonatomic) MKCoordinateRegion lastQueryRegion;
 @end
 
 @implementation PIKViewController
@@ -87,7 +88,9 @@
 
 - (void)mapView:(MKMapView *)aMapView regionDidChangeAnimated:(BOOL)animated {
     // NSLog(@"%s %@",__FUNCTION__,aMapView);
-    [self queryItemStorage];
+    if ([self regionWarrantsQuery:self.o_mapView.region]) {
+        [self queryItemStorage];
+    }
 }
 
 #define CURRENTPOSITIONBASEKEY @"CurrentMapRect"
@@ -125,6 +128,7 @@
     NSArray *items = [@[buttonItem] arrayByAddingObjectsFromArray:self.o_toolbar.items];
     self.o_toolbar.items = items;
     [self restoreLocationFromDefaults];
+    [self queryItemStorage];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(plakatServerDidReceiveData:) name:PIKPlakatServerDidReceiveDataNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectedPlakatServerDidChange:) name:PIKPlakatServerManagerSelectedServerDidChangeNotification object:nil];
     
@@ -159,9 +163,23 @@
     [[[PIKPlakatServerManager plakatServerManager] selectedPlakatServer] requestPlakateInCoordinateRegion:region];
 }
 
+- (BOOL)regionWarrantsQuery:(MKCoordinateRegion)aCoordinateRegion {
+    if (!MKDCoordinateRegionContainsRegion(self.lastQueryRegion, aCoordinateRegion)) {
+        return YES;
+    } else if (aCoordinateRegion.span.latitudeDelta < self.lastQueryRegion.span.latitudeDelta / 5.0) {
+        return YES;
+    }
+//    NSLog(@"%s saved a query",__FUNCTION__);
+    return NO;
+}
+
 - (IBAction)queryItemStorage {
     [self storeLocationToDefaults];
     MKCoordinateRegion region = self.o_mapView.region;
+    // increase region
+    region.span.latitudeDelta *= 2.0;
+    region.span.longitudeDelta *= 2.0;
+    self.lastQueryRegion = region;
     NSArray *items = [[[[PIKPlakatServerManager plakatServerManager] selectedPlakatServer] locationItemStorage]locationItemsForCoordinateRegion:region];
     if (items) {
         [self.o_mapView removeAnnotations:self.o_mapView.annotations];
