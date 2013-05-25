@@ -10,6 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
+MKCoordinateRegion MKDCoordinateRegionWholeWorld;
 CLLocationDegrees MKDCoordnateRegionGetMinLatitude(MKCoordinateRegion aRegion);
 CLLocationDegrees MKDCoordnateRegionGetMaxLatitude(MKCoordinateRegion aRegion);
 CLLocationDegrees MKDCoordnateRegionGetMinLongitude(MKCoordinateRegion aRegion);

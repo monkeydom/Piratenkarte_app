@@ -82,6 +82,11 @@
     return result;
 }
 
+- (void)mapView:(MKMapView *)aMapView regionDidChangeAnimated:(BOOL)animated {
+    // NSLog(@"%s %@",__FUNCTION__,aMapView);
+    [self queryItemStorage];
+}
+
 #define CURRENTPOSITIONBASEKEY @"CurrentMapRect"
 
 - (void)restoreLocationFromDefaults {
@@ -113,8 +118,14 @@
 
 //    self.o_mapView.userTrackingMode = MKUserTrackingModeFollow;
 
+    MKUserTrackingBarButtonItem *buttonItem = [[MKUserTrackingBarButtonItem alloc] initWithMapView:self.o_mapView];
+    self.o_toolbar.items  = [@[buttonItem] arrayByAddingObjectsFromArray:self.o_toolbar.items];
     [self restoreLocationFromDefaults];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(plakatServerDidReceiveData:) name:PIKPlakatServerDidReceiveDataNotification object:nil];
+}
+
+- (void)plakatServerDidReceiveData:(NSNotification *)aNotification {
+    [self queryItemStorage];
 }
 
 - (void)requestDataForVisibleViewRect {

@@ -9,6 +9,10 @@
 #import "PIKPlakatServer.h"
 #import "Api.pb.h"
 #import <CoreLocation/CoreLocation.h>
+#import "PIKPlakatServerManager.h"
+
+NSString * const PIKPlakatServerDidReceiveDataNotification = @"PIKPlakatServerDidReceiveDataNotification";
+
 
 @implementation PIKPlakatServer
 
@@ -42,6 +46,7 @@
 }
 
 + (BoundingBox *)viewBoxForMKCoordinateRegion:(MKCoordinateRegion)aCoordinateRegion {
+    if (aCoordinateRegion.span.latitudeDelta <= 0) return nil;
     BoundingBox_Builder *boxBuilder = [BoundingBox builder];
     boxBuilder.west = MKDCoordnateRegionGetMinLongitude(aCoordinateRegion);
     boxBuilder.east = MKDCoordnateRegionGetMaxLongitude(aCoordinateRegion);
@@ -58,11 +63,13 @@
     return _locationItemStorage;
 }
 
-- (void)handleViewRequestResponse:(Response *)aResponse requestDate:(NSDate *)requestDate {
+- (void)handleViewRequestResponse:(Response *)aResponse requestDate:(NSDate *)requestDate requestCoordinateRegion:(MKCoordinateRegion)aCoordinateRegion {
     MKDMutableLocationItemStorage *itemStorage = self.locationItemStorage;
     BOOL first = YES;
     CLLocationCoordinate2D minCoord, maxCoord;
     
+    // TODO: delete the points first before asking for more
+    // TODO: change to MKMapRect and MKMapPoint for a more sane api
     
     for (Plakat *plakat in aResponse.plakate) {
         PIKPlakat *myPlakat = [[PIKPlakat alloc] initWithPlakat:plakat serverFetchDate:requestDate];
@@ -81,14 +88,33 @@
     
     if (!first) {
        NSLog(@"%s did fetch %d plakate in this area: %@ %@",__FUNCTION__,aResponse.plakate.count, [[CLLocation alloc] initWithLatitude:minCoord.latitude longitude:minCoord.longitude], [[CLLocation alloc] initWithLatitude:maxCoord.latitude longitude:maxCoord.longitude]);
+        [[NSNotificationCenter defaultCenter] postNotificationName:PIKPlakatServerDidReceiveDataNotification object:self userInfo:@{@"coordinate":[NSValue valueWithMKCoordinate:aCoordinateRegion.center], @"coordinateSpan":[NSValue valueWithMKCoordinateSpan:aCoordinateRegion.span]}];
     }
     
 }
 
 - (void)requestPlakateWithBoundingBox:(BoundingBox *)aBoundingBox {
-    Request_Builder *request = [Request builder];
-    request.username = @"";
-    request.password = @"";
+}
+
+
+- (void)requestAllPlakate {
+    [self requestPlakateInCoordinateRegion:MKCoordinateRegionMake(CLLocationCoordinate2DMake(0, 0), MKCoordinateSpanMake(0, 0))];
+}
+
+- (Request_Builder *)requestBuilderBase {
+    Request_Builder *result = [Request builder];
+    result.username = @"";
+    result.password = @"";
+    return result;
+}
+
+- (void)requestPlakateInCoordinateRegion:(MKCoordinateRegion)aCoordinateRegion {
+    BoundingBox *aBoundingBox = [self.class viewBoxForMKCoordinateRegion:aCoordinateRegion];
+    
+    [PIKPlakatServerManager increaseNetworkActivityCount];
+    
+    Request_Builder *request = [self requestBuilderBase];
+    [Request builder];
     
     ViewRequest_Builder *viewRequestBuilder = [ViewRequest builder];
     if (aBoundingBox) viewRequestBuilder.viewBox = aBoundingBox;
@@ -96,7 +122,7 @@
     Request *req = request.build;
     NSData *postData = req.data;
     
-//    [postData writeToFile:@"/tmp/karten.post" atomically:NO];
+    //    [postData writeToFile:@"/tmp/karten.post" atomically:NO];
     
     NSDate *requestDate = [NSDate new];
     
@@ -108,25 +134,18 @@
         //        NSLog(@"%s success %@, %@",__FUNCTION__,operation.response, responseObject);
         //        NSLog(@"%s all Headers %@",__FUNCTION__,[operation.response allHeaderFields]);
         Response *response = [Response parseFromData:responseObject];
- //       NSLog(@"%s parsed response = %@",__FUNCTION__,response);
- //       [responseObject writeToFile:@"/tmp/plakate.protobuf" atomically:NO];
- //       [[response.description dataUsingEncoding:NSUTF8StringEncoding] writeToFile:@"/tmp/plakate.txt" atomically:NO];
+        //       NSLog(@"%s parsed response = %@",__FUNCTION__,response);
+        //       [responseObject writeToFile:@"/tmp/plakate.protobuf" atomically:NO];
+        //       [[response.description dataUsingEncoding:NSUTF8StringEncoding] writeToFile:@"/tmp/plakate.txt" atomically:NO];
         
-        [self handleViewRequestResponse:response requestDate:requestDate];
+        [self handleViewRequestResponse:response requestDate:requestDate requestCoordinateRegion:aCoordinateRegion];
+        [PIKPlakatServerManager decreaseNetworkActivityCount];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%s failure: %@\n %@",__FUNCTION__,error, operation.response);
+        [PIKPlakatServerManager decreaseNetworkActivityCount];
     }];
     
     [requestOperation start];
-}
-
-
-- (void)requestAllPlakate {
-    [self requestPlakateWithBoundingBox:nil];
-}
-
-- (void)requestPlakateInCoordinateRegion:(MKCoordinateRegion)aCoordinateRegion {
-    [self requestPlakateWithBoundingBox:[self.class viewBoxForMKCoordinateRegion:aCoordinateRegion]];
 }
 
 

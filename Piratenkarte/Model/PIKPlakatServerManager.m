@@ -15,7 +15,27 @@
 @property (nonatomic, strong) NSString *selectedServerIdentifier;
 @end
 
+static NSInteger s_activityCount = 0;
+
 @implementation PIKPlakatServerManager
+
++ (void)increaseNetworkActivityCount {
+    s_activityCount++;
+    if (s_activityCount == 1) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    }
+}
+
++ (void)decreaseNetworkActivityCount {
+    s_activityCount--;
+    if (s_activityCount <= 0) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }
+}
+
++ (BOOL)hasNetworkActivity {
+    return s_activityCount > 0;
+}
 
 + (instancetype)plakatServerManager {
     static PIKPlakatServerManager *s_sharedInstance;
@@ -97,14 +117,17 @@
 }
 
 - (void)refreshServerList {
+    [PIKPlakatServerManager increaseNetworkActivityCount];
     NSURL *serverURL = [NSURL URLWithString:@"http://piratemap.github.io/servers.json"];
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:serverURL];
     [[AFJSONRequestOperation JSONRequestOperationWithRequest:urlRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
 //        NSLog(@"%s success %@",__FUNCTION__,JSON);
         NSArray *serverList = [PIKPlakatServer parseFromJSONObject:JSON];
         [self updateListWithServerArray:serverList];
+        [PIKPlakatServerManager decreaseNetworkActivityCount];
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"%s failure %@",__FUNCTION__,JSON);
+        [PIKPlakatServerManager decreaseNetworkActivityCount];
     }] start];
 }
 

@@ -16,6 +16,10 @@
 + (instancetype)plakatServerManager;
 - (void)refreshServerList;
 
++ (void)increaseNetworkActivityCount;
++ (void)decreaseNetworkActivityCount;
++ (BOOL)hasNetworkActivity;
+
 @property (nonatomic, readonly) PIKPlakatServer *selectedPlakatServer;
 
 

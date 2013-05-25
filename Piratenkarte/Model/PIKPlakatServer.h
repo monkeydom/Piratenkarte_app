@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 @class PIKPlakatServer;
 
+extern NSString * const PIKPlakatServerDidReceiveDataNotification;
+
 #import "MKDMutableLocationItemStorage.h"
 #import "PIKPlakat.h"
 #import "AFHTTPRequestOperation.h"
