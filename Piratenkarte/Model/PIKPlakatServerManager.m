@@ -49,6 +49,10 @@ static NSInteger s_activityCount = 0;
     return s_sharedInstance;
 }
 
+- (NSArray *)serverList {
+    return [self.serverArray copy];
+}
+
 - (id)init {
     self = [super init];
     if (self) {
@@ -60,6 +64,7 @@ static NSInteger s_activityCount = 0;
         myTestServer.serverName = @"BTW Testserver";
         myTestServer.serverInfoText = @"Testserver für die Bundestagswahl";
         myTestServer.serverBaseURL = @"http://piraten.boombuler.de/testbtw/";
+        myTestServer.isDevelopment = YES;
         [_serverArray addObject:myTestServer];
 //        self.selectedServerIdentifier = myTestServer.identifier;
         [self restoreServerListFromDefaults];
@@ -101,6 +106,13 @@ static NSInteger s_activityCount = 0;
     return nil;
 }
 
+- (void)selectPlakatServer:(PIKPlakatServer *)aPlakatServer {
+    self.selectedServerIdentifier = aPlakatServer.identifier;
+    [self selectedServerDidChange];
+    [self.selectedPlakatServer requestAllPlakate];
+}
+
+
 - (PIKPlakatServer *)selectedPlakatServer {
     PIKPlakatServer *result;
     if (self.selectedServerIdentifier) {
@@ -121,6 +133,11 @@ static NSInteger s_activityCount = 0;
 }
 
 - (void)restoreServerListFromDefaults {
+    NSString *selectedIdentifier = [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedPlakatServerIdentifier"];
+    if (selectedIdentifier) {
+        self.selectedServerIdentifier = selectedIdentifier;
+    }
+    
     NSArray *serverList = [[NSUserDefaults standardUserDefaults] objectForKey:@"AvailablePlakatServers"];
     if (serverList) {
         for (NSDictionary *serverJSON in serverList) {

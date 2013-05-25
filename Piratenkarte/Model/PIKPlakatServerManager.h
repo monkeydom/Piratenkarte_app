@@ -17,6 +17,9 @@ extern NSString * const PIKPlakatServerManagerSelectedServerDidChangeNotificatio
 
 + (instancetype)plakatServerManager;
 - (void)refreshServerList;
+- (NSArray *)serverList;
+
+- (void)selectPlakatServer:(PIKPlakatServer *)aPlakatServer;
 
 + (void)increaseNetworkActivityCount;
 + (void)decreaseNetworkActivityCount;

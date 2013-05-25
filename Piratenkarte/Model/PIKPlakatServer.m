@@ -19,11 +19,14 @@ NSString * const PIKPlakatServerDidReceiveDataNotification = @"PIKPlakatServerDi
 + (NSArray *)parseFromJSONObject:(NSDictionary *)aJSONObject {
     NSMutableArray *result = [NSMutableArray new];
     NSString *defaultID = aJSONObject[@"Default"];
-    //NSString *developmentID = aJSONObject[@"Development"];
+    NSArray *developmentIDs = aJSONObject[@"Development"];
     for (NSDictionary *serverDictionary in aJSONObject[@"ServerList"]) {
         PIKPlakatServer *server = [PIKPlakatServer serverWithJSONRepresentation:serverDictionary];
         if ([server.identifier isEqualToString:defaultID]) {
             server.isDefault = YES;
+        }
+        if ([developmentIDs containsObject:server.identifier]) {
+            server.isDevelopment = YES;
         }
         if (server) [result addObject:server];
     }
@@ -36,6 +39,9 @@ NSString * const PIKPlakatServerDidReceiveDataNotification = @"PIKPlakatServerDi
     result.serverName = aServerJSONDictionary[@"Name"];
     result.serverBaseURL = aServerJSONDictionary[@"URL"];
     result.serverInfoText = aServerJSONDictionary[@"Info"];
+    if (aServerJSONDictionary[@"Development"]) {
+        result.isDevelopment = [aServerJSONDictionary[@"Development"] boolValue];
+    }
     return result;
 }
 
@@ -45,6 +51,7 @@ NSString * const PIKPlakatServerDidReceiveDataNotification = @"PIKPlakatServerDi
     result[@"Name"] = self.serverName;
     result[@"URL"] = self.serverBaseURL;
     if (self.serverInfoText) result[@"Info"] = self.serverInfoText;
+    result[@"Development"] = @(self.isDevelopment);
     return result;
 }
 
@@ -52,6 +59,7 @@ NSString * const PIKPlakatServerDidReceiveDataNotification = @"PIKPlakatServerDi
     self.serverName = aServer.serverName;
     self.serverBaseURL = aServer.serverBaseURL;
     self.serverInfoText = aServer.serverInfoText;
+    self.isDevelopment = aServer.isDevelopment;
 }
 
 + (BoundingBox *)viewBoxForMKCoordinateRegion:(MKCoordinateRegion)aCoordinateRegion {
@@ -142,12 +150,19 @@ NSString * const PIKPlakatServerDidReceiveDataNotification = @"PIKPlakatServerDi
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //        NSLog(@"%s success %@, %@",__FUNCTION__,operation.response, responseObject);
         //        NSLog(@"%s all Headers %@",__FUNCTION__,[operation.response allHeaderFields]);
-        Response *response = [Response parseFromData:responseObject];
+        @try {
+            Response *response = [Response parseFromData:responseObject];
+            [self handleViewRequestResponse:response requestDate:requestDate requestCoordinateRegion:aCoordinateRegion];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"%s %@",__FUNCTION__,exception);
+        }
+        @finally {
+        }
         //       NSLog(@"%s parsed response = %@",__FUNCTION__,response);
         //       [responseObject writeToFile:@"/tmp/plakate.protobuf" atomically:NO];
         //       [[response.description dataUsingEncoding:NSUTF8StringEncoding] writeToFile:@"/tmp/plakate.txt" atomically:NO];
         
-        [self handleViewRequestResponse:response requestDate:requestDate requestCoordinateRegion:aCoordinateRegion];
         [PIKPlakatServerManager decreaseNetworkActivityCount];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%s failure: %@\n %@",__FUNCTION__,error, operation.response);

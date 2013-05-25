@@ -18,6 +18,7 @@ extern NSString * const PIKPlakatServerDidReceiveDataNotification;
 @interface PIKPlakatServer : NSObject
 @property (nonatomic, strong) NSString *identifier;
 @property (nonatomic) BOOL isDefault;
+@property (nonatomic) BOOL isDevelopment;
 @property (nonatomic, strong) NSString *serverInfoText;
 @property (nonatomic, strong) NSString *serverName;
 @property (nonatomic, strong) NSString *serverBaseURL;

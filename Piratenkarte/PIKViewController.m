@@ -14,6 +14,7 @@
 #import "PIKPlakatServerManager.h"
 #import "PIKPlakat.h"
 #import "PIKPlakatServerButtonView.h"
+#import "PIKServerListViewController.h"
 
 @interface PIKPlakat (AnnotationAdditions)
 @end
@@ -136,6 +137,9 @@
 
 - (void)changePlakatServer:(id)aSender {
     NSLog(@"%s",__FUNCTION__);
+    PIKPlakatServerManager *plakatServerManager = [PIKPlakatServerManager plakatServerManager];
+    PIKServerListViewController *serverListViewController = [PIKServerListViewController serverListViewControllerWithServerList:plakatServerManager.serverList selectedServer:plakatServerManager.selectedPlakatServer];
+    [self presentViewController:serverListViewController animated:YES completion:NULL];
 }
 
 - (void)plakatServerDidReceiveData:(NSNotification *)aNotification {
