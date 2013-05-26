@@ -17,6 +17,7 @@
 #import "PIKServerListViewController.h"
 #import "PIKNetworkErrorIndicationView.h"
 #import <QuartzCore/QuartzCore.h>
+#import "PIKPlakatDetailViewController.h"
 
 @interface PIKPlakat (AnnotationAdditions)
 @end
@@ -56,9 +57,17 @@
 @property (nonatomic,strong) MKDMutableLocationItemStorage *locationItemStorage;
 @property (nonatomic, strong) PIKPlakatServerButtonView *plakatServerButtonView;
 @property (nonatomic) MKCoordinateRegion lastQueryRegion;
+@property (nonatomic, strong) PIKPlakatDetailViewController *plakatDetailViewController;
 @end
 
 @implementation PIKViewController
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+    PIKPlakatDetailViewController *detailController = self.plakatDetailViewController;
+    PIKPlakat *plakat = (PIKPlakat *)view.annotation;
+    detailController.plakat = plakat;
+    [self presentViewController:detailController animated:YES completion:NULL];
+}
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
     MKAnnotationView *result;
@@ -81,6 +90,9 @@
                 result.centerOffset = plakat.pinImageCenterOffset;
                 result.calloutOffset = CGPointMake(-plakat.pinImageCenterOffset.x,2);
             }
+            UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+            result.rightCalloutAccessoryView = rightButton;
+
         }
         result.annotation = annotation;
         
@@ -131,6 +143,13 @@
     [defaults setDouble:region.span.longitudeDelta forKey:CURRENTPOSITIONBASEKEY@"LonD"];
     [defaults setDouble:region.span.latitudeDelta forKey:CURRENTPOSITIONBASEKEY@"LatD"];
     [defaults synchronize];
+}
+
+- (PIKPlakatDetailViewController *)plakatDetailViewController {
+    if (!_plakatDetailViewController) {
+        _plakatDetailViewController = [[PIKPlakatDetailViewController alloc] initWithNibName:@"PIKPlakatDetailViewController" bundle:nil];
+    }
+    return _plakatDetailViewController;
 }
 
 - (void)viewDidLoad {
