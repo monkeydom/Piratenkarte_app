@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F20F22381751934800AF426F /* PIKPin_many.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F22361751934800AF426F /* PIKPin_many.png */; };
+		F20F22391751934800AF426F /* PIKPin_many@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F22371751934800AF426F /* PIKPin_many@2x.png */; };
 		F221F1EE173FCDB200A63B56 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F221F1ED173FCDB200A63B56 /* UIKit.framework */; };
 		F221F1F0173FCDB200A63B56 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F221F1EF173FCDB200A63B56 /* Foundation.framework */; };
 		F221F1F2173FCDB200A63B56 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F221F1F1173FCDB200A63B56 /* CoreGraphics.framework */; };
@@ -99,6 +101,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F20F22361751934800AF426F /* PIKPin_many.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PIKPin_many.png; sourceTree = "<group>"; };
+		F20F22371751934800AF426F /* PIKPin_many@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PIKPin_many@2x.png"; sourceTree = "<group>"; };
 		F221F1EA173FCDB200A63B56 /* Piratenkarte.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Piratenkarte.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F221F1ED173FCDB200A63B56 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F221F1EF173FCDB200A63B56 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -461,6 +465,8 @@
 		F2ACBA1517496F5F0015E899 /* AnnotationGraphics */ = {
 			isa = PBXGroup;
 			children = (
+				F20F22361751934800AF426F /* PIKPin_many.png */,
+				F20F22371751934800AF426F /* PIKPin_many@2x.png */,
 				F2B037B9174FA83D001D8736 /* PIKPin_plakat_dieb.png */,
 				F2B037BA174FA83D001D8736 /* PIKPin_plakat_dieb@2x.png */,
 				F2B037BB174FA83D001D8736 /* PIKPin_plakat_wrecked.png */,
@@ -611,6 +617,8 @@
 				F2B037CB174FEE4E001D8736 /* PiratenkarteIcon72.png in Resources */,
 				F2B037CC174FEE4E001D8736 /* PiratenkarteIcon72@2x.png in Resources */,
 				F2B037D51751493E001D8736 /* PIKServerListViewController.xib in Resources */,
+				F20F22381751934800AF426F /* PIKPin_many.png in Resources */,
+				F20F22391751934800AF426F /* PIKPin_many@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
