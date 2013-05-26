@@ -36,6 +36,7 @@ typedef void(^PIKNetworkRequestCompletionHandler)(BOOL success, NSError *error);
 @property (nonatomic, readonly, strong) NSString *username;
 
 - (void)validateUsername:(NSString *)aUsername password:(NSString *)aPassword completion:(PIKNetworkRequestCompletionHandler)aCompletion;
+- (void)removePlakatFromServer:(PIKPlakat *)aPlakat completion:(PIKNetworkRequestCompletionHandler)aCompletion;
 
 - (void)updateWithServer:(PIKPlakatServer *)aServer;
 
