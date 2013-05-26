@@ -11,6 +11,7 @@
 #import "AFNetworking.h"
 
 NSString * const PIKPlakatServerManagerSelectedServerDidChangeNotification = @"PIKPlakatServerManagerSelectedServerDidChangeNotification";
+NSString * const PIKPlakatServerManagerDidEncounterNetworkError = @"PIKPlakatServerManagerDidEncounterNetworkError";
 
 
 @interface PIKPlakatServerManager ()
@@ -39,6 +40,13 @@ static NSInteger s_activityCount = 0;
 + (BOOL)hasNetworkActivity {
     return s_activityCount > 0;
 }
+
++ (void)postNetworkErrorNotification {
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        [[NSNotificationQueue defaultQueue] enqueueNotification:[NSNotification notificationWithName:PIKPlakatServerManagerDidEncounterNetworkError object:nil] postingStyle:NSPostWhenIdle coalesceMask:NSNotificationCoalescingOnName forModes:@[NSRunLoopCommonModes]];
+    }];
+}
+
 
 + (instancetype)plakatServerManager {
     static PIKPlakatServerManager *s_sharedInstance;
@@ -173,11 +181,16 @@ static NSInteger s_activityCount = 0;
     [[AFJSONRequestOperation JSONRequestOperationWithRequest:urlRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
 //        NSLog(@"%s success %@",__FUNCTION__,JSON);
         NSArray *serverList = [PIKPlakatServer parseFromJSONObject:JSON];
-        [self updateListWithServerArray:serverList];
-        [self selectedServerDidChange];
+        if (serverList.count > 0) {
+            [self updateListWithServerArray:serverList];
+            [self selectedServerDidChange];
+        } else {
+            [self.class postNetworkErrorNotification];
+        }
         [PIKPlakatServerManager decreaseNetworkActivityCount];
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"%s failure %@",__FUNCTION__,JSON);
+        [self.class postNetworkErrorNotification];
         [PIKPlakatServerManager decreaseNetworkActivityCount];
     }] start];
 }

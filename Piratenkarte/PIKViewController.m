@@ -15,6 +15,7 @@
 #import "PIKPlakat.h"
 #import "PIKPlakatServerButtonView.h"
 #import "PIKServerListViewController.h"
+#import "PIKNetworkErrorIndicationView.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface PIKPlakat (AnnotationAdditions)
@@ -152,6 +153,10 @@
     [self.view addSubview:self.plakatServerButtonView];
     [self.plakatServerButtonView setPlakatServer:[[PIKPlakatServerManager plakatServerManager] selectedPlakatServer]];
     [self.plakatServerButtonView addTarget:self action:@selector(changePlakatServer:) forControlEvents:UIControlEventTouchUpInside];
+    
+    PIKNetworkErrorIndicationView *errorView  =[PIKNetworkErrorIndicationView networkErrorIndicationView];
+    errorView.layer.position = CGPointMake(CGRectGetMaxX(self.view.bounds) - 2,CGRectGetMinY(self.view.bounds));
+    [self.view addSubview:errorView];
 }
 
 - (void)changePlakatServer:(id)aSender {

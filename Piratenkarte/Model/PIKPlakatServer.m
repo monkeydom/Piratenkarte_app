@@ -158,6 +158,7 @@ NSString * const PIKPlakatServerDidReceiveDataNotification = @"PIKPlakatServerDi
         }
         @catch (NSException *exception) {
             NSLog(@"%s %@",__FUNCTION__,exception);
+            [PIKPlakatServerManager postNetworkErrorNotification];
         }
         @finally {
         }
@@ -168,6 +169,7 @@ NSString * const PIKPlakatServerDidReceiveDataNotification = @"PIKPlakatServerDi
         [PIKPlakatServerManager decreaseNetworkActivityCount];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%s failure: %@\n %@",__FUNCTION__,error, operation.response);
+        [PIKPlakatServerManager postNetworkErrorNotification];
         [PIKPlakatServerManager decreaseNetworkActivityCount];
     }];
     [requestOperation start];

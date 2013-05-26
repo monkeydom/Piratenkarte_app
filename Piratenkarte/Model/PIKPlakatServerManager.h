@@ -12,6 +12,7 @@
 #import "PIKPlakatServer.h"
 
 extern NSString * const PIKPlakatServerManagerSelectedServerDidChangeNotification;
+extern NSString * const PIKPlakatServerManagerDidEncounterNetworkError;
 
 @interface PIKPlakatServerManager : NSObject
 
@@ -24,6 +25,7 @@ extern NSString * const PIKPlakatServerManagerSelectedServerDidChangeNotificatio
 + (void)increaseNetworkActivityCount;
 + (void)decreaseNetworkActivityCount;
 + (BOOL)hasNetworkActivity;
++ (void)postNetworkErrorNotification;
 
 @property (nonatomic, readonly) PIKPlakatServer *selectedPlakatServer;
 
