@@ -42,6 +42,7 @@
     NSMutableArray *resultArray = [NSMutableArray array];
     if (self.comment.length > 0) [resultArray addObject:self.comment];
     if (self.imageURLString.length > 0) [resultArray addObject:self.imageURLString];
+    [resultArray addObject:[@"#" stringByAppendingString:self.locationItemIdentifier]];
     [resultArray addObject:[NSString stringWithFormat:@"(fetched %@)",[formatter stringFromDate:self.lastServerFetchDate]]];
     return [resultArray componentsJoinedByString:@" – "];
 }
@@ -189,6 +190,10 @@
 
 - (IBAction)toggleShowUserLocation {
     self.o_mapView.userTrackingMode = self.o_mapView.userTrackingMode == MKUserTrackingModeNone ? MKUserTrackingModeFollow : MKUserTrackingModeNone;
+}
+
+- (IBAction)addAction {
+    [[PIKPlakatServerManager plakatServerManager].selectedPlakatServer validateUsername:@"monkeydom" password:@""];
 }
 
 - (IBAction)queryServer {
