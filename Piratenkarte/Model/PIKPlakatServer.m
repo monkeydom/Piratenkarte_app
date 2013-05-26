@@ -110,9 +110,6 @@ NSString * const PIKPlakatServerDidReceiveDataNotification = @"PIKPlakatServerDi
     
 }
 
-- (void)requestPlakateWithBoundingBox:(BoundingBox *)aBoundingBox {
-}
-
 
 - (void)requestAllPlakate {
     [self requestPlakateInCoordinateRegion:MKCoordinateRegionMake(CLLocationCoordinate2DMake(0, 0), MKCoordinateSpanMake(0, 0))];
@@ -123,6 +120,13 @@ NSString * const PIKPlakatServerDidReceiveDataNotification = @"PIKPlakatServerDi
     result.username = @"";
     result.password = @"";
     return result;
+}
+
+- (NSMutableURLRequest *)baseURLRequestWithPostData:(NSData *)aPostData {
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:self.serverAPIURL];
+    [urlRequest setHTTPMethod:@"POST"];
+    [urlRequest setHTTPBody:aPostData];
+    return urlRequest;
 }
 
 - (void)requestPlakateInCoordinateRegion:(MKCoordinateRegion)aCoordinateRegion {
@@ -143,9 +147,7 @@ NSString * const PIKPlakatServerDidReceiveDataNotification = @"PIKPlakatServerDi
     
     NSDate *requestDate = [NSDate new];
     
-    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:self.serverAPIURL];
-    [urlRequest setHTTPMethod:@"POST"];
-    [urlRequest setHTTPBody:postData];
+    NSMutableURLRequest *urlRequest = [self baseURLRequestWithPostData:postData];
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //        NSLog(@"%s success %@, %@",__FUNCTION__,operation.response, responseObject);
@@ -168,9 +170,74 @@ NSString * const PIKPlakatServerDidReceiveDataNotification = @"PIKPlakatServerDi
         NSLog(@"%s failure: %@\n %@",__FUNCTION__,error, operation.response);
         [PIKPlakatServerManager decreaseNetworkActivityCount];
     }];
-    
     [requestOperation start];
 }
+
+- (void)validateUsername:(NSString *)aUsername password:(NSString *)aPassword {
+    Request_Builder *addRequestBuilder = [Request builder];
+    addRequestBuilder.username = aUsername;
+    addRequestBuilder.password = aPassword;
+    
+    AddRequest_Builder *addRequest = [AddRequest builder];
+
+    MKCoordinateRegion helgoregion = MKCoordinateRegionMake(CLLocationCoordinate2DMake(54.134082, 7.894707), MKCoordinateSpanMake(0.00002, 0.00002));
+    double oneMeter = MKMapPointsPerMeterAtLatitude(helgoregion.center.latitude);
+    MKMapPoint point = MKMapPointForCoordinate(helgoregion.center);
+    // displace it a little so they stay identifyable
+    point.x += oneMeter * (500 - ((int)arc4random_uniform(1000)));
+    point.y += oneMeter * (500 - ((int)arc4random_uniform(1000)));
+    helgoregion.center = MKCoordinateForMapPoint(point);
+    
+    
+    NSString *comment = [NSString stringWithFormat:@"Credential Check für %@ - %@",aUsername,[[NSUUID new] UUIDString]];
+    
+    // 54.134082,7.894707 - kurz vor helgoland
+    addRequest.lon = helgoregion.center.longitude;
+    addRequest.lat = helgoregion.center.latitude;
+    addRequest.type = PIKPlakatTypeNicePlace;
+    addRequest.comment = comment;
+
+    [addRequestBuilder addAdd:[addRequest build]];
+
+    // dann doch auch noch einen view request bauen - damit wir nicht alle daten bekommen
+    ViewRequest_Builder *viewRequestBuilder = [ViewRequest builder];
+    viewRequestBuilder.viewBox = [self.class viewBoxForMKCoordinateRegion:helgoregion];
+    addRequestBuilder.viewRequest = viewRequestBuilder.build;
+
+    
+    Request *request = [addRequestBuilder build];
+    NSLog(@"%s %@",__FUNCTION__,request);
+    NSData *postData = request.data;
+    NSMutableURLRequest *urlRequest = [self baseURLRequestWithPostData:postData];
+    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
+    [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        @try {
+            [responseObject writeToFile:@"/tmp/mistresult.proto" options:0 error:NULL];
+            Response *response = [Response parseFromData:responseObject];
+            NSLog(@"%s parsed response = %@",__FUNCTION__,response);
+            if (response.addedCount == 1) {
+                NSLog(@"%s successfully added",__FUNCTION__);
+                // be happy and delete the bugger again
+                for (Plakat *plakat in response.plakate) {
+                    if ([plakat.comment isEqualToString:comment]) {
+                        NSLog(@"%s Found the plakat we just added - jippie! %@",__FUNCTION__,plakat);
+                    }
+                }
+            } else {
+                NSLog(@"%s failed to add a nice place",__FUNCTION__);
+            }
+        }
+        @catch (NSException *exception) {
+            NSLog(@"%s %@",__FUNCTION__,exception);
+        }
+        @finally {
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%s failure: %@\n %@",__FUNCTION__,error, operation.response);
+    }];
+    [requestOperation start];
+}
+
 
 
 - (void)setServerBaseURL:(NSString *)aServerBaseURLString {

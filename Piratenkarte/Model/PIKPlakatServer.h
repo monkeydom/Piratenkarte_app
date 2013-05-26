@@ -29,6 +29,8 @@ extern NSString * const PIKPlakatServerDidReceiveDataNotification;
 - (NSDictionary *)JSONDescription;
 + (instancetype)serverWithJSONRepresentation:(NSDictionary *)aServerJSONDictionary;
 
+- (void)validateUsername:(NSString *)aUsername password:(NSString *)aPassword;
+
 - (void)updateWithServer:(PIKPlakatServer *)aServer;
 
 - (void)requestAllPlakate;
