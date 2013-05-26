@@ -167,7 +167,7 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     PIKPlakatServer *server = [self plakatServerAtIndexPath:indexPath];
-    if (server.username.length > 0) {
+    if ([server hasValidPassword]) {
         return YES;
     }
     return NO;
