@@ -24,29 +24,17 @@
 
 @implementation PIKPlakat (AnnotationAdditions)
 
-+ (NSDateFormatter *)dateFormatter {
-    static NSDateFormatter *formatter;
-    if (!formatter) {
-        formatter = [NSDateFormatter new];
-        [formatter setDateStyle:NSDateFormatterShortStyle];
-        [formatter setTimeStyle:NSDateFormatterShortStyle];
-    }
-    return formatter;
-}
-
 - (NSString *)title {
-    NSDateFormatter *formatter = [self.class dateFormatter];
-    NSString *result = [NSString stringWithFormat:@"%@ (%@ am %@)", [self localizedType],self.usernameOfLastChange,[formatter stringFromDate:self.lastModifiedDate]];
+    NSString *result = [NSString stringWithFormat:@"%@ (%@ am %@)", [self localizedType],self.usernameOfLastChange,self.localizedLastModifiedDate];
     return result;
 }
 
 - (NSString *)subtitle {
-    NSDateFormatter *formatter = [self.class dateFormatter];
     NSMutableArray *resultArray = [NSMutableArray array];
     if (self.comment.length > 0) [resultArray addObject:self.comment];
     if (self.imageURLString.length > 0) [resultArray addObject:self.imageURLString];
     [resultArray addObject:[@"#" stringByAppendingString:self.locationItemIdentifier]];
-    [resultArray addObject:[NSString stringWithFormat:@"(fetched %@)",[formatter stringFromDate:self.lastServerFetchDate]]];
+    [resultArray addObject:[NSString stringWithFormat:@"(fetched %@)",self.localizedLastServerFetchDate]];
     return [resultArray componentsJoinedByString:@" – "];
 }
 
@@ -60,7 +48,19 @@
 @property (nonatomic, strong) PIKPlakatDetailViewController *plakatDetailViewController;
 @end
 
+static PIKViewController *S_sharedViewController = nil;
+
 @implementation PIKViewController
+
++ (instancetype)sharedViewController {
+    return S_sharedViewController;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    S_sharedViewController = self;
+    return self;
+}
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
     PIKPlakatDetailViewController *detailController = self.plakatDetailViewController;

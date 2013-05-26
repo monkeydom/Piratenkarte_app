@@ -28,7 +28,9 @@ NSString * const PIKPlakatTypeWallOK;
 @property (nonatomic) CLLocationCoordinate2D coordinate;
 @property (nonatomic, strong) NSString *plakatType;
 @property (nonatomic, strong) NSDate *lastModifiedDate;
+@property (nonatomic, readonly) NSString *localizedLastModifiedDate;
 @property (nonatomic, strong) NSDate *lastServerFetchDate;
+@property (nonatomic, readonly) NSString *localizedLastServerFetchDate;
 @property (nonatomic, strong) NSString *comment;
 @property (nonatomic, strong) NSString *imageURLString;
 @property (nonatomic, strong) NSString *usernameOfLastChange;
@@ -39,5 +41,5 @@ NSString * const PIKPlakatTypeWallOK;
 @property (nonatomic, readonly) CGPoint pinImageCenterOffset;
 
 - (instancetype)initWithPlakat:(Plakat *)aPlakat serverFetchDate:(NSDate *)aServerFetchDate;
-
++ (NSDateFormatter *)dateFormatter;
 @end

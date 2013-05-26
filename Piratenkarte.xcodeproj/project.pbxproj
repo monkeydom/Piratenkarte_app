@@ -30,6 +30,10 @@
 		F20F22661752162300AF426F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F20F22651752162300AF426F /* Security.framework */; };
 		F20F226A17522C2B00AF426F /* PIKPlakatDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F20F226817522C2B00AF426F /* PIKPlakatDetailViewController.m */; };
 		F20F226B17522C2B00AF426F /* PIKPlakatDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F20F226917522C2B00AF426F /* PIKPlakatDetailViewController.xib */; };
+		F20F227817523DB800AF426F /* PIKDeleteButtonNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F227417523DB800AF426F /* PIKDeleteButtonNormal.png */; };
+		F20F227917523DB800AF426F /* PIKDeleteButtonNormal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F227517523DB800AF426F /* PIKDeleteButtonNormal@2x.png */; };
+		F20F227A17523DB800AF426F /* PIKDeleteButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F227617523DB800AF426F /* PIKDeleteButtonPressed.png */; };
+		F20F227B17523DB800AF426F /* PIKDeleteButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F227717523DB800AF426F /* PIKDeleteButtonPressed@2x.png */; };
 		F221F1EE173FCDB200A63B56 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F221F1ED173FCDB200A63B56 /* UIKit.framework */; };
 		F221F1F0173FCDB200A63B56 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F221F1EF173FCDB200A63B56 /* Foundation.framework */; };
 		F221F1F2173FCDB200A63B56 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F221F1F1173FCDB200A63B56 /* CoreGraphics.framework */; };
@@ -150,6 +154,10 @@
 		F20F226717522C2B00AF426F /* PIKPlakatDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PIKPlakatDetailViewController.h; path = ViewControllers/PIKPlakatDetailViewController.h; sourceTree = "<group>"; };
 		F20F226817522C2B00AF426F /* PIKPlakatDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PIKPlakatDetailViewController.m; path = ViewControllers/PIKPlakatDetailViewController.m; sourceTree = "<group>"; };
 		F20F226917522C2B00AF426F /* PIKPlakatDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PIKPlakatDetailViewController.xib; path = ViewControllers/PIKPlakatDetailViewController.xib; sourceTree = "<group>"; };
+		F20F227417523DB800AF426F /* PIKDeleteButtonNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PIKDeleteButtonNormal.png; sourceTree = "<group>"; };
+		F20F227517523DB800AF426F /* PIKDeleteButtonNormal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PIKDeleteButtonNormal@2x.png"; sourceTree = "<group>"; };
+		F20F227617523DB800AF426F /* PIKDeleteButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PIKDeleteButtonPressed.png; sourceTree = "<group>"; };
+		F20F227717523DB800AF426F /* PIKDeleteButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PIKDeleteButtonPressed@2x.png"; sourceTree = "<group>"; };
 		F221F1EA173FCDB200A63B56 /* Piratenkarte.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Piratenkarte.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F221F1ED173FCDB200A63B56 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F221F1EF173FCDB200A63B56 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -313,6 +321,10 @@
 		F20F223A1751FDC100AF426F /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				F20F227417523DB800AF426F /* PIKDeleteButtonNormal.png */,
+				F20F227517523DB800AF426F /* PIKDeleteButtonNormal@2x.png */,
+				F20F227617523DB800AF426F /* PIKDeleteButtonPressed.png */,
+				F20F227717523DB800AF426F /* PIKDeleteButtonPressed@2x.png */,
 				F20F223B1751FDC100AF426F /* alert-big.png */,
 				F20F223C1751FDC100AF426F /* alert-big@2x.png */,
 				F20F223D1751FDC100AF426F /* ListCurrentLoc.png */,
@@ -734,6 +746,10 @@
 				F20F22551751FDC100AF426F /* TrackingOff.png in Resources */,
 				F20F22561751FDC100AF426F /* TrackingOff@2x.png in Resources */,
 				F20F226B17522C2B00AF426F /* PIKPlakatDetailViewController.xib in Resources */,
+				F20F227817523DB800AF426F /* PIKDeleteButtonNormal.png in Resources */,
+				F20F227917523DB800AF426F /* PIKDeleteButtonNormal@2x.png in Resources */,
+				F20F227A17523DB800AF426F /* PIKDeleteButtonPressed.png in Resources */,
+				F20F227B17523DB800AF426F /* PIKDeleteButtonPressed@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -23,6 +23,16 @@ NSString * const PIKPlakatTypeWallOK    = @"wand_ok";
 
 @implementation PIKPlakat
 
++ (NSDateFormatter *)dateFormatter {
+    static NSDateFormatter *formatter;
+    if (!formatter) {
+        formatter = [NSDateFormatter new];
+        [formatter setDateStyle:NSDateFormatterShortStyle];
+        [formatter setTimeStyle:NSDateFormatterShortStyle];
+    }
+    return formatter;
+}
+
 - (instancetype)initWithPlakat:(Plakat *)aPlakat serverFetchDate:(NSDate *)aServerFetchDate {
     self = [self init];
     if (self) {
@@ -56,6 +66,16 @@ NSString * const PIKPlakatTypeWallOK    = @"wand_ok";
 
 - (CGPoint)pinImageCenterOffset {
     CGPoint result = CGPointMake(8, -21);
+    return result;
+}
+
+- (NSString *)localizedLastModifiedDate {
+    NSString *result = [[self.class dateFormatter] stringFromDate:self.lastModifiedDate];
+    return result;
+}
+
+- (NSString *)localizedLastServerFetchDate {
+    NSString *result = [[self.class dateFormatter] stringFromDate:self.lastServerFetchDate];
     return result;
 }
 
