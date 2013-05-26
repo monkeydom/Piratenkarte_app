@@ -18,6 +18,7 @@
 @property (nonatomic, strong) IBOutlet UIView *o_tableViewFooterView;
 @property (nonatomic, strong) IBOutlet UIButton *o_deleteButton;
 @property (nonatomic, strong) IBOutlet UINavigationBar *O_topNavigationBar;
+@property (nonatomic, strong) IBOutlet UIView *o_containerView;
 
 @property (nonatomic, strong) PIKPlakat *plakat;
 

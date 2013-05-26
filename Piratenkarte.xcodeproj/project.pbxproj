@@ -35,6 +35,7 @@
 		F20F227A17523DB800AF426F /* PIKDeleteButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F227617523DB800AF426F /* PIKDeleteButtonPressed.png */; };
 		F20F227B17523DB800AF426F /* PIKDeleteButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F227717523DB800AF426F /* PIKDeleteButtonPressed@2x.png */; };
 		F20F227D17524AB800AF426F /* ShadowLine.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F227C17524AB800AF426F /* ShadowLine.png */; };
+		F20F2283175275EE00AF426F /* PIKEditableCommentsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F20F2282175275EE00AF426F /* PIKEditableCommentsCell.m */; };
 		F221F1EE173FCDB200A63B56 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F221F1ED173FCDB200A63B56 /* UIKit.framework */; };
 		F221F1F0173FCDB200A63B56 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F221F1EF173FCDB200A63B56 /* Foundation.framework */; };
 		F221F1F2173FCDB200A63B56 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F221F1F1173FCDB200A63B56 /* CoreGraphics.framework */; };
@@ -160,6 +161,8 @@
 		F20F227617523DB800AF426F /* PIKDeleteButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PIKDeleteButtonPressed.png; sourceTree = "<group>"; };
 		F20F227717523DB800AF426F /* PIKDeleteButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PIKDeleteButtonPressed@2x.png"; sourceTree = "<group>"; };
 		F20F227C17524AB800AF426F /* ShadowLine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShadowLine.png; sourceTree = "<group>"; };
+		F20F2281175275EE00AF426F /* PIKEditableCommentsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PIKEditableCommentsCell.h; path = Views/PIKEditableCommentsCell.h; sourceTree = "<group>"; };
+		F20F2282175275EE00AF426F /* PIKEditableCommentsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PIKEditableCommentsCell.m; path = Views/PIKEditableCommentsCell.m; sourceTree = "<group>"; };
 		F221F1EA173FCDB200A63B56 /* Piratenkarte.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Piratenkarte.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F221F1ED173FCDB200A63B56 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F221F1EF173FCDB200A63B56 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -622,6 +625,8 @@
 				F2B037D7175152F8001D8736 /* PIKLongDescriptionTableViewCell.m */,
 				F2B037CD17513A7E001D8736 /* PIKPlakatServerButtonView.h */,
 				F2B037CE17513A7F001D8736 /* PIKPlakatServerButtonView.m */,
+				F20F2281175275EE00AF426F /* PIKEditableCommentsCell.h */,
+				F20F2282175275EE00AF426F /* PIKEditableCommentsCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -810,6 +815,7 @@
 				F20F22611752117900AF426F /* UIAlertView+BlockExtensions.m in Sources */,
 				F20F22641752147B00AF426F /* SGKeychain.m in Sources */,
 				F20F226A17522C2B00AF426F /* PIKPlakatDetailViewController.m in Sources */,
+				F20F2283175275EE00AF426F /* PIKEditableCommentsCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

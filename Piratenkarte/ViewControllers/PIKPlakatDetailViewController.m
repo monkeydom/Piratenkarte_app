@@ -11,6 +11,7 @@
 #import "PIKPlakat.h"
 #import "PIKPlakatServer.h"
 #import "PIKViewController.h"
+#import "PIKEditableCommentsCell.h"
 
 @interface PIKPlakatDetailViewController () <UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate>
 
@@ -40,6 +41,46 @@
     [self.o_deleteButton setBackgroundImage:pressed forState:UIControlStateHighlighted];
         
     [self adjustToPlakat];
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+	[notificationCenter addObserver:self
+						   selector:@selector(keyboardWillShow:)
+							   name:UIKeyboardWillShowNotification object:nil];
+	
+	[notificationCenter addObserver:self
+						   selector:@selector(keyboardWillHide:)
+							   name:UIKeyboardWillHideNotification object:nil];
+
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    self.o_containerView.transform = CGAffineTransformIdentity;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)keyboardWillShow:(NSNotification *)aNotification {
+    NSLog(@"%s %@",__FUNCTION__,aNotification.userInfo);
+    UITableViewCell *cell = [self.o_editingTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    CGRect tableCellRect = [cell.superview convertRect:cell.frame toView:self.view];
+    CGRect keyboardEndRect = [aNotification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat keyboardPosition = CGRectGetHeight(keyboardEndRect) + 10;
+    if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
+        keyboardPosition = CGRectGetWidth(keyboardEndRect);
+    }
+    CGFloat delta = (CGRectGetMaxY(self.view.bounds) - keyboardPosition) - CGRectGetMaxY(tableCellRect);
+    [UIView animateWithDuration:[aNotification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue] animations:^{
+        self.o_containerView.transform = CGAffineTransformMakeTranslation(0, delta);
+    }];
+}
+
+- (void)keyboardWillHide:(NSNotification *)aNotification {
+    [UIView animateWithDuration:[aNotification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue] animations:^{
+        self.o_containerView.transform = CGAffineTransformIdentity;
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -161,11 +202,15 @@
     return result;
 }
 
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    return NO;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"label"];
+    PIKEditableCommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"label"];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:@"label"];
+        cell = [[PIKEditableCommentsCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:@"label"];
         cell.detailTextLabel.numberOfLines = 0;
         cell.textLabel.minimumFontSize = 6.0;
         cell.textLabel.adjustsLetterSpacingToFitWidth = YES;
@@ -175,6 +220,7 @@
         case 0:
             cell.textLabel.text = @"Kommentar";
             cell.detailTextLabel.text = self.plakat.comment;
+            cell.textView.text = self.plakat.comment;
             break;
     }
     return cell;
@@ -183,7 +229,7 @@
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
     if (view.annotation != self.plakat) {
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            self.plakat = view.annotation;
+            self.plakat = (PIKPlakat *)view.annotation;
         }];
     }
 }
