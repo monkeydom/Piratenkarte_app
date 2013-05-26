@@ -13,6 +13,12 @@
 
 NSString * const PIKPlakatServerDidReceiveDataNotification = @"PIKPlakatServerDidReceiveDataNotification";
 
+typedef void(^PIKNetworkFailBlock)(NSError *error);
+typedef void(^PIKNetworkSuccessBlock)();
+
+@interface PIKPlakatServer ()
+@property (nonatomic, strong) NSString *password;
+@end
 
 @implementation PIKPlakatServer
 
@@ -80,6 +86,37 @@ NSString * const PIKPlakatServerDidReceiveDataNotification = @"PIKPlakatServerDi
     return _locationItemStorage;
 }
 
+- (NSString *)usernameUserDefaultKey {
+    return [@"PlakatServerUsername-" stringByAppendingString:self.identifier];
+}
+
+- (NSString *)username {
+    NSString *result = [[NSUserDefaults standardUserDefaults] stringForKey:self.usernameUserDefaultKey];
+    if (!result) result = @"";
+    return result;
+}
+
+- (void)setUsername:(NSString *)aUsername {
+    if (aUsername) {
+        [[NSUserDefaults standardUserDefaults] setObject:aUsername forKey:self.usernameUserDefaultKey];
+    } else {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:self.usernameUserDefaultKey];
+    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (BOOL)hasValidPassword {
+    return NO;
+}
+
+- (NSString *)password {
+    return @"";
+}
+
+- (void)setPassword:(NSString *)password {
+    // use keychain
+}
+
 - (void)handleViewRequestResponse:(Response *)aResponse requestDate:(NSDate *)requestDate requestCoordinateRegion:(MKCoordinateRegion)aCoordinateRegion {
     MKDMutableLocationItemStorage *itemStorage = self.locationItemStorage;
     BOOL first = YES;
@@ -117,8 +154,8 @@ NSString * const PIKPlakatServerDidReceiveDataNotification = @"PIKPlakatServerDi
 
 - (Request_Builder *)requestBuilderBase {
     Request_Builder *result = [Request builder];
-    result.username = @"";
-    result.password = @"";
+    result.username = self.username;
+    result.password = self.password;
     return result;
 }
 
@@ -130,16 +167,13 @@ NSString * const PIKPlakatServerDidReceiveDataNotification = @"PIKPlakatServerDi
 }
 
 - (void)requestPlakateInCoordinateRegion:(MKCoordinateRegion)aCoordinateRegion {
-    BoundingBox *aBoundingBox = [self.class viewBoxForMKCoordinateRegion:aCoordinateRegion];
-    
+
     [PIKPlakatServerManager increaseNetworkActivityCount];
     
     Request_Builder *request = [self requestBuilderBase];
     [Request builder];
     
-    ViewRequest_Builder *viewRequestBuilder = [ViewRequest builder];
-    if (aBoundingBox) viewRequestBuilder.viewBox = aBoundingBox;
-    request.viewRequest = [viewRequestBuilder build];
+    request.viewRequest = [self viewRequestWithCoordinateRegion:aCoordinateRegion];
     Request *req = request.build;
     NSData *postData = req.data;
     
@@ -175,14 +209,99 @@ NSString * const PIKPlakatServerDidReceiveDataNotification = @"PIKPlakatServerDi
     [requestOperation start];
 }
 
-- (void)validateUsername:(NSString *)aUsername password:(NSString *)aPassword {
+- (MKCoordinateRegion)narrowRegionAroundCoordinate:(CLLocationCoordinate2D)aCoordinate {
+    MKCoordinateRegion result = MKCoordinateRegionMake(aCoordinate, MKCoordinateSpanMake(0.00001, 0.00001));
+    return result;
+}
+
+- (ViewRequest *)viewRequestWithCoordinateRegion:(MKCoordinateRegion)aCoordinateRegion {
+    ViewRequest_Builder *viewRequestBuilder = [ViewRequest builder];
+    BoundingBox *viewBox = [self.class viewBoxForMKCoordinateRegion:aCoordinateRegion];
+    if (viewBox) viewRequestBuilder.viewBox = viewBox;
+    ViewRequest *result = viewRequestBuilder.build;
+    return result;
+}
+
+- (PIKNetworkFailBlock)failBlockWithCompletion:(PIKNetworkRequestCompletionHandler)aCompletion {
+    void(^failure)(NSError *anError) = ^(NSError *anError) {
+        [PIKPlakatServerManager postNetworkErrorNotification];
+        [PIKPlakatServerManager decreaseNetworkActivityCount];
+        if (aCompletion) {
+            aCompletion(NO,anError);
+        }
+    };
+    return failure;
+}
+
+- (PIKNetworkSuccessBlock)successBlockWithCompletion:(PIKNetworkRequestCompletionHandler)aCompletion {
+    void (^success)() = ^{
+        [PIKPlakatServerManager decreaseNetworkActivityCount];
+        if (aCompletion) {
+            aCompletion(YES,nil);
+        }
+    };
+    return success;
+}
+
+- (void)removePlakatFromServer:(PIKPlakat *)aPlakat completion:(PIKNetworkRequestCompletionHandler)aCompletion {
+    [PIKPlakatServerManager increaseNetworkActivityCount];
+    PIKNetworkSuccessBlock success = [self successBlockWithCompletion:aCompletion];
+    PIKNetworkFailBlock failure = [self failBlockWithCompletion:aCompletion];
+    
+    Request_Builder *requestBuilder = [self requestBuilderBase];
+    requestBuilder.viewRequest = [self viewRequestWithCoordinateRegion:[self narrowRegionAroundCoordinate:aPlakat.coordinate]];
+    
+    DeleteRequest_Builder *deleteBuilder = [DeleteRequest builder];
+    deleteBuilder.id = aPlakat.plakatID;
+    [requestBuilder addDelete:[deleteBuilder build]];
+    
+    Request *request = [requestBuilder build];
+    NSLog(@"%s %@",__FUNCTION__,request);
+    NSData *postData = request.data;
+    NSMutableURLRequest *urlRequest = [self baseURLRequestWithPostData:postData];
+    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
+    [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        @try {
+            Response *response = [Response parseFromData:responseObject];
+            NSLog(@"%s parsed response = %@",__FUNCTION__,response);
+            if (response.deletedCount == 1) {
+                NSLog(@"%s successfully deleted",__FUNCTION__);
+                [self.locationItemStorage removeLocationItem:aPlakat];
+                success();
+            } else {
+                NSLog(@"%s failed to remove a plakat",__FUNCTION__);
+                failure(nil);
+            }
+        }
+        @catch (NSException *exception) {
+            NSLog(@"%s %@",__FUNCTION__,exception);
+            failure(nil);
+        }
+        @finally {
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(error);
+    }];
+    [requestOperation start];
+}
+
+- (void)validateUsername:(NSString *)aUsername password:(NSString *)aPassword completion:(PIKNetworkRequestCompletionHandler)aCompletion {
+
+    [PIKPlakatServerManager increaseNetworkActivityCount];
+    PIKNetworkSuccessBlock success = [self successBlockWithCompletion:aCompletion];
+    PIKNetworkFailBlock failure = [self failBlockWithCompletion:aCompletion];
+    
     Request_Builder *addRequestBuilder = [Request builder];
     addRequestBuilder.username = aUsername;
     addRequestBuilder.password = aPassword;
     
+    if (self.username.length == 0 && !self.hasValidPassword) {
+        self.username = aUsername;
+    }
+    
     AddRequest_Builder *addRequest = [AddRequest builder];
 
-    MKCoordinateRegion helgoregion = MKCoordinateRegionMake(CLLocationCoordinate2DMake(54.134082, 7.894707), MKCoordinateSpanMake(0.00002, 0.00002));
+    MKCoordinateRegion helgoregion = [self narrowRegionAroundCoordinate:CLLocationCoordinate2DMake(54.134082, 7.894707)];
     double oneMeter = MKMapPointsPerMeterAtLatitude(helgoregion.center.latitude);
     MKMapPoint point = MKMapPointForCoordinate(helgoregion.center);
     // displace it a little so they stay identifyable
@@ -202,19 +321,17 @@ NSString * const PIKPlakatServerDidReceiveDataNotification = @"PIKPlakatServerDi
     [addRequestBuilder addAdd:[addRequest build]];
 
     // dann doch auch noch einen view request bauen - damit wir nicht alle daten bekommen
-    ViewRequest_Builder *viewRequestBuilder = [ViewRequest builder];
-    viewRequestBuilder.viewBox = [self.class viewBoxForMKCoordinateRegion:helgoregion];
-    addRequestBuilder.viewRequest = viewRequestBuilder.build;
+    addRequestBuilder.viewRequest = [self viewRequestWithCoordinateRegion:helgoregion];
 
     
     Request *request = [addRequestBuilder build];
-    NSLog(@"%s %@",__FUNCTION__,request);
+//    NSLog(@"%s %@",__FUNCTION__,request);
     NSData *postData = request.data;
     NSMutableURLRequest *urlRequest = [self baseURLRequestWithPostData:postData];
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         @try {
-            [responseObject writeToFile:@"/tmp/mistresult.proto" options:0 error:NULL];
+//            [responseObject writeToFile:@"/tmp/mistresult.proto" options:0 error:NULL];
             Response *response = [Response parseFromData:responseObject];
             NSLog(@"%s parsed response = %@",__FUNCTION__,response);
             if (response.addedCount == 1) {
@@ -223,19 +340,27 @@ NSString * const PIKPlakatServerDidReceiveDataNotification = @"PIKPlakatServerDi
                 for (Plakat *plakat in response.plakate) {
                     if ([plakat.comment isEqualToString:comment]) {
                         NSLog(@"%s Found the plakat we just added - jippie! %@",__FUNCTION__,plakat);
+                        self.username = aUsername;
+                        self.password = aPassword;
+                        PIKPlakat *pikPlakat = [[PIKPlakat alloc] initWithPlakat:plakat serverFetchDate:[NSDate new]];
+                        [self removePlakatFromServer:pikPlakat completion:^(BOOL success, NSError *error) {
+                            NSLog(@"removing the credential plakat again was %@",success ? @"successful" : @"failurous");
+                        }];
                     }
                 }
+                success();
             } else {
-                NSLog(@"%s failed to add a nice place",__FUNCTION__);
+                failure(nil);
             }
         }
         @catch (NSException *exception) {
             NSLog(@"%s %@",__FUNCTION__,exception);
+            failure(nil);
         }
         @finally {
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s failure: %@\n %@",__FUNCTION__,error, operation.response);
+        failure(error);
     }];
     [requestOperation start];
 }

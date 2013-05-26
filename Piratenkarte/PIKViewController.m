@@ -211,8 +211,33 @@
     self.o_mapView.userTrackingMode = self.o_mapView.userTrackingMode == MKUserTrackingModeNone ? MKUserTrackingModeFollow : MKUserTrackingModeNone;
 }
 
+- (void)ensureValidCredentialsWithContinuation:(dispatch_block_t)aContinuation {
+    PIKPlakatServer *selectedServer = [PIKPlakatServerManager plakatServerManager].selectedPlakatServer;
+    if (selectedServer.hasValidPassword) {
+        aContinuation();
+    } else {
+        UIAlertView *passwordAlert = [[UIAlertView alloc] initWithTitle:@"Server Login / Passwort" message:@"" completionBlock:^(NSUInteger buttonIndex, UIAlertView *alertView) {
+            NSLog(@"%s %@ %@",__FUNCTION__,[alertView textFieldAtIndex:0], [alertView textFieldAtIndex:1]);
+            
+            if (buttonIndex != 0) {
+                [selectedServer validateUsername:[alertView textFieldAtIndex:0].text password:[alertView textFieldAtIndex:1].text completion:^(BOOL success, NSError *error) {
+                    NSLog(@"%s validating was %@ - %@",__FUNCTION__,success ? @"SUCCESS" : @"FAILURE",error);
+                }];
+
+            }
+            
+        } cancelButtonTitle:@"Abbrechen" otherButtonTitles:@"OK",nil];
+        passwordAlert.alertViewStyle = UIAlertViewStyleLoginAndPasswordInput;
+        [[passwordAlert textFieldAtIndex:0] setText:selectedServer.username];
+        [passwordAlert show];
+        
+    }
+}
+
 - (IBAction)addAction {
-    [[PIKPlakatServerManager plakatServerManager].selectedPlakatServer validateUsername:@"monkeydom" password:@""];
+    [self ensureValidCredentialsWithContinuation:^{
+        // do the actual adding UI here
+    }];
 }
 
 - (IBAction)queryServer {
