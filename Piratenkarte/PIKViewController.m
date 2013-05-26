@@ -15,6 +15,7 @@
 #import "PIKPlakat.h"
 #import "PIKPlakatServerButtonView.h"
 #import "PIKServerListViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface PIKPlakat (AnnotationAdditions)
 @end
@@ -92,6 +93,19 @@
     if ([self regionWarrantsQuery:self.o_mapView.region]) {
         [self queryItemStorage];
     }
+}
+
+- (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view {
+    CALayer *layer = view.layer;
+    layer.shadowOpacity = 0.0;
+}
+
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
+    CALayer *layer = view.layer;
+    layer.shadowColor = [[UIColor colorWithRed:0.170 green:0.639 blue:1.000 alpha:1.000] CGColor];
+    layer.shadowOpacity = 1.0;
+    layer.shadowRadius = 3.0;
+    layer.shadowOffset = CGSizeZero;
 }
 
 #define CURRENTPOSITIONBASEKEY @"CurrentMapRect"
