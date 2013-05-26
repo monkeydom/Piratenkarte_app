@@ -170,8 +170,12 @@
     [self queryItemStorage];
 }
 
-- (void)selectedPlakatServerDidChange:(NSNotification *)aNotification {
+- (void)updatePlakatServerButtonView {
     [self.plakatServerButtonView setPlakatServer:[[PIKPlakatServerManager plakatServerManager] selectedPlakatServer]];
+}
+
+- (void)selectedPlakatServerDidChange:(NSNotification *)aNotification {
+    [self updatePlakatServerButtonView];
     [self queryItemStorage];
 }
 
@@ -220,8 +224,21 @@
             NSLog(@"%s %@ %@",__FUNCTION__,[alertView textFieldAtIndex:0], [alertView textFieldAtIndex:1]);
             
             if (buttonIndex != 0) {
-                [selectedServer validateUsername:[alertView textFieldAtIndex:0].text password:[alertView textFieldAtIndex:1].text completion:^(BOOL success, NSError *error) {
-                    NSLog(@"%s validating was %@ - %@",__FUNCTION__,success ? @"SUCCESS" : @"FAILURE",error);
+                NSString *username = [alertView textFieldAtIndex:0].text;
+                NSString *password = [alertView textFieldAtIndex:1].text;
+                [selectedServer validateUsername:username password:password completion:^(BOOL success, NSError *error) {
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        [self updatePlakatServerButtonView];
+                        if (!success) {
+                            NSString *title = @"Fehlgeschlagen";
+                            NSString *message = [NSString stringWithFormat:@"Das Passwort für den Benutzer '%@' konnte leider nicht bestätigt werden.", username];
+                            UIAlertView *confirmAlertView = [[UIAlertView alloc] initWithTitle:title message:message completionBlock:^(NSUInteger buttonIndex, UIAlertView *alertView) {
+                            } cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                            [confirmAlertView show];
+                        } else {
+                            if (aContinuation) aContinuation();
+                        }
+                    }];
                 }];
 
             }

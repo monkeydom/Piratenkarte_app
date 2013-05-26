@@ -22,7 +22,7 @@
 - (UILabel *)labelWithFontSize:(CGFloat)aFontSize {
     UILabel *result = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, ceilf(aFontSize *1.2))];
 	result.font = [UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:aFontSize];
-	result.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.8];
+	result.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.6];
 	result.shadowOffset = CGSizeMake(0,1);
     result.textColor = [UIColor whiteColor];
     result.backgroundColor = [UIColor clearColor];

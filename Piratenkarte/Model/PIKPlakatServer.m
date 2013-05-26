@@ -143,6 +143,7 @@ typedef void(^PIKNetworkSuccessBlock)();
     if (!passwordSuccessfullyDeleted) {
         NSLog(@"%s failed to remove password %@",__FUNCTION__,deletePasswordError);
     }
+    
 }
 
 - (void)handleViewRequestResponse:(Response *)aResponse requestDate:(NSDate *)requestDate requestCoordinateRegion:(MKCoordinateRegion)aCoordinateRegion {
