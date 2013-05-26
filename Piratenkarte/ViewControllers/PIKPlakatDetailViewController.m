@@ -100,7 +100,7 @@
 
 - (void)adjustToPlakat {
     [self.o_mapView removeAnnotations:self.o_mapView.annotations];
-    [self.o_mapView setVisibleMapRect:[self detailMapRectForPlakat:self.plakat]];
+    [self.o_mapView setVisibleMapRect:[self detailMapRectForPlakat:self.plakat] animated:YES];
     
     MKCoordinateRegion region = self.o_mapView.region;
     NSArray *items = [[[[PIKPlakatServerManager plakatServerManager] selectedPlakatServer] locationItemStorage]locationItemsForCoordinateRegion:region];
@@ -178,6 +178,14 @@
             break;
     }
     return cell;
+}
+
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
+    if (view.annotation != self.plakat) {
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            self.plakat = view.annotation;
+        }];
+    }
 }
 
 @end
