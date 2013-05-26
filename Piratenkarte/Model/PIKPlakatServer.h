@@ -27,6 +27,7 @@ typedef void(^PIKNetworkRequestCompletionHandler)(BOOL success, NSError *error);
 @property (nonatomic, strong) NSURL *serverAPIURL;
 @property (nonatomic, strong) MKDMutableLocationItemStorage *locationItemStorage;
 @property (nonatomic, readonly) BOOL hasValidPassword;
+- (void)removePassword;
 
 + (NSArray *)parseFromJSONObject:(NSDictionary *)aJSONObject;
 - (NSDictionary *)JSONDescription;

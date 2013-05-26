@@ -10,6 +10,7 @@
 #import "Api.pb.h"
 #import <CoreLocation/CoreLocation.h>
 #import "PIKPlakatServerManager.h"
+#import "SGKeychain.h"
 
 NSString * const PIKPlakatServerDidReceiveDataNotification = @"PIKPlakatServerDidReceiveDataNotification";
 
@@ -106,15 +107,42 @@ typedef void(^PIKNetworkSuccessBlock)();
 }
 
 - (BOOL)hasValidPassword {
-    return NO;
+    BOOL result = (self.internalPasswordFetch != nil);
+    return result;
+}
+
+- (NSString *)internalPasswordFetch {
+    NSError *fetchPasswordError;
+    NSString *password = [SGKeychain passwordForUsername:self.username serviceName:self.serverBaseURL error:&fetchPasswordError];
+    if (fetchPasswordError) {
+        NSLog(@"Error fetching password = %@", fetchPasswordError);
+    }
+    return password;
 }
 
 - (NSString *)password {
-    return @"";
+    // Fetch the password
+    NSString *result = self.internalPasswordFetch;
+    if (!result) result = @"";
+    return result;
 }
 
-- (void)setPassword:(NSString *)password {
-    // use keychain
+- (void)setPassword:(NSString *)aPassword {
+    // Store a password
+    NSError *storePasswordError = nil;
+    BOOL passwordSuccessfullyCreated = [SGKeychain setPassword:aPassword username:self.username serviceName:self.serverBaseURL updateExisting:YES error:&storePasswordError];
+    
+    if (!passwordSuccessfullyCreated == YES) {
+        NSLog(@"Password failed to be created with error: %@", storePasswordError);
+    }
+}
+
+- (void)removePassword {
+    NSError *deletePasswordError = nil;
+    BOOL passwordSuccessfullyDeleted = [SGKeychain deletePasswordForUsername:self.username serviceName:self.serverBaseURL error:&deletePasswordError];
+    if (!passwordSuccessfullyDeleted) {
+        NSLog(@"%s failed to remove password %@",__FUNCTION__,deletePasswordError);
+    }
 }
 
 - (void)handleViewRequestResponse:(Response *)aResponse requestDate:(NSDate *)requestDate requestCoordinateRegion:(MKCoordinateRegion)aCoordinateRegion {

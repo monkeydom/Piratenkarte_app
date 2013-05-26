@@ -26,6 +26,8 @@
 		F20F22591751FDE800AF426F /* PIKNetworkErrorIndicationView.m in Sources */ = {isa = PBXBuildFile; fileRef = F20F22581751FDE800AF426F /* PIKNetworkErrorIndicationView.m */; };
 		F20F22601752117900AF426F /* UIActionSheet+BlockExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F20F225D1752117900AF426F /* UIActionSheet+BlockExtensions.m */; };
 		F20F22611752117900AF426F /* UIAlertView+BlockExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F20F225F1752117900AF426F /* UIAlertView+BlockExtensions.m */; };
+		F20F22641752147B00AF426F /* SGKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = F20F22631752147B00AF426F /* SGKeychain.m */; };
+		F20F22661752162300AF426F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F20F22651752162300AF426F /* Security.framework */; };
 		F221F1EE173FCDB200A63B56 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F221F1ED173FCDB200A63B56 /* UIKit.framework */; };
 		F221F1F0173FCDB200A63B56 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F221F1EF173FCDB200A63B56 /* Foundation.framework */; };
 		F221F1F2173FCDB200A63B56 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F221F1F1173FCDB200A63B56 /* CoreGraphics.framework */; };
@@ -140,6 +142,9 @@
 		F20F225D1752117900AF426F /* UIActionSheet+BlockExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+BlockExtensions.m"; sourceTree = "<group>"; };
 		F20F225E1752117900AF426F /* UIAlertView+BlockExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+BlockExtensions.h"; sourceTree = "<group>"; };
 		F20F225F1752117900AF426F /* UIAlertView+BlockExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+BlockExtensions.m"; sourceTree = "<group>"; };
+		F20F22621752147B00AF426F /* SGKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SGKeychain.h; path = Piratenkarte/Model/SGKeychain.h; sourceTree = SOURCE_ROOT; };
+		F20F22631752147B00AF426F /* SGKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SGKeychain.m; path = Piratenkarte/Model/SGKeychain.m; sourceTree = SOURCE_ROOT; };
+		F20F22651752162300AF426F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		F221F1EA173FCDB200A63B56 /* Piratenkarte.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Piratenkarte.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F221F1ED173FCDB200A63B56 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F221F1EF173FCDB200A63B56 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -286,6 +291,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F20F22661752162300AF426F /* Security.framework in Frameworks */,
 				F2ACBA1417495C780015E899 /* CoreLocation.framework in Frameworks */,
 				F2ACBA0B174587A00015E899 /* SystemConfiguration.framework in Frameworks */,
 				F2ACBA09174587890015E899 /* MobileCoreServices.framework in Frameworks */,
@@ -331,14 +337,17 @@
 			name = Interface;
 			sourceTree = "<group>";
 		};
-		F20F225B1752117900AF426F /* Additions */ = {
+		F20F225B1752117900AF426F /* AdditionsAnd3rdParty */ = {
 			isa = PBXGroup;
 			children = (
+				F20F22621752147B00AF426F /* SGKeychain.h */,
+				F20F22631752147B00AF426F /* SGKeychain.m */,
 				F20F225C1752117900AF426F /* UIActionSheet+BlockExtensions.h */,
 				F20F225D1752117900AF426F /* UIActionSheet+BlockExtensions.m */,
 				F20F225E1752117900AF426F /* UIAlertView+BlockExtensions.h */,
 				F20F225F1752117900AF426F /* UIAlertView+BlockExtensions.m */,
 			);
+			name = AdditionsAnd3rdParty;
 			path = Additions;
 			sourceTree = "<group>";
 		};
@@ -362,6 +371,7 @@
 		F221F1EC173FCDB200A63B56 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F20F22651752162300AF426F /* Security.framework */,
 				F2ACBA1317495C780015E899 /* CoreLocation.framework */,
 				F2ACBA0A174587A00015E899 /* SystemConfiguration.framework */,
 				F2ACBA08174587890015E899 /* MobileCoreServices.framework */,
@@ -383,7 +393,7 @@
 				F2ACBA12174950F60015E899 /* Model */,
 				F2B037D917515362001D8736 /* ViewController */,
 				F2B037D017513A85001D8736 /* Views */,
-				F20F225B1752117900AF426F /* Additions */,
+				F20F225B1752117900AF426F /* AdditionsAnd3rdParty */,
 				F221F215173FDAD700A63B56 /* Images */,
 				F221F1F4173FCDB200A63B56 /* Supporting Files */,
 				F20F225A1752114900AF426F /* Interface */,
@@ -769,6 +779,7 @@
 				F20F22591751FDE800AF426F /* PIKNetworkErrorIndicationView.m in Sources */,
 				F20F22601752117900AF426F /* UIActionSheet+BlockExtensions.m in Sources */,
 				F20F22611752117900AF426F /* UIAlertView+BlockExtensions.m in Sources */,
+				F20F22641752147B00AF426F /* SGKeychain.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
