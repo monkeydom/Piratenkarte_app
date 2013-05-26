@@ -90,6 +90,8 @@
             layer.shadowOpacity = 1.0;
             layer.shadowRadius = 5.0;
             layer.shadowOffset = CGSizeZero;
+        } else {
+            result.layer.shadowOpacity = 0.0;
         }
         result.selected = YES;
     }
