@@ -272,6 +272,50 @@ typedef void(^PIKNetworkSuccessBlock)();
     return success;
 }
 
+- (void)updateComment:(NSString *)aComment onPlakat:(PIKPlakat *)aPlakat completion:(PIKNetworkRequestCompletionHandler)aCompletion {
+    [PIKPlakatServerManager increaseNetworkActivityCount];
+    PIKNetworkSuccessBlock success = [self successBlockWithCompletion:aCompletion];
+    PIKNetworkFailBlock failure = [self failBlockWithCompletion:aCompletion];
+    
+    Request_Builder *requestBuilder = [self requestBuilderBase];
+    requestBuilder.viewRequest = [self viewRequestWithCoordinateRegion:[self narrowRegionAroundCoordinate:aPlakat.coordinate]];
+
+    ChangeRequest_Builder *changeBuilder = [ChangeRequest builder];
+    changeBuilder.id = aPlakat.plakatID;
+    changeBuilder.comment = aComment;
+    [requestBuilder addChange:[changeBuilder build]];
+    
+    Request *request = [requestBuilder build];
+    NSLog(@"%s %@",__FUNCTION__,request);
+    NSData *postData = request.data;
+    NSMutableURLRequest *urlRequest = [self baseURLRequestWithPostData:postData];
+    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
+    [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        @try {
+            Response *response = [Response parseFromData:responseObject];
+            NSLog(@"%s parsed response = %@",__FUNCTION__,response);
+            if (response.changedCount == 1) {
+                NSLog(@"%s successfully changed",__FUNCTION__);
+                [self.locationItemStorage removeLocationItem:aPlakat];
+                success();
+            } else {
+                NSLog(@"%s failed to change a plakat",__FUNCTION__);
+                failure(nil);
+            }
+        }
+        @catch (NSException *exception) {
+            NSLog(@"%s %@",__FUNCTION__,exception);
+            failure(nil);
+        }
+        @finally {
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(error);
+    }];
+    [requestOperation start];
+    
+}
+
 - (void)removePlakatFromServer:(PIKPlakat *)aPlakat completion:(PIKNetworkRequestCompletionHandler)aCompletion {
     [PIKPlakatServerManager increaseNetworkActivityCount];
     PIKNetworkSuccessBlock success = [self successBlockWithCompletion:aCompletion];

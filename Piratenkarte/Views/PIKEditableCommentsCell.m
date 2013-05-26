@@ -18,6 +18,8 @@
         self.textView = [[UITextView alloc] initWithFrame:self.detailTextLabel.frame];
         [self.contentView addSubview:self.textView];
         self.detailTextLabel.alpha = 0.0;
+        self.textView.backgroundColor = [UIColor clearColor];
+        self.textView.opaque = NO;
     }
     return self;
 }

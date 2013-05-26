@@ -89,13 +89,32 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+
 - (IBAction)dismissAction:(id)aSender {
-    [self dismissViewControllerAnimated:YES completion:NULL];
+    PIKEditableCommentsCell *cell = (PIKEditableCommentsCell *)[self.o_editingTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    if ([cell.textView isFirstResponder]) {
+        [cell.textView resignFirstResponder];
+        cell.textView.text = self.plakat.comment;
+    } else {
+        [self dismissViewControllerAnimated:YES completion:NULL];
+    }
 }
 
 - (IBAction)saveAction:(id)aSender {
-    // TODO: save something
-    [self dismissAction:aSender];
+    PIKEditableCommentsCell *cell = (PIKEditableCommentsCell *)[self.o_editingTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    if ([cell.textView isFirstResponder]) {
+        NSString *comment = cell.textView.text;
+        [[[PIKPlakatServerManager plakatServerManager] selectedPlakatServer] updateComment:comment onPlakat:self.plakat completion:^(BOOL success, NSError *error) {
+            if (success) {
+                [cell.textView resignFirstResponder];
+                self.plakat.comment = comment;
+                cell.textView.text = comment;
+            }
+        }];
+    } else {
+        [self dismissAction:aSender];
+    }
 }
 
 - (MKMapRect)detailMapRectForPlakat:(PIKPlakat *)aPlakat {
