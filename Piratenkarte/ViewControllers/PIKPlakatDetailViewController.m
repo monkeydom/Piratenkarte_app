@@ -38,7 +38,7 @@
     
     [self.o_deleteButton setBackgroundImage:normal forState:UIControlStateNormal];
     [self.o_deleteButton setBackgroundImage:pressed forState:UIControlStateHighlighted];
-    
+        
     [self adjustToPlakat];
 }
 
@@ -148,7 +148,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) return 2;
+    if (section == 0) return 1;
     return 0;
 }
 
@@ -164,15 +164,12 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"label"];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:@"label"];
+        cell.detailTextLabel.numberOfLines = 0;
     }
     switch (indexPath.row) {
         case 0:
             cell.textLabel.text = @"Kommentar";
             cell.detailTextLabel.text = self.plakat.comment;
-            break;
-        case 2:
-            cell.textLabel.text = @"Bild URL";
-            cell.detailTextLabel.text = self.plakat.imageURLString;
             break;
     }
     return cell;
