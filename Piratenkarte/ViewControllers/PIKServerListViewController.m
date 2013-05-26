@@ -86,7 +86,16 @@
 }
 
 - (NSString *)detailForPlakatServer:(PIKPlakatServer *)aPlakatServer {
-    NSString *result = [@[aPlakatServer.serverBaseURL, aPlakatServer.serverInfoText] componentsJoinedByString:@"\n"];
+    NSString *firstLine = aPlakatServer.serverBaseURL;
+    if (aPlakatServer.username.length > 0) {
+        firstLine = [NSString stringWithFormat:@"%@ Login:%@ %@",firstLine,aPlakatServer.username, [aPlakatServer hasValidPassword] ? @"(Passwort validiert)" : @"(Passwort fehlt)"];
+    }
+    NSMutableString *serverInfoText = [aPlakatServer.serverInfoText mutableCopy];
+    [serverInfoText replaceOccurrencesOfString:@"<br/>" withString:@"\n" options:0 range:NSMakeRange(0,serverInfoText.length)];
+    [serverInfoText replaceOccurrencesOfString:@"<br />" withString:@"\n" options:0 range:NSMakeRange(0,serverInfoText.length)];
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"<[^>]*>" options:0 error:nil];
+    [regex replaceMatchesInString:serverInfoText options:0 range:NSMakeRange(0,serverInfoText.length) withTemplate:@""];
+    NSString *result = [@[firstLine, serverInfoText] componentsJoinedByString:@"\n"];
     return result;
 }
 
@@ -99,6 +108,7 @@
     }
     cell.textLabel.text = server.serverName;
     cell.detailTextLabel.text = [self detailForPlakatServer:server];
+
     
     if ([server isEqual:self.selectedServer]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -107,6 +117,25 @@
     }
     
     return cell;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleDelete;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        PIKPlakatServer *server = [self plakatServerAtIndexPath:indexPath];
+        [server removePassword];
+        [tableView cellForRowAtIndexPath:indexPath].detailTextLabel.text = [self detailForPlakatServer:[self plakatServerAtIndexPath:indexPath]];
+    }
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    if (section == 1) {
+        return @"Wischen um das Passwort zu vergessen.";
+    }
+    return nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -134,6 +163,18 @@
     CGFloat height = realSize.height;
     height += 32;
     return height;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    PIKPlakatServer *server = [self plakatServerAtIndexPath:indexPath];
+    if ([server hasValidPassword]) {
+        return YES;
+    }
+    return NO;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return @"Passwort vergessen";
 }
 
 - (void)cancelAction {

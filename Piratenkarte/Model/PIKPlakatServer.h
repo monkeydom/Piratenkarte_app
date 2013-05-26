@@ -11,6 +11,8 @@
 
 extern NSString * const PIKPlakatServerDidReceiveDataNotification;
 
+typedef void(^PIKNetworkRequestCompletionHandler)(BOOL success, NSError *error);
+
 #import "MKDMutableLocationItemStorage.h"
 #import "PIKPlakat.h"
 #import "AFHTTPRequestOperation.h"
@@ -24,10 +26,16 @@ extern NSString * const PIKPlakatServerDidReceiveDataNotification;
 @property (nonatomic, strong) NSString *serverBaseURL;
 @property (nonatomic, strong) NSURL *serverAPIURL;
 @property (nonatomic, strong) MKDMutableLocationItemStorage *locationItemStorage;
+@property (nonatomic, readonly) BOOL hasValidPassword;
+- (void)removePassword;
 
 + (NSArray *)parseFromJSONObject:(NSDictionary *)aJSONObject;
 - (NSDictionary *)JSONDescription;
 + (instancetype)serverWithJSONRepresentation:(NSDictionary *)aServerJSONDictionary;
+
+@property (nonatomic, readonly, strong) NSString *username;
+
+- (void)validateUsername:(NSString *)aUsername password:(NSString *)aPassword completion:(PIKNetworkRequestCompletionHandler)aCompletion;
 
 - (void)updateWithServer:(PIKPlakatServer *)aServer;
 

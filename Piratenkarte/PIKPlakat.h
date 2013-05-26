@@ -11,6 +11,17 @@
 #import <CoreLocation/CoreLocation.h>
 #import "Api.pb.h"
 
+
+NSString * const PIKPlakatTypeDefault   ;
+NSString * const PIKPlakatTypeA0        ;
+NSString * const PIKPlakatTypeStolen    ;
+NSString * const PIKPlakatTypeNicePlace;
+NSString * const PIKPlakatTypeOK      ;
+NSString * const PIKPlakatTypeWrecked;
+NSString * const PIKPlakatTypeWall   ;   
+NSString * const PIKPlakatTypeWallOK;
+
+
 @interface PIKPlakat : NSObject <MKDLocationItem, MKAnnotation>
 @property (nonatomic) uint32_t plakatID;
 @property (nonatomic, readonly, strong) NSString *locationItemIdentifier;

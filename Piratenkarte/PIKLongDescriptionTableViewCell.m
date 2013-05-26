@@ -37,6 +37,11 @@
     CGRect detailRect = self.detailTextLabel.frame;
     detailRect.origin.y = CGRectGetMaxY(labelRect);
     detailRect.size.height = CGRectGetMaxY(bounds) - CGRectGetMaxY(labelRect);
+    
+    if (self.editingStyle == UITableViewCellEditingStyleDelete) {
+        detailRect.size.width = CGRectGetWidth(self.contentView.superview.frame) - 50;
+    }
+    
     self.detailTextLabel.frame = detailRect;
     self.detailTextLabel.numberOfLines = 0;
     [self.detailTextLabel sizeToFit];

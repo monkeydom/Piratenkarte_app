@@ -15,6 +15,8 @@
 #import "PIKPlakat.h"
 #import "PIKPlakatServerButtonView.h"
 #import "PIKServerListViewController.h"
+#import "PIKNetworkErrorIndicationView.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface PIKPlakat (AnnotationAdditions)
 @end
@@ -42,6 +44,7 @@
     NSMutableArray *resultArray = [NSMutableArray array];
     if (self.comment.length > 0) [resultArray addObject:self.comment];
     if (self.imageURLString.length > 0) [resultArray addObject:self.imageURLString];
+    [resultArray addObject:[@"#" stringByAppendingString:self.locationItemIdentifier]];
     [resultArray addObject:[NSString stringWithFormat:@"(fetched %@)",[formatter stringFromDate:self.lastServerFetchDate]]];
     return [resultArray componentsJoinedByString:@" – "];
 }
@@ -93,6 +96,19 @@
     }
 }
 
+- (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view {
+    CALayer *layer = view.layer;
+    layer.shadowOpacity = 0.0;
+}
+
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
+    CALayer *layer = view.layer;
+    layer.shadowColor = [[UIColor colorWithRed:0.170 green:0.639 blue:1.000 alpha:1.000] CGColor];
+    layer.shadowOpacity = 1.0;
+    layer.shadowRadius = 3.0;
+    layer.shadowOffset = CGSizeZero;
+}
+
 #define CURRENTPOSITIONBASEKEY @"CurrentMapRect"
 
 - (void)restoreLocationFromDefaults {
@@ -137,6 +153,10 @@
     [self.view addSubview:self.plakatServerButtonView];
     [self.plakatServerButtonView setPlakatServer:[[PIKPlakatServerManager plakatServerManager] selectedPlakatServer]];
     [self.plakatServerButtonView addTarget:self action:@selector(changePlakatServer:) forControlEvents:UIControlEventTouchUpInside];
+    
+    PIKNetworkErrorIndicationView *errorView  =[PIKNetworkErrorIndicationView networkErrorIndicationView];
+    errorView.layer.position = CGPointMake(CGRectGetMaxX(self.view.bounds) - 2,CGRectGetMinY(self.view.bounds));
+    [self.view addSubview:errorView];
 }
 
 - (void)changePlakatServer:(id)aSender {
@@ -150,8 +170,12 @@
     [self queryItemStorage];
 }
 
-- (void)selectedPlakatServerDidChange:(NSNotification *)aNotification {
+- (void)updatePlakatServerButtonView {
     [self.plakatServerButtonView setPlakatServer:[[PIKPlakatServerManager plakatServerManager] selectedPlakatServer]];
+}
+
+- (void)selectedPlakatServerDidChange:(NSNotification *)aNotification {
+    [self updatePlakatServerButtonView];
     [self queryItemStorage];
 }
 
@@ -189,6 +213,48 @@
 
 - (IBAction)toggleShowUserLocation {
     self.o_mapView.userTrackingMode = self.o_mapView.userTrackingMode == MKUserTrackingModeNone ? MKUserTrackingModeFollow : MKUserTrackingModeNone;
+}
+
+- (void)ensureValidCredentialsWithContinuation:(dispatch_block_t)aContinuation {
+    PIKPlakatServer *selectedServer = [PIKPlakatServerManager plakatServerManager].selectedPlakatServer;
+    if (selectedServer.hasValidPassword) {
+        aContinuation();
+    } else {
+        UIAlertView *passwordAlert = [[UIAlertView alloc] initWithTitle:@"Server Login / Passwort" message:@"" completionBlock:^(NSUInteger buttonIndex, UIAlertView *alertView) {
+            NSLog(@"%s %@ %@",__FUNCTION__,[alertView textFieldAtIndex:0], [alertView textFieldAtIndex:1]);
+            
+            if (buttonIndex != 0) {
+                NSString *username = [alertView textFieldAtIndex:0].text;
+                NSString *password = [alertView textFieldAtIndex:1].text;
+                [selectedServer validateUsername:username password:password completion:^(BOOL success, NSError *error) {
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        [self updatePlakatServerButtonView];
+                        if (!success) {
+                            NSString *title = @"Fehlgeschlagen";
+                            NSString *message = [NSString stringWithFormat:@"Das Passwort für den Benutzer '%@' konnte leider nicht bestätigt werden.", username];
+                            UIAlertView *confirmAlertView = [[UIAlertView alloc] initWithTitle:title message:message completionBlock:^(NSUInteger buttonIndex, UIAlertView *alertView) {
+                            } cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                            [confirmAlertView show];
+                        } else {
+                            if (aContinuation) aContinuation();
+                        }
+                    }];
+                }];
+
+            }
+            
+        } cancelButtonTitle:@"Abbrechen" otherButtonTitles:@"OK",nil];
+        passwordAlert.alertViewStyle = UIAlertViewStyleLoginAndPasswordInput;
+        [[passwordAlert textFieldAtIndex:0] setText:selectedServer.username];
+        [passwordAlert show];
+        
+    }
+}
+
+- (IBAction)addAction {
+    [self ensureValidCredentialsWithContinuation:^{
+        // do the actual adding UI here
+    }];
 }
 
 - (IBAction)queryServer {

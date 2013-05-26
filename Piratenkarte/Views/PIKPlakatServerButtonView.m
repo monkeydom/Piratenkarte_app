@@ -22,10 +22,14 @@
 - (UILabel *)labelWithFontSize:(CGFloat)aFontSize {
     UILabel *result = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, ceilf(aFontSize *1.2))];
 	result.font = [UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:aFontSize];
-	result.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.8];
+	result.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.6];
 	result.shadowOffset = CGSizeMake(0,1);
     result.textColor = [UIColor whiteColor];
     result.backgroundColor = [UIColor clearColor];
+    result.lineBreakMode = UILineBreakModeMiddleTruncation;
+    result.minimumFontSize = MAX((aFontSize - 6), 10.0);
+    result.adjustsFontSizeToFitWidth = YES;
+    result.adjustsLetterSpacingToFitWidth = YES;
     result.opaque = NO;
     return result;
 }
@@ -43,7 +47,7 @@
         smallLabel.layer.anchorPoint = CGPointMake(0,0);
         bigLabel.layer.anchorPoint = CGPointMake(0,0);
         self.layer.anchorPoint = CGPointMake(0,0.0); // lets anchor ourselves to the top left for fun
-        self.bounds = CGRectMake(0, 0, 200, CGRectGetHeight(bigLabel.frame) + CGRectGetHeight(smallLabel.frame) + LABELINSET);
+        self.bounds = CGRectMake(0, 0, 220, CGRectGetHeight(bigLabel.frame) + CGRectGetHeight(smallLabel.frame) + LABELINSET);
         bigLabel.layer.position = CGPointMake(LABELINSET,2.0);
         smallLabel.layer.position = CGPointMake(LABELINSET,CGRectGetMaxY(bigLabel.frame));
         [self addSubview:smallLabel];
@@ -67,7 +71,26 @@
 
 - (void)setPlakatServer:(PIKPlakatServer *)aPlakatServer {
     self.serverMainLabel.text = aPlakatServer.serverName;
-    self.serverSubtitleLabel.text = aPlakatServer.serverBaseURL;
+    NSString *sublabel = aPlakatServer.serverBaseURL;
+    if ([sublabel hasPrefix:@"https://"]) {
+        sublabel = [sublabel substringFromIndex:@"https://".length];
+    }
+    if ([sublabel hasPrefix:@"http://"]) {
+        sublabel = [sublabel substringFromIndex:@"http://".length];
+    }
+    
+    if ([sublabel hasSuffix:@"/"]) {
+        sublabel = [sublabel substringToIndex:sublabel.length-1];
+    }
+    
+    NSString *username = aPlakatServer.username;
+    if (username.length > 0) {
+        sublabel = [NSString stringWithFormat:@"%@@%@",username,sublabel];
+    }
+    if (![aPlakatServer hasValidPassword]) {
+        sublabel = [@"! " stringByAppendingString:sublabel];
+    }
+    self.serverSubtitleLabel.text = sublabel;
 }
 
 @end

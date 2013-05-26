@@ -7,6 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F20F22381751934800AF426F /* PIKPin_many.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F22361751934800AF426F /* PIKPin_many.png */; };
+		F20F22391751934800AF426F /* PIKPin_many@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F22371751934800AF426F /* PIKPin_many@2x.png */; };
+		F20F22491751FDC100AF426F /* alert-big.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F223B1751FDC100AF426F /* alert-big.png */; };
+		F20F224A1751FDC100AF426F /* alert-big@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F223C1751FDC100AF426F /* alert-big@2x.png */; };
+		F20F224B1751FDC100AF426F /* ListCurrentLoc.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F223D1751FDC100AF426F /* ListCurrentLoc.png */; };
+		F20F224C1751FDC100AF426F /* ListCurrentLoc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F223E1751FDC100AF426F /* ListCurrentLoc@2x.png */; };
+		F20F224D1751FDC100AF426F /* SilverButton.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F223F1751FDC100AF426F /* SilverButton.png */; };
+		F20F224E1751FDC100AF426F /* SilverButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F22401751FDC100AF426F /* SilverButton@2x.png */; };
+		F20F224F1751FDC100AF426F /* SilverButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F22411751FDC100AF426F /* SilverButtonPressed.png */; };
+		F20F22501751FDC100AF426F /* SilverButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F22421751FDC100AF426F /* SilverButtonPressed@2x.png */; };
+		F20F22511751FDC100AF426F /* TrackingHeading.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F22431751FDC100AF426F /* TrackingHeading.png */; };
+		F20F22521751FDC100AF426F /* TrackingHeading@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F22441751FDC100AF426F /* TrackingHeading@2x.png */; };
+		F20F22531751FDC100AF426F /* TrackingLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F22451751FDC100AF426F /* TrackingLocation.png */; };
+		F20F22541751FDC100AF426F /* TrackingLocation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F22461751FDC100AF426F /* TrackingLocation@2x.png */; };
+		F20F22551751FDC100AF426F /* TrackingOff.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F22471751FDC100AF426F /* TrackingOff.png */; };
+		F20F22561751FDC100AF426F /* TrackingOff@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F22481751FDC100AF426F /* TrackingOff@2x.png */; };
+		F20F22591751FDE800AF426F /* PIKNetworkErrorIndicationView.m in Sources */ = {isa = PBXBuildFile; fileRef = F20F22581751FDE800AF426F /* PIKNetworkErrorIndicationView.m */; };
+		F20F22601752117900AF426F /* UIActionSheet+BlockExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F20F225D1752117900AF426F /* UIActionSheet+BlockExtensions.m */; };
+		F20F22611752117900AF426F /* UIAlertView+BlockExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F20F225F1752117900AF426F /* UIAlertView+BlockExtensions.m */; };
+		F20F22641752147B00AF426F /* SGKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = F20F22631752147B00AF426F /* SGKeychain.m */; };
+		F20F22661752162300AF426F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F20F22651752162300AF426F /* Security.framework */; };
 		F221F1EE173FCDB200A63B56 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F221F1ED173FCDB200A63B56 /* UIKit.framework */; };
 		F221F1F0173FCDB200A63B56 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F221F1EF173FCDB200A63B56 /* Foundation.framework */; };
 		F221F1F2173FCDB200A63B56 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F221F1F1173FCDB200A63B56 /* CoreGraphics.framework */; };
@@ -99,6 +120,31 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F20F22361751934800AF426F /* PIKPin_many.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PIKPin_many.png; sourceTree = "<group>"; };
+		F20F22371751934800AF426F /* PIKPin_many@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PIKPin_many@2x.png"; sourceTree = "<group>"; };
+		F20F223B1751FDC100AF426F /* alert-big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-big.png"; sourceTree = "<group>"; };
+		F20F223C1751FDC100AF426F /* alert-big@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-big@2x.png"; sourceTree = "<group>"; };
+		F20F223D1751FDC100AF426F /* ListCurrentLoc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ListCurrentLoc.png; sourceTree = "<group>"; };
+		F20F223E1751FDC100AF426F /* ListCurrentLoc@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ListCurrentLoc@2x.png"; sourceTree = "<group>"; };
+		F20F223F1751FDC100AF426F /* SilverButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SilverButton.png; sourceTree = "<group>"; };
+		F20F22401751FDC100AF426F /* SilverButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SilverButton@2x.png"; sourceTree = "<group>"; };
+		F20F22411751FDC100AF426F /* SilverButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SilverButtonPressed.png; sourceTree = "<group>"; };
+		F20F22421751FDC100AF426F /* SilverButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SilverButtonPressed@2x.png"; sourceTree = "<group>"; };
+		F20F22431751FDC100AF426F /* TrackingHeading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TrackingHeading.png; sourceTree = "<group>"; };
+		F20F22441751FDC100AF426F /* TrackingHeading@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TrackingHeading@2x.png"; sourceTree = "<group>"; };
+		F20F22451751FDC100AF426F /* TrackingLocation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TrackingLocation.png; sourceTree = "<group>"; };
+		F20F22461751FDC100AF426F /* TrackingLocation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TrackingLocation@2x.png"; sourceTree = "<group>"; };
+		F20F22471751FDC100AF426F /* TrackingOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TrackingOff.png; sourceTree = "<group>"; };
+		F20F22481751FDC100AF426F /* TrackingOff@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TrackingOff@2x.png"; sourceTree = "<group>"; };
+		F20F22571751FDE800AF426F /* PIKNetworkErrorIndicationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PIKNetworkErrorIndicationView.h; sourceTree = "<group>"; };
+		F20F22581751FDE800AF426F /* PIKNetworkErrorIndicationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PIKNetworkErrorIndicationView.m; sourceTree = "<group>"; };
+		F20F225C1752117900AF426F /* UIActionSheet+BlockExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+BlockExtensions.h"; sourceTree = "<group>"; };
+		F20F225D1752117900AF426F /* UIActionSheet+BlockExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+BlockExtensions.m"; sourceTree = "<group>"; };
+		F20F225E1752117900AF426F /* UIAlertView+BlockExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+BlockExtensions.h"; sourceTree = "<group>"; };
+		F20F225F1752117900AF426F /* UIAlertView+BlockExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+BlockExtensions.m"; sourceTree = "<group>"; };
+		F20F22621752147B00AF426F /* SGKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SGKeychain.h; path = Piratenkarte/Model/SGKeychain.h; sourceTree = SOURCE_ROOT; };
+		F20F22631752147B00AF426F /* SGKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SGKeychain.m; path = Piratenkarte/Model/SGKeychain.m; sourceTree = SOURCE_ROOT; };
+		F20F22651752162300AF426F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		F221F1EA173FCDB200A63B56 /* Piratenkarte.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Piratenkarte.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F221F1ED173FCDB200A63B56 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F221F1EF173FCDB200A63B56 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -245,6 +291,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F20F22661752162300AF426F /* Security.framework in Frameworks */,
 				F2ACBA1417495C780015E899 /* CoreLocation.framework in Frameworks */,
 				F2ACBA0B174587A00015E899 /* SystemConfiguration.framework in Frameworks */,
 				F2ACBA09174587890015E899 /* MobileCoreServices.framework in Frameworks */,
@@ -258,6 +305,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F20F223A1751FDC100AF426F /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				F20F223B1751FDC100AF426F /* alert-big.png */,
+				F20F223C1751FDC100AF426F /* alert-big@2x.png */,
+				F20F223D1751FDC100AF426F /* ListCurrentLoc.png */,
+				F20F223E1751FDC100AF426F /* ListCurrentLoc@2x.png */,
+				F20F223F1751FDC100AF426F /* SilverButton.png */,
+				F20F22401751FDC100AF426F /* SilverButton@2x.png */,
+				F20F22411751FDC100AF426F /* SilverButtonPressed.png */,
+				F20F22421751FDC100AF426F /* SilverButtonPressed@2x.png */,
+				F20F22431751FDC100AF426F /* TrackingHeading.png */,
+				F20F22441751FDC100AF426F /* TrackingHeading@2x.png */,
+				F20F22451751FDC100AF426F /* TrackingLocation.png */,
+				F20F22461751FDC100AF426F /* TrackingLocation@2x.png */,
+				F20F22471751FDC100AF426F /* TrackingOff.png */,
+				F20F22481751FDC100AF426F /* TrackingOff@2x.png */,
+			);
+			name = Buttons;
+			path = Images/Buttons;
+			sourceTree = "<group>";
+		};
+		F20F225A1752114900AF426F /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				F2B037D31751493E001D8736 /* PIKServerListViewController.xib */,
+				F221F208173FCDB200A63B56 /* PIKViewController_iPhone.xib */,
+				F221F20B173FCDB200A63B56 /* PIKViewController_iPad.xib */,
+			);
+			name = Interface;
+			sourceTree = "<group>";
+		};
+		F20F225B1752117900AF426F /* AdditionsAnd3rdParty */ = {
+			isa = PBXGroup;
+			children = (
+				F20F22621752147B00AF426F /* SGKeychain.h */,
+				F20F22631752147B00AF426F /* SGKeychain.m */,
+				F20F225C1752117900AF426F /* UIActionSheet+BlockExtensions.h */,
+				F20F225D1752117900AF426F /* UIActionSheet+BlockExtensions.m */,
+				F20F225E1752117900AF426F /* UIAlertView+BlockExtensions.h */,
+				F20F225F1752117900AF426F /* UIAlertView+BlockExtensions.m */,
+			);
+			name = AdditionsAnd3rdParty;
+			path = Additions;
+			sourceTree = "<group>";
+		};
 		F221F1E1173FCDB200A63B56 = {
 			isa = PBXGroup;
 			children = (
@@ -278,6 +371,7 @@
 		F221F1EC173FCDB200A63B56 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F20F22651752162300AF426F /* Security.framework */,
 				F2ACBA1317495C780015E899 /* CoreLocation.framework */,
 				F2ACBA0A174587A00015E899 /* SystemConfiguration.framework */,
 				F2ACBA08174587890015E899 /* MobileCoreServices.framework */,
@@ -299,11 +393,10 @@
 				F2ACBA12174950F60015E899 /* Model */,
 				F2B037D917515362001D8736 /* ViewController */,
 				F2B037D017513A85001D8736 /* Views */,
-				F221F208173FCDB200A63B56 /* PIKViewController_iPhone.xib */,
-				F221F20B173FCDB200A63B56 /* PIKViewController_iPad.xib */,
+				F20F225B1752117900AF426F /* AdditionsAnd3rdParty */,
 				F221F215173FDAD700A63B56 /* Images */,
 				F221F1F4173FCDB200A63B56 /* Supporting Files */,
-				F2B037D31751493E001D8736 /* PIKServerListViewController.xib */,
+				F20F225A1752114900AF426F /* Interface */,
 			);
 			path = Piratenkarte;
 			sourceTree = "<group>";
@@ -325,6 +418,7 @@
 		F221F215173FDAD700A63B56 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				F20F223A1751FDC100AF426F /* Buttons */,
 				F2ACBA1517496F5F0015E899 /* AnnotationGraphics */,
 				F221F216173FDAE900A63B56 /* AppIcon */,
 			);
@@ -461,6 +555,8 @@
 		F2ACBA1517496F5F0015E899 /* AnnotationGraphics */ = {
 			isa = PBXGroup;
 			children = (
+				F20F22361751934800AF426F /* PIKPin_many.png */,
+				F20F22371751934800AF426F /* PIKPin_many@2x.png */,
 				F2B037B9174FA83D001D8736 /* PIKPin_plakat_dieb.png */,
 				F2B037BA174FA83D001D8736 /* PIKPin_plakat_dieb@2x.png */,
 				F2B037BB174FA83D001D8736 /* PIKPin_plakat_wrecked.png */,
@@ -499,6 +595,8 @@
 		F2B037D017513A85001D8736 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F20F22571751FDE800AF426F /* PIKNetworkErrorIndicationView.h */,
+				F20F22581751FDE800AF426F /* PIKNetworkErrorIndicationView.m */,
 				F2B037D6175152F8001D8736 /* PIKLongDescriptionTableViewCell.h */,
 				F2B037D7175152F8001D8736 /* PIKLongDescriptionTableViewCell.m */,
 				F2B037CD17513A7E001D8736 /* PIKPlakatServerButtonView.h */,
@@ -611,6 +709,22 @@
 				F2B037CB174FEE4E001D8736 /* PiratenkarteIcon72.png in Resources */,
 				F2B037CC174FEE4E001D8736 /* PiratenkarteIcon72@2x.png in Resources */,
 				F2B037D51751493E001D8736 /* PIKServerListViewController.xib in Resources */,
+				F20F22381751934800AF426F /* PIKPin_many.png in Resources */,
+				F20F22391751934800AF426F /* PIKPin_many@2x.png in Resources */,
+				F20F22491751FDC100AF426F /* alert-big.png in Resources */,
+				F20F224A1751FDC100AF426F /* alert-big@2x.png in Resources */,
+				F20F224B1751FDC100AF426F /* ListCurrentLoc.png in Resources */,
+				F20F224C1751FDC100AF426F /* ListCurrentLoc@2x.png in Resources */,
+				F20F224D1751FDC100AF426F /* SilverButton.png in Resources */,
+				F20F224E1751FDC100AF426F /* SilverButton@2x.png in Resources */,
+				F20F224F1751FDC100AF426F /* SilverButtonPressed.png in Resources */,
+				F20F22501751FDC100AF426F /* SilverButtonPressed@2x.png in Resources */,
+				F20F22511751FDC100AF426F /* TrackingHeading.png in Resources */,
+				F20F22521751FDC100AF426F /* TrackingHeading@2x.png in Resources */,
+				F20F22531751FDC100AF426F /* TrackingLocation.png in Resources */,
+				F20F22541751FDC100AF426F /* TrackingLocation@2x.png in Resources */,
+				F20F22551751FDC100AF426F /* TrackingOff.png in Resources */,
+				F20F22561751FDC100AF426F /* TrackingOff@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -662,6 +776,10 @@
 				F2B037CF17513A7F001D8736 /* PIKPlakatServerButtonView.m in Sources */,
 				F2B037D41751493E001D8736 /* PIKServerListViewController.m in Sources */,
 				F2B037D8175152F8001D8736 /* PIKLongDescriptionTableViewCell.m in Sources */,
+				F20F22591751FDE800AF426F /* PIKNetworkErrorIndicationView.m in Sources */,
+				F20F22601752117900AF426F /* UIActionSheet+BlockExtensions.m in Sources */,
+				F20F22611752117900AF426F /* UIAlertView+BlockExtensions.m in Sources */,
+				F20F22641752147B00AF426F /* SGKeychain.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

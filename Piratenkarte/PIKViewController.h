@@ -16,5 +16,6 @@
 
 - (IBAction)toggleShowUserLocation;
 - (IBAction)queryItemStorage;
+- (IBAction)addAction;
 
 @end
