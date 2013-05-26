@@ -78,7 +78,7 @@
 							<object class="IBUIButton" id="792420863">
 								<reference key="NSNextResponder" ref="115970762"/>
 								<int key="NSvFlags">294</int>
-								<string key="NSFrame">{{11, 12}, {135, 44}}</string>
+								<string key="NSFrame">{{10, 12}, {135, 44}}</string>
 								<reference key="NSSuperview" ref="115970762"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="887218082"/>
@@ -352,15 +352,6 @@
 						<int key="IBEventType">7</int>
 					</object>
 					<int key="connectionID">33</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">deletePlakatAction:</string>
-						<reference key="source" ref="887218082"/>
-						<reference key="destination" ref="372490531"/>
-						<int key="IBEventType">7</int>
-					</object>
-					<int key="connectionID">38</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">

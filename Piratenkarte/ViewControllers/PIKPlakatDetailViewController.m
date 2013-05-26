@@ -157,7 +157,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if (section != 0) return nil;
     PIKPlakat *plakat = self.plakat;
-    NSString *result = [NSString stringWithFormat:@"Zuletzt geändert von %@ am %@. Zuletzt vom Server bekommen am %@.",plakat.usernameOfLastChange, plakat.localizedLastModifiedDate ,plakat.localizedLastServerFetchDate];
+    NSString *result = [NSString stringWithFormat:@"Geändert von %@\n am %@. Vom Server bekommen am %@.\n#%d",plakat.usernameOfLastChange, plakat.localizedLastModifiedDate ,plakat.localizedLastServerFetchDate,plakat.plakatID];
     return result;
 }
 
@@ -167,6 +167,9 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:@"label"];
         cell.detailTextLabel.numberOfLines = 0;
+        cell.textLabel.minimumFontSize = 6.0;
+        cell.textLabel.adjustsLetterSpacingToFitWidth = YES;
+        cell.textLabel.adjustsFontSizeToFitWidth = YES;
     }
     switch (indexPath.row) {
         case 0:
