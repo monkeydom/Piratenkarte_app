@@ -18,6 +18,7 @@
 #import "PIKNetworkErrorIndicationView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "PIKPlakatDetailViewController.h"
+#import "PIKPlakatPlaceView.h"
 
 @interface PIKPlakat (AnnotationAdditions)
 @end
@@ -270,9 +271,32 @@ static PIKViewController *S_sharedViewController = nil;
     }
 }
 
+- (void)showAddUI {
+    NSMutableArray *plakatAddViews = [NSMutableArray new];
+    for (NSString *plakatType in [PIKPlakat orderedPlakatTypes]) {
+        PIKPlakatPlaceView *placeView = [[PIKPlakatPlaceView alloc] initWithPlakatType:plakatType];
+        [plakatAddViews addObject:placeView];
+    }
+    
+    CGRect placementRect = self.o_mapView.frame;
+    CGFloat frameHeight = CGRectGetHeight([plakatAddViews[0] frame]) + 10.0;
+    placementRect.origin.y = CGRectGetMaxY(placementRect) - frameHeight;
+    placementRect.size.height = frameHeight;
+    CGFloat xpointdiff = CGRectGetWidth([plakatAddViews[0] frame]);
+    CGPoint placementCenter = CGPointMake(CGRectGetMaxX(placementRect) - ceilf(xpointdiff / 2.0), ceilf(CGRectGetMidY(placementRect)));
+    
+    for (PIKPlakatPlaceView *placeView in plakatAddViews) {
+        placeView.center = placementCenter;
+        [self.view addSubview:placeView];
+        placementCenter.x -= xpointdiff;
+    }
+
+}
+
 - (IBAction)addAction {
     [self ensureValidCredentialsWithContinuation:^{
         // do the actual adding UI here
+        [self showAddUI];
     }];
 }
 

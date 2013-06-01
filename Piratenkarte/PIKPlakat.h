@@ -42,4 +42,8 @@ NSString * const PIKPlakatTypeWallOK;
 
 - (instancetype)initWithPlakat:(Plakat *)aPlakat serverFetchDate:(NSDate *)aServerFetchDate;
 + (NSDateFormatter *)dateFormatter;
+
++ (NSArray *)orderedPlakatTypes;
++ (UIImage *)annotationImageForPlakatType:(NSString *)aPlakatType;
+
 @end

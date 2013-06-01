@@ -42,7 +42,7 @@ NSString * const PIKPlakatTypeWallOK    = @"wand_ok";
     return self;
 }
 
-+ (NSArray *)orderdPlakatTypes {
++ (NSArray *)orderedPlakatTypes {
     return @[
              PIKPlakatTypeNicePlace,
              PIKPlakatTypeOK,
@@ -52,6 +52,11 @@ NSString * const PIKPlakatTypeWallOK    = @"wand_ok";
              PIKPlakatTypeWall,
              PIKPlakatTypeWallOK,
              ];
+}
+
++ (UIImage *)annotationImageForPlakatType:(NSString *)aPlakatType {
+    UIImage *result = [UIImage imageNamed:[NSString stringWithFormat:@"PIKAnnotation_%@",aPlakatType]];
+    return result;
 }
 
 - (UIImage *)annotationImage {

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F206A977175A727D00A536FD /* Crosshair.png in Resources */ = {isa = PBXBuildFile; fileRef = F206A975175A727D00A536FD /* Crosshair.png */; };
+		F206A978175A727D00A536FD /* Crosshair@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F206A976175A727D00A536FD /* Crosshair@2x.png */; };
+		F206A97B175A72BE00A536FD /* PIKPlakatPlaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = F206A97A175A72BE00A536FD /* PIKPlakatPlaceView.m */; };
 		F20F22381751934800AF426F /* PIKPin_many.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F22361751934800AF426F /* PIKPin_many.png */; };
 		F20F22391751934800AF426F /* PIKPin_many@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F22371751934800AF426F /* PIKPin_many@2x.png */; };
 		F20F22491751FDC100AF426F /* alert-big.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F223B1751FDC100AF426F /* alert-big.png */; };
@@ -128,6 +131,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F206A975175A727D00A536FD /* Crosshair.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Crosshair.png; sourceTree = "<group>"; };
+		F206A976175A727D00A536FD /* Crosshair@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Crosshair@2x.png"; sourceTree = "<group>"; };
+		F206A979175A72BE00A536FD /* PIKPlakatPlaceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PIKPlakatPlaceView.h; path = Views/PIKPlakatPlaceView.h; sourceTree = "<group>"; };
+		F206A97A175A72BE00A536FD /* PIKPlakatPlaceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PIKPlakatPlaceView.m; path = Views/PIKPlakatPlaceView.m; sourceTree = "<group>"; };
 		F20F22361751934800AF426F /* PIKPin_many.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PIKPin_many.png; sourceTree = "<group>"; };
 		F20F22371751934800AF426F /* PIKPin_many@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PIKPin_many@2x.png"; sourceTree = "<group>"; };
 		F20F223B1751FDC100AF426F /* alert-big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-big.png"; sourceTree = "<group>"; };
@@ -579,6 +586,8 @@
 		F2ACBA1517496F5F0015E899 /* AnnotationGraphics */ = {
 			isa = PBXGroup;
 			children = (
+				F206A975175A727D00A536FD /* Crosshair.png */,
+				F206A976175A727D00A536FD /* Crosshair@2x.png */,
 				F20F22361751934800AF426F /* PIKPin_many.png */,
 				F20F22371751934800AF426F /* PIKPin_many@2x.png */,
 				F2B037B9174FA83D001D8736 /* PIKPin_plakat_dieb.png */,
@@ -627,6 +636,8 @@
 				F2B037CE17513A7F001D8736 /* PIKPlakatServerButtonView.m */,
 				F20F2281175275EE00AF426F /* PIKEditableCommentsCell.h */,
 				F20F2282175275EE00AF426F /* PIKEditableCommentsCell.m */,
+				F206A979175A72BE00A536FD /* PIKPlakatPlaceView.h */,
+				F206A97A175A72BE00A536FD /* PIKPlakatPlaceView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -759,6 +770,8 @@
 				F20F227A17523DB800AF426F /* PIKDeleteButtonPressed.png in Resources */,
 				F20F227B17523DB800AF426F /* PIKDeleteButtonPressed@2x.png in Resources */,
 				F20F227D17524AB800AF426F /* ShadowLine.png in Resources */,
+				F206A977175A727D00A536FD /* Crosshair.png in Resources */,
+				F206A978175A727D00A536FD /* Crosshair@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -816,6 +829,7 @@
 				F20F22641752147B00AF426F /* SGKeychain.m in Sources */,
 				F20F226A17522C2B00AF426F /* PIKPlakatDetailViewController.m in Sources */,
 				F20F2283175275EE00AF426F /* PIKEditableCommentsCell.m in Sources */,
+				F206A97B175A72BE00A536FD /* PIKPlakatPlaceView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
