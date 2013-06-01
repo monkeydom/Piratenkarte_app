@@ -7,9 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+@class PIKPlakatPlaceView;
+
+@protocol PIKPlakatPlaceVieDelegate
+- (void)plakatPlaceViewDidStartDrag:(PIKPlakatPlaceView *)aPlakatPlaceView;
+- (void)plakatPlaceViewDidEndDrag:(PIKPlakatPlaceView *)aPlakatPlaceView;
+@end
 
 @interface PIKPlakatPlaceView : UIView
-
+@property (nonatomic, weak) id<PIKPlakatPlaceVieDelegate> delegate;
 - (id)initWithPlakatType:(NSString *)aPlakatType;
 
 @end

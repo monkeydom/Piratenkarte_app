@@ -31,8 +31,54 @@
         [self addSubview:crosshairView];
         self.crosshairView=crosshairView;
         self.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
+        self.crosshairView.alpha = 0.0;
+        self.userInteractionEnabled = YES;
+        UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didPan:)];
+        [self addGestureRecognizer:panRecognizer];
     }
     return self;    
 }
+
+- (void)didPan:(UIPanGestureRecognizer *)aPanGestureRecognizer {
+    CGPoint touchPointInSuperview = self.layer.position;
+    if ([aPanGestureRecognizer numberOfTouches] > 0) {
+        touchPointInSuperview = [aPanGestureRecognizer locationOfTouch:0 inView:self.superview];
+    }
+    
+    CGAffineTransform translation = CGAffineTransformMakeTranslation(touchPointInSuperview.x - self.layer.position.x, touchPointInSuperview.y - self.layer.position.y);
+    
+    switch (aPanGestureRecognizer.state) {
+        case UIGestureRecognizerStateBegan: {
+            // inform delegate
+            if (self.delegate) {
+                [[self delegate] plakatPlaceViewDidStartDrag:self];
+            }
+            [UIView animateWithDuration:0.4 animations:^{
+                self.crosshairView.alpha = 1.0;
+            }];
+        }
+            break;
+        case UIGestureRecognizerStateChanged:{
+            self.transform = translation;
+        }
+            break;
+        case UIGestureRecognizerStateEnded: {
+            //inform delegate
+            if (self.delegate) {
+                [[self delegate] plakatPlaceViewDidEndDrag:self];
+            }
+            [UIView animateWithDuration:0.4 animations:^{
+                self.crosshairView.alpha = 0.0;
+                self.transform = CGAffineTransformIdentity;
+            }];
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+
+
 
 @end
