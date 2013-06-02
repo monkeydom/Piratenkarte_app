@@ -64,7 +64,7 @@
 }
 
 - (void)keyboardWillShow:(NSNotification *)aNotification {
-    NSLog(@"%s %@",__FUNCTION__,aNotification.userInfo);
+//    NSLog(@"%s %@",__FUNCTION__,aNotification.userInfo);
     UITableViewCell *cell = [self.o_editingTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     CGRect tableCellRect = [cell.superview convertRect:cell.frame toView:self.view];
     CGRect keyboardEndRect = [aNotification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
@@ -292,7 +292,7 @@
     PIKEditableCommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"label"];
     if (!cell) {
         cell = [[PIKEditableCommentsCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:@"label"];
-        cell.detailTextLabel.numberOfLines = 0;
+        cell.detailTextLabel.numberOfLines = 4;
         cell.textLabel.minimumFontSize = 6.0;
         cell.textLabel.adjustsLetterSpacingToFitWidth = YES;
         cell.textLabel.adjustsFontSizeToFitWidth = YES;
