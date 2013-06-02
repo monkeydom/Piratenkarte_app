@@ -21,6 +21,9 @@
 #import "PIKPlakatPlaceView.h"
 #import <AddressBookUI/AddressBookUI.h>
 
+// this is for generating default.pngs
+// #define DEFAULTSHOT 1
+
 @interface PIKPlakat (AnnotationAdditions)
 @end
 
@@ -68,6 +71,15 @@ static PIKViewController *S_sharedViewController = nil;
     }
     return self;
 }
+
+#ifdef DEFAULTSHOT
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.plakatServerButtonView.hidden = YES;
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+}
+#endif
+
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
     PIKPlakatDetailViewController *detailController = self.plakatDetailViewController;
