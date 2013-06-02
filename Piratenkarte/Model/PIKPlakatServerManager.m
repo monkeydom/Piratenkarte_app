@@ -102,8 +102,13 @@ static NSInteger s_activityCount = 0;
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             [self refreshServerList];
         }];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
     }
     return self;
+}
+
+- (void)appDidBecomeActive:(NSNotification *)aNotification {
+    [self refreshServerList];
 }
 
 - (void)updateListWithServer:(PIKPlakatServer *)aPlakatServer {
@@ -125,7 +130,7 @@ static NSInteger s_activityCount = 0;
     for (PIKPlakatServer *server in aServerArray) {
         [self updateListWithServer:server];
     }
-    [self.selectedPlakatServer requestAllPlakate];
+//    [self.selectedPlakatServer requestAllPlakate];
 }
 
 - (PIKPlakatServer *)serverForIdentifier:(NSString *)anIdentifier {
@@ -140,7 +145,7 @@ static NSInteger s_activityCount = 0;
 - (void)selectPlakatServer:(PIKPlakatServer *)aPlakatServer {
     self.selectedServerIdentifier = aPlakatServer.identifier;
     [self selectedServerDidChange];
-    [self.selectedPlakatServer requestAllPlakate];
+//    [self.selectedPlakatServer requestAllPlakate];
 }
 
 

@@ -196,7 +196,6 @@ typedef void(^PIKNetworkSuccessBlock)();
 
 }
 
-
 - (void)requestAllPlakate {
     [self requestPlakateInCoordinateRegion:MKCoordinateRegionMake(CLLocationCoordinate2DMake(0, 0), MKCoordinateSpanMake(0, 0))];
 }
@@ -332,7 +331,7 @@ typedef void(^PIKNetworkSuccessBlock)();
                 [self handleViewRequestResponse:response requestDate:requestDate requestCoordinateRegion:region];
                 success();
             } else {
-                NSLog(@"%s failed to change a plakat",__FUNCTION__);
+                NSLog(@"%s failed to add a plakat",__FUNCTION__);
                 failure(nil);
             }
         }

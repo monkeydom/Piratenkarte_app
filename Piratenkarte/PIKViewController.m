@@ -247,6 +247,10 @@ static PIKViewController *S_sharedViewController = nil;
     if (items) {
         [self removeAnnotations:self.o_mapView.annotations];
         [self.o_mapView addAnnotations:items];
+        
+        if (items.count <= 0 || ([[[items lastObject] lastServerFetchDate] timeIntervalSinceNow] < -60. * 15.)) {
+            [self queryServer];
+        }
     }
 }
 
