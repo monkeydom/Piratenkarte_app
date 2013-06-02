@@ -126,13 +126,19 @@ NSString * const PIKPlakatTypeWallOK    = @"wand_ok";
     return type;
 }
 
++ (NSString *)locationItemIdentifierForPlakatID:(uint32_t)aPlakatID {
+    NSString *result;
+    if (aPlakatID != -1) {
+        result = [@(aPlakatID) stringValue];
+    } else {
+        result = [[NSUUID UUID] UUIDString];
+    }
+    return result;
+}
+
 - (void)setPlakatID:(uint32_t)aPlakatID {
     _plakatID = aPlakatID;
-    if (aPlakatID != -1) {
-        self.locationItemIdentifier = [@(aPlakatID) stringValue];
-    } else {
-        self.locationItemIdentifier = [[NSUUID UUID] UUIDString];
-    }
+    self.locationItemIdentifier = [self.class locationItemIdentifierForPlakatID:aPlakatID];
 }
 
 - (void)updateValuesWithPlakat:(Plakat *)aPlakat {

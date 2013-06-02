@@ -45,11 +45,13 @@ NSString * const PIKPlakatTypeWallOK;
 // initializer for newly created plakate
 - (instancetype)initWithCoordinate:(CLLocationCoordinate2D)aCoordinate plakatType:(NSString *)aPlakatType;
 
+- (void)updateValuesWithPlakat:(Plakat *)aPlakat;
 
 + (NSDateFormatter *)dateFormatter;
 
 + (NSArray *)orderedPlakatTypes;
 + (UIImage *)annotationImageForPlakatType:(NSString *)aPlakatType;
 + (NSString *)localizedDescriptionForPlakatType:(NSString *)aPlakatType;
++ (NSString *)locationItemIdentifierForPlakatID:(uint32_t)aPlakatID;
 
 @end

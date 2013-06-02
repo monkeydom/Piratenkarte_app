@@ -151,12 +151,26 @@ typedef void(^PIKNetworkSuccessBlock)();
     BOOL first = YES;
     CLLocationCoordinate2D minCoord, maxCoord;
     
-    // TODO: delete the points first before asking for more
     // TODO: change to MKMapRect and MKMapPoint for a more sane api
+    [itemStorage beginEditing];
+    
+    NSArray *allItemsInRegion = [itemStorage locationItemsForCoordinateRegion:aCoordinateRegion];
+    NSMutableDictionary *oldItemsDict = [NSMutableDictionary dictionaryWithCapacity:allItemsInRegion.count];
+    for (id <MKDLocationItem> item in allItemsInRegion) {
+        oldItemsDict[item.locationItemIdentifier] = item;
+    }
+    [itemStorage removeLocationItems:allItemsInRegion];
     
     for (Plakat *plakat in aResponse.plakate) {
-        PIKPlakat *myPlakat = [[PIKPlakat alloc] initWithPlakat:plakat serverFetchDate:requestDate];
+        NSString *locationItemIdentifier = [PIKPlakat locationItemIdentifierForPlakatID:plakat.id];
+        PIKPlakat *myPlakat = oldItemsDict[locationItemIdentifier];
+        if (myPlakat) {
+            [myPlakat updateValuesWithPlakat:plakat];
+        } else {
+            myPlakat = [[PIKPlakat alloc] initWithPlakat:plakat serverFetchDate:requestDate];
+        }
         [itemStorage addLocationItem:myPlakat];
+
         if (first) {
             minCoord = myPlakat.coordinate;
             maxCoord = minCoord;
@@ -168,12 +182,15 @@ typedef void(^PIKNetworkSuccessBlock)();
             maxCoord.longitude = MAX(maxCoord.longitude,plakat.lon);
         }
     }
+
     
+    [itemStorage endEditing];
+
     if (!first) {
        NSLog(@"%s did fetch %d plakate in this area: %@ %@",__FUNCTION__,aResponse.plakate.count, [[CLLocation alloc] initWithLatitude:minCoord.latitude longitude:minCoord.longitude], [[CLLocation alloc] initWithLatitude:maxCoord.latitude longitude:maxCoord.longitude]);
         [[NSNotificationCenter defaultCenter] postNotificationName:PIKPlakatServerDidReceiveDataNotification object:self userInfo:@{@"coordinate":[NSValue valueWithMKCoordinate:aCoordinateRegion.center], @"coordinateSpan":[NSValue valueWithMKCoordinateSpan:aCoordinateRegion.span]}];
     }
-    
+
 }
 
 

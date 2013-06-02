@@ -31,6 +31,11 @@ BOOL MKDCoordinateRegionContainsRegion(MKCoordinateRegion aRegion, MKCoordinateR
 - (void)removeLocationItemForItemIdentifier:(NSString *)aLocationItemIdentifier;
 - (void)addLocationItem:(id<MKDLocationItem>)aLocationItem;
 - (void)removeLocationItem:(id<MKDLocationItem>)aLocationItem;
+- (void)removeLocationItems:(NSArray *)aLocationItemArray;
+
+// this is for normalization of the quad
+- (void)beginEditing;
+- (void)endEditing;
 
 @property (readonly, nonatomic) NSArray *allLocationItems;
 - (NSArray *)locationItemsForCoordinateRegion:(MKCoordinateRegion)aCoordinateRegion;

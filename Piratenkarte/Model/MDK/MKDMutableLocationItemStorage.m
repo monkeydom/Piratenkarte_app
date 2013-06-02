@@ -8,7 +8,7 @@
 
 #import "MKDMutableLocationItemStorage.h"
 
-// TODO: normalize to main areas
+// TODO: normalize to MKMapRects
 
 CLLocationDegrees MKDCoordnateRegionGetMinLatitude(MKCoordinateRegion aRegion) {
     CLLocationDegrees result = aRegion.center.latitude - aRegion.span.latitudeDelta;
@@ -177,16 +177,42 @@ BOOL MKDCoordinateRegionContainsRegion(MKCoordinateRegion aRegion, MKCoordinateR
 @interface MKDMutableLocationItemStorage ()
 @property (nonatomic, strong) MKDMutableLocationItemStorageArea *totalArea;
 @property (nonatomic, strong) NSMutableDictionary *locationItemsByLocationItemIdentifier;
+@property (nonatomic) NSInteger editCount;
 @end
 
 @implementation MKDMutableLocationItemStorage
 - (id)init {
     self = [super init];
     if (self) {
+        self.editCount = 0;
         self.totalArea = [[MKDMutableLocationItemStorageArea alloc] initWithCoordinateRegion:MKCoordinateRegionMake(CLLocationCoordinate2DMake(0, 0), MKCoordinateSpanMake(90, 180))];
         self.locationItemsByLocationItemIdentifier = [NSMutableDictionary new];
     }
     return self;
+}
+
+- (void)doOptimization {
+    // traverse the quad, clean up and optimize it
+    NSLog(@"%s would do optimization here",__FUNCTION__);
+}
+
+- (void)beginEditing {
+    self.editCount = self.editCount+1;
+}
+
+- (void)endEditing {
+    self.editCount = self.editCount-1;
+    if (self.editCount == 0) {
+        [self doOptimization];
+    }
+}
+
+- (void)removeLocationItems:(NSArray *)aLocationItemArray {
+    [self beginEditing];
+    for (id<MKDLocationItem>item in aLocationItemArray) {
+        [self removeLocationItem:item];
+    }
+    [self endEditing];
 }
 
 - (void)addLocationItem:(id<MKDLocationItem>)aLocationItem {
