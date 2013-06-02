@@ -64,7 +64,7 @@
 }
 
 - (void)keyboardWillShow:(NSNotification *)aNotification {
-    NSLog(@"%s %@",__FUNCTION__,aNotification.userInfo);
+//    NSLog(@"%s %@",__FUNCTION__,aNotification.userInfo);
     UITableViewCell *cell = [self.o_editingTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     CGRect tableCellRect = [cell.superview convertRect:cell.frame toView:self.view];
     CGRect keyboardEndRect = [aNotification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
