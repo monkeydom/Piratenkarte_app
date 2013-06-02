@@ -72,9 +72,11 @@
         keyboardPosition = CGRectGetWidth(keyboardEndRect);
     }
     CGFloat delta = (CGRectGetMaxY(self.view.bounds) - keyboardPosition) - CGRectGetMaxY(tableCellRect);
-    [UIView animateWithDuration:[aNotification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue] animations:^{
-        self.o_containerView.transform = CGAffineTransformMakeTranslation(0, delta);
-    }];
+    if (delta < 0) {
+        [UIView animateWithDuration:[aNotification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue] animations:^{
+            self.o_containerView.transform = CGAffineTransformMakeTranslation(0, delta);
+        }];
+    }
 }
 
 - (void)keyboardWillHide:(NSNotification *)aNotification {
@@ -144,7 +146,7 @@
     MKMapRect result = MKMapRectMake(0, 0, 0, 0);
     result.origin = MKMapPointForCoordinate(aPlakat.coordinate);
     result = MKMapRectInset(result, -150.0 / oneMapPointInMeters, -25.0 / oneMapPointInMeters);
-    result.origin.y -= 30.0 / oneMapPointInMeters;
+    result.origin.y -= 20.0 / oneMapPointInMeters;
     return result;
 }
 
