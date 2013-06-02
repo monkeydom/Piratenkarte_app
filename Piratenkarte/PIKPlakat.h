@@ -40,6 +40,15 @@ NSString * const PIKPlakatTypeWallOK;
 @property (nonatomic, readonly) UIImage *pinImage;
 @property (nonatomic, readonly) CGPoint pinImageCenterOffset;
 
+// initializer for server based plakate
 - (instancetype)initWithPlakat:(Plakat *)aPlakat serverFetchDate:(NSDate *)aServerFetchDate;
+// initializer for newly created plakate
+- (instancetype)initWithCoordinate:(CLLocationCoordinate2D)aCoordinate plakatType:(NSString *)aPlakatType;
+
+
 + (NSDateFormatter *)dateFormatter;
+
++ (NSArray *)orderedPlakatTypes;
++ (UIImage *)annotationImageForPlakatType:(NSString *)aPlakatType;
+
 @end

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 @class PIKPlakatServerManager;
-
+#import <CoreLocation/CoreLocation.h>
 #import "PIKPlakatServer.h"
 
 extern NSString * const PIKPlakatServerManagerSelectedServerDidChangeNotification;
@@ -19,6 +19,7 @@ extern NSString * const PIKPlakatServerManagerDidEncounterNetworkError;
 + (instancetype)plakatServerManager;
 - (void)refreshServerList;
 - (NSArray *)serverList;
++ (CLGeocoder *)geoCoder;
 
 - (void)selectPlakatServer:(PIKPlakatServer *)aPlakatServer;
 

@@ -18,6 +18,8 @@
 #import "PIKNetworkErrorIndicationView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "PIKPlakatDetailViewController.h"
+#import "PIKPlakatPlaceView.h"
+#import <AddressBookUI/AddressBookUI.h>
 
 @interface PIKPlakat (AnnotationAdditions)
 @end
@@ -41,11 +43,13 @@
 @end
 
 
-@interface PIKViewController () <MKMapViewDelegate>
+@interface PIKViewController () <MKMapViewDelegate,PIKPlakatPlaceVieDelegate>
 @property (nonatomic,strong) MKDMutableLocationItemStorage *locationItemStorage;
 @property (nonatomic, strong) PIKPlakatServerButtonView *plakatServerButtonView;
 @property (nonatomic) MKCoordinateRegion lastQueryRegion;
 @property (nonatomic, strong) PIKPlakatDetailViewController *plakatDetailViewController;
+@property (nonatomic, strong) NSMutableArray *plakatPlaceViews;
+@property (nonatomic, strong) IBOutlet UILabel *plakatPlaceHelpLabel;
 @end
 
 static PIKViewController *S_sharedViewController = nil;
@@ -58,7 +62,10 @@ static PIKViewController *S_sharedViewController = nil;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    S_sharedViewController = self;
+    if (self) {
+        S_sharedViewController = self;
+        self.plakatPlaceViews = [NSMutableArray new];
+    }
     return self;
 }
 
@@ -194,6 +201,7 @@ static PIKViewController *S_sharedViewController = nil;
 }
 
 - (void)selectedPlakatServerDidChange:(NSNotification *)aNotification {
+    [self hideAddUI];
     [self updatePlakatServerButtonView];
     [self queryItemStorage];
 }
@@ -270,10 +278,105 @@ static PIKViewController *S_sharedViewController = nil;
     }
 }
 
+- (BOOL)isAddUIShown {
+    if (self.plakatPlaceHelpLabel && self.plakatPlaceHelpLabel.alpha > 0.0) {
+        return YES;
+    }
+    return NO;
+}
+
+- (void)toggleAddUI {
+    BOOL isShown = [self isAddUIShown];
+    if (!isShown) {
+        [self showAddUI];
+    } else {
+        [self hideAddUI];
+    }
+}
+
+- (void)hideAddUI {
+    [UIView animateWithDuration:0.2 animations:^{
+        self.plakatPlaceHelpLabel.alpha = 0.0;
+    }];
+    for (PIKPlakatPlaceView *placeView in self.plakatPlaceViews) {
+        [placeView ploppViewOutCompletion:NULL];
+    }
+}
+
+- (void)showAddUI {
+    NSMutableArray *plakatAddViews = self.plakatPlaceViews;
+    if (plakatAddViews.count <= 0) {
+        for (NSString *plakatType in [PIKPlakat orderedPlakatTypes]) {
+            PIKPlakatPlaceView *placeView = [[PIKPlakatPlaceView alloc] initWithPlakatType:plakatType];
+            placeView.delegate = self;
+            [plakatAddViews addObject:placeView];
+        }
+    }
+    
+    CGRect placementRect = self.o_mapView.frame;
+    CGFloat frameHeight = CGRectGetHeight([plakatAddViews[0] bounds]) + 10.0;
+    placementRect.origin.y = CGRectGetMinY(self.plakatPlaceHelpLabel.frame) - frameHeight;
+    placementRect.size.height = frameHeight;
+    CGFloat xpointdiff = CGRectGetWidth([plakatAddViews[0] bounds]);
+    CGPoint placementCenter = CGPointMake(CGRectGetMaxX(placementRect) - ceilf(xpointdiff / 2.0), ceilf(CGRectGetMidY(placementRect)));
+    
+    for (PIKPlakatPlaceView *placeView in plakatAddViews) {
+        placeView.alpha = 0.0;
+        placeView.center = placementCenter;
+        [self.view addSubview:placeView];
+        placementCenter.x -= xpointdiff;
+    }
+
+    NSTimeInterval delay = 0.0;
+    for (PIKPlakatPlaceView *placeView in plakatAddViews) {
+        [placeView ploppViewInWithDelay:delay completion:NULL];
+        delay += 0.025;
+    }
+    [UIView animateWithDuration:0.2 animations:^{
+        self.plakatPlaceHelpLabel.alpha = 1.0;
+    }];
+}
+
 - (IBAction)addAction {
     [self ensureValidCredentialsWithContinuation:^{
         // do the actual adding UI here
+        [self toggleAddUI];
     }];
+}
+
+- (void)plakatPlaceViewDidStartDrag:(PIKPlakatPlaceView *)aPlakatPlaceView {
+    // ignore currently
+}
+
+#define PLACEMENTYTHRESHOLD 30
+#define PLACEMENTXTHRESHOLD 30
+
+- (BOOL)plakatPlaceViewDidEndDragShouldSnapBack:(PIKPlakatPlaceView *)aPlakatPlaceView {
+    CGPoint pointInMapViewCoords = [aPlakatPlaceView convertPoint:[aPlakatPlaceView targetPointInBoundsCoordinates] toView:self.o_mapView];
+    CLLocationCoordinate2D coordinate = [self.o_mapView convertPoint:pointInMapViewCoords toCoordinateFromView:self.o_mapView];
+    [[PIKPlakatServerManager geoCoder] reverseGeocodeLocation:[[CLLocation alloc] initWithLatitude:coordinate.latitude longitude:coordinate.longitude] completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (placemarks.count > 0) {
+            CLPlacemark *placemark = placemarks[0];
+            NSString *addressString = ABCreateStringWithAddressDictionary(placemark.addressDictionary, NO);
+            NSLog(@"%s %@",__FUNCTION__,addressString);
+        }
+    }];
+
+    if (ABS(aPlakatPlaceView.transform.tx) < PLACEMENTXTHRESHOLD &&
+        aPlakatPlaceView.transform.ty > -PLACEMENTYTHRESHOLD) {
+        return YES;
+    } else {
+        PIKPlakat *plakat = [[PIKPlakat alloc] initWithCoordinate:coordinate plakatType:aPlakatPlaceView.plakatType];
+        
+        PIKPlakatDetailViewController *detailController = self.plakatDetailViewController;
+        detailController.plakat = plakat;
+        [self presentViewController:detailController animated:YES completion:^{
+            [self hideAddUI];
+        }];
+        
+        return NO;
+    }
+    
 }
 
 - (IBAction)queryServer {

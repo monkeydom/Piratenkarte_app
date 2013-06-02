@@ -272,6 +272,58 @@ typedef void(^PIKNetworkSuccessBlock)();
     return success;
 }
 
+- (void)addPlakat:(PIKPlakat *)aPlakat completion:(PIKNetworkRequestCompletionHandler)aCompletion {
+    [PIKPlakatServerManager increaseNetworkActivityCount];
+    PIKNetworkSuccessBlock success = [self successBlockWithCompletion:aCompletion];
+    PIKNetworkFailBlock failure = [self failBlockWithCompletion:aCompletion];
+    
+    MKCoordinateRegion region = [self narrowRegionAroundCoordinate:aPlakat.coordinate];
+    Request_Builder *requestBuilder = [self requestBuilderBase];
+    requestBuilder.viewRequest = [self viewRequestWithCoordinateRegion:region];
+    
+    NSDate *requestDate = [NSDate new];
+    
+    AddRequest_Builder *addBuilder = [AddRequest builder];
+    addBuilder.lon = aPlakat.coordinate.longitude;
+    addBuilder.lat = aPlakat.coordinate.latitude;
+    addBuilder.type = aPlakat.plakatType;
+    if (aPlakat.comment.length > 0) {
+        addBuilder.comment = aPlakat.comment;
+    }
+    [requestBuilder addAdd:[addBuilder build]];
+
+    Request *request = [requestBuilder build];
+    NSLog(@"%s %@",__FUNCTION__,request);
+    NSData *postData = request.data;
+    NSMutableURLRequest *urlRequest = [self baseURLRequestWithPostData:postData];
+    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
+    [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        @try {
+            Response *response = [Response parseFromData:responseObject];
+            NSLog(@"%s parsed response = %@",__FUNCTION__,response);
+            if (response.addedCount == 1) {
+                NSLog(@"%s successfully added",__FUNCTION__);
+                [self handleViewRequestResponse:response requestDate:requestDate requestCoordinateRegion:region];
+                success();
+            } else {
+                NSLog(@"%s failed to change a plakat",__FUNCTION__);
+                failure(nil);
+            }
+        }
+        @catch (NSException *exception) {
+            NSLog(@"%s %@",__FUNCTION__,exception);
+            failure(nil);
+        }
+        @finally {
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(error);
+    }];
+    [requestOperation start];
+
+}
+
+
 - (void)updateComment:(NSString *)aComment onPlakat:(PIKPlakat *)aPlakat completion:(PIKNetworkRequestCompletionHandler)aCompletion {
     [PIKPlakatServerManager increaseNetworkActivityCount];
     PIKNetworkSuccessBlock success = [self successBlockWithCompletion:aCompletion];
@@ -296,7 +348,6 @@ typedef void(^PIKNetworkSuccessBlock)();
             NSLog(@"%s parsed response = %@",__FUNCTION__,response);
             if (response.changedCount == 1) {
                 NSLog(@"%s successfully changed",__FUNCTION__);
-                [self.locationItemStorage removeLocationItem:aPlakat];
                 success();
             } else {
                 NSLog(@"%s failed to change a plakat",__FUNCTION__);

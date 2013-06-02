@@ -47,6 +47,14 @@ static NSInteger s_activityCount = 0;
     }];
 }
 
++ (CLGeocoder *)geoCoder {
+    static CLGeocoder *s_geoCoder = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        s_geoCoder = [CLGeocoder new];
+    });
+    return s_geoCoder;
+}
 
 + (instancetype)plakatServerManager {
     static PIKPlakatServerManager *s_sharedInstance;

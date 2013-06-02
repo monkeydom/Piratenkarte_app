@@ -101,15 +101,37 @@
     }
 }
 
+- (void)reportGenericNetworkFailure {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Netzwerkfehler" message:@"Leider konnte die Änderung nicht durchgeführt werden." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alertView show];
+}
+
 - (IBAction)saveAction:(id)aSender {
     PIKEditableCommentsCell *cell = (PIKEditableCommentsCell *)[self.o_editingTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    if ([cell.textView isFirstResponder]) {
-        NSString *comment = cell.textView.text;
+    NSString *comment = cell.textView.text;
+    BOOL cellIsFirstResponder = cell.textView.isFirstResponder;
+    if (self.plakatIsNew) {
+        if (cellIsFirstResponder) {
+            self.plakat.comment = comment;
+        }
+        [[[PIKPlakatServerManager plakatServerManager] selectedPlakatServer] addPlakat:self.plakat completion:^(BOOL success, NSError *error) {
+            if (success) {
+                if (cellIsFirstResponder) {
+                    [cell.textView resignFirstResponder];
+                }
+                [self dismissAction:aSender];
+            } else {
+                [self reportGenericNetworkFailure];
+            }
+        }];
+    } else if ([cell.textView isFirstResponder]) {
         [[[PIKPlakatServerManager plakatServerManager] selectedPlakatServer] updateComment:comment onPlakat:self.plakat completion:^(BOOL success, NSError *error) {
             if (success) {
                 [cell.textView resignFirstResponder];
                 self.plakat.comment = comment;
                 cell.textView.text = comment;
+            } else {
+                [self reportGenericNetworkFailure];
             }
         }];
     } else {
@@ -172,6 +194,8 @@
     self.O_topNavigationBar.topItem.title = self.plakat.localizedType;
     
     [self.o_editingTableView reloadData];
+    
+    self.o_deleteButton.enabled = (self.plakat.lastServerFetchDate != nil);
 }
 
 - (void)setPlakat:(PIKPlakat *)aPlakat {
@@ -214,10 +238,20 @@
     return 0;
 }
 
+- (BOOL)plakatIsNew {
+    BOOL result = (self.plakat.lastServerFetchDate == nil);
+    return result;
+}
+
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if (section != 0) return nil;
+    NSString *result;
     PIKPlakat *plakat = self.plakat;
-    NSString *result = [NSString stringWithFormat:@"Geändert von %@\n am %@. Vom Server bekommen am %@.\n#%d",plakat.usernameOfLastChange, plakat.localizedLastModifiedDate ,plakat.localizedLastServerFetchDate,plakat.plakatID];
+    if (self.plakatIsNew) {
+        result = @"Neues Plakat.";
+    } else {
+        result = [NSString stringWithFormat:@"Geändert von %@\n am %@. Vom Server bekommen am %@.\n#%d",plakat.usernameOfLastChange, plakat.localizedLastModifiedDate ,plakat.localizedLastServerFetchDate,plakat.plakatID];
+    }
     return result;
 }
 
