@@ -39,6 +39,25 @@
     return self;    
 }
 
+- (void)ploppViewInWithDelay:(NSTimeInterval)aDelay completion:(MKDAnimationCompletionBlock)aCompletion {
+    [UIView animateWithDuration:0.4 delay:aDelay options:0 animations:^{
+        self.transform = CGAffineTransformMakeScale(1.3, 1.3);
+        self.alpha = 1.0;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.2 delay:0.0 options:0 animations:^{
+            self.transform = CGAffineTransformIdentity;
+        } completion:aCompletion];
+    }];
+}
+
+- (void)ploppViewOutCompletion:(MKDAnimationCompletionBlock)aCompletion {
+    [UIView animateWithDuration:0.3 delay:0.0 options:0 animations:^{
+        self.transform = CGAffineTransformMakeScale(0.1, 0.1);
+        self.alpha = 0.0;
+    } completion:aCompletion];
+}
+
+
 - (void)didPan:(UIPanGestureRecognizer *)aPanGestureRecognizer {
     CGPoint touchPointInSuperview = self.layer.position;
     if ([aPanGestureRecognizer numberOfTouches] > 0) {

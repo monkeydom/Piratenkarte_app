@@ -293,14 +293,15 @@ static PIKViewController *S_sharedViewController = nil;
 }
 
 - (void)hideAddUI {
-    self.plakatPlaceHelpLabel.alpha = 0.0;
+    [UIView animateWithDuration:0.2 animations:^{
+        self.plakatPlaceHelpLabel.alpha = 0.0;
+    }];
     for (PIKPlakatPlaceView *placeView in self.plakatPlaceViews) {
-        placeView.alpha = 0.0;
+        [placeView ploppViewOutCompletion:NULL];
     }
 }
 
 - (void)showAddUI {
-    self.plakatPlaceHelpLabel.alpha = 1.0;
     NSMutableArray *plakatAddViews = self.plakatPlaceViews;
     if (plakatAddViews.count <= 0) {
         for (NSString *plakatType in [PIKPlakat orderedPlakatTypes]) {
@@ -310,18 +311,27 @@ static PIKViewController *S_sharedViewController = nil;
     }
     
     CGRect placementRect = self.o_mapView.frame;
-    CGFloat frameHeight = CGRectGetHeight([plakatAddViews[0] frame]) + 10.0;
+    CGFloat frameHeight = CGRectGetHeight([plakatAddViews[0] bounds]) + 10.0;
     placementRect.origin.y = CGRectGetMinY(self.plakatPlaceHelpLabel.frame) - frameHeight;
     placementRect.size.height = frameHeight;
-    CGFloat xpointdiff = CGRectGetWidth([plakatAddViews[0] frame]);
+    CGFloat xpointdiff = CGRectGetWidth([plakatAddViews[0] bounds]);
     CGPoint placementCenter = CGPointMake(CGRectGetMaxX(placementRect) - ceilf(xpointdiff / 2.0), ceilf(CGRectGetMidY(placementRect)));
     
     for (PIKPlakatPlaceView *placeView in plakatAddViews) {
+        placeView.alpha = 0.0;
         placeView.center = placementCenter;
         [self.view addSubview:placeView];
         placementCenter.x -= xpointdiff;
     }
 
+    NSTimeInterval delay = 0.0;
+    for (PIKPlakatPlaceView *placeView in plakatAddViews) {
+        [placeView ploppViewInWithDelay:delay completion:NULL];
+        delay += 0.025;
+    }
+    [UIView animateWithDuration:0.2 animations:^{
+        self.plakatPlaceHelpLabel.alpha = 1.0;
+    }];
 }
 
 - (IBAction)addAction {
