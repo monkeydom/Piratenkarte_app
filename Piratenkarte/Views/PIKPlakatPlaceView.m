@@ -25,6 +25,7 @@
     CGRect frame = CGRectInset(plakatTypeView.frame,-INSET, -INSET);
     self = [super initWithFrame:frame];
     if (self) {
+        self.plakatType = aPlakatType;
         
         plakatTypeView.frame = CGRectInset(self.bounds,INSET,INSET);
         [self addSubview:plakatTypeView];

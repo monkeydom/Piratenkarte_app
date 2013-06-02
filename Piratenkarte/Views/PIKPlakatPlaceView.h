@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class PIKPlakatPlaceView;
+#import "PIKPlakat.h"
 
 typedef void (^MKDAnimationCompletionBlock)(BOOL didFinish);
 
@@ -18,6 +19,8 @@ typedef void (^MKDAnimationCompletionBlock)(BOOL didFinish);
 
 @interface PIKPlakatPlaceView : UIView
 @property (nonatomic, weak) id<PIKPlakatPlaceVieDelegate> delegate;
+@property (nonatomic, strong) NSString *plakatType;
+
 - (id)initWithPlakatType:(NSString *)aPlakatType;
 
 - (CGPoint)targetPointInBoundsCoordinates;

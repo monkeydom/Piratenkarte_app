@@ -33,6 +33,19 @@ NSString * const PIKPlakatTypeWallOK    = @"wand_ok";
     return formatter;
 }
 
+- (instancetype)initWithCoordinate:(CLLocationCoordinate2D)aCoordinate plakatType:(NSString *)aPlakatType {
+    self = [self init];
+    if (self) {
+        self.plakatID = -1; // new one
+        self.plakatType = aPlakatType;
+        self.coordinate = aCoordinate;
+        self.comment = @"";
+        self.lastModifiedDate = [NSDate date];
+        self.imageURLString = @"";
+    }
+    return self;
+}
+
 - (instancetype)initWithPlakat:(Plakat *)aPlakat serverFetchDate:(NSDate *)aServerFetchDate {
     self = [self init];
     if (self) {
@@ -109,7 +122,11 @@ NSString * const PIKPlakatTypeWallOK    = @"wand_ok";
 
 - (void)setPlakatID:(uint32_t)aPlakatID {
     _plakatID = aPlakatID;
-    self.locationItemIdentifier = [@(aPlakatID) stringValue];
+    if (aPlakatID != -1) {
+        self.locationItemIdentifier = [@(aPlakatID) stringValue];
+    } else {
+        self.locationItemIdentifier = [[NSUUID UUID] UUIDString];
+    }
 }
 
 - (void)updateValuesWithPlakat:(Plakat *)aPlakat {

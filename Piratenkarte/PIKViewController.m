@@ -353,8 +353,8 @@ static PIKViewController *S_sharedViewController = nil;
 
 - (BOOL)plakatPlaceViewDidEndDragShouldSnapBack:(PIKPlakatPlaceView *)aPlakatPlaceView {
     CGPoint pointInMapViewCoords = [aPlakatPlaceView convertPoint:[aPlakatPlaceView targetPointInBoundsCoordinates] toView:self.o_mapView];
-    CLLocationCoordinate2D location = [self.o_mapView convertPoint:pointInMapViewCoords toCoordinateFromView:self.o_mapView];
-    [[PIKPlakatServerManager geoCoder] reverseGeocodeLocation:[[CLLocation alloc] initWithLatitude:location.latitude longitude:location.longitude] completionHandler:^(NSArray *placemarks, NSError *error) {
+    CLLocationCoordinate2D coordinate = [self.o_mapView convertPoint:pointInMapViewCoords toCoordinateFromView:self.o_mapView];
+    [[PIKPlakatServerManager geoCoder] reverseGeocodeLocation:[[CLLocation alloc] initWithLatitude:coordinate.latitude longitude:coordinate.longitude] completionHandler:^(NSArray *placemarks, NSError *error) {
         if (placemarks.count > 0) {
             CLPlacemark *placemark = placemarks[0];
             NSString *addressString = ABCreateStringWithAddressDictionary(placemark.addressDictionary, NO);
@@ -366,6 +366,14 @@ static PIKViewController *S_sharedViewController = nil;
         aPlakatPlaceView.transform.ty > -PLACEMENTYTHRESHOLD) {
         return YES;
     } else {
+        PIKPlakat *plakat = [[PIKPlakat alloc] initWithCoordinate:coordinate plakatType:aPlakatPlaceView.plakatType];
+        
+        PIKPlakatDetailViewController *detailController = self.plakatDetailViewController;
+        detailController.plakat = plakat;
+        [self presentViewController:detailController animated:YES completion:^{
+            [self hideAddUI];
+        }];
+        
         return NO;
     }
     
