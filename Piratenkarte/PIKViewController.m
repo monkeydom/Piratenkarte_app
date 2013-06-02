@@ -224,6 +224,17 @@ static PIKViewController *S_sharedViewController = nil;
     return NO;
 }
 
+- (void)removeAnnotations:(NSArray *)anAnnotationArray {
+    NSMutableArray *array;
+    for (id<MKAnnotation> annotation in anAnnotationArray) {
+        if ([annotation isKindOfClass:[MKUserLocation class]]) {
+            if (!array) array = [anAnnotationArray mutableCopy];
+            [array removeObject:annotation];
+        }
+    }
+    [self.o_mapView removeAnnotations:array ? array : anAnnotationArray];
+}
+
 - (IBAction)queryItemStorage {
     [self storeLocationToDefaults];
     MKCoordinateRegion region = self.o_mapView.region;
@@ -233,7 +244,7 @@ static PIKViewController *S_sharedViewController = nil;
     self.lastQueryRegion = region;
     NSArray *items = [[[[PIKPlakatServerManager plakatServerManager] selectedPlakatServer] locationItemStorage]locationItemsForCoordinateRegion:region];
     if (items) {
-        [self.o_mapView removeAnnotations:self.o_mapView.annotations];
+        [self removeAnnotations:self.o_mapView.annotations];
         [self.o_mapView addAnnotations:items];
     }
 }
