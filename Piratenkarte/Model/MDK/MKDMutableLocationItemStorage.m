@@ -193,7 +193,7 @@ BOOL MKDCoordinateRegionContainsRegion(MKCoordinateRegion aRegion, MKCoordinateR
 
 - (void)doOptimization {
     // traverse the quad, clean up and optimize it
-    NSLog(@"%s would do optimization here",__FUNCTION__);
+//    NSLog(@"%s would do optimization here",__FUNCTION__);
 }
 
 - (void)beginEditing {
@@ -241,7 +241,6 @@ BOOL MKDCoordinateRegionContainsRegion(MKCoordinateRegion aRegion, MKCoordinateR
         [self removeLocationItem:locationItem];
     }
 }
-
 
 
 - (NSArray *)allLocationItems {

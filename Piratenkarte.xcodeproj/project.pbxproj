@@ -368,6 +368,7 @@
 		F20F225A1752114900AF426F /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				F206A980175B6DFA00A536FD /* PIKPlakatTypeListViewController.xib */,
 				F20F226917522C2B00AF426F /* PIKPlakatDetailViewController.xib */,
 				F2B037D31751493E001D8736 /* PIKServerListViewController.xib */,
 				F221F208173FCDB200A63B56 /* PIKViewController_iPhone.xib */,
@@ -662,7 +663,6 @@
 				F20F226817522C2B00AF426F /* PIKPlakatDetailViewController.m */,
 				F206A97E175B6DFA00A536FD /* PIKPlakatTypeListViewController.h */,
 				F206A97F175B6DFA00A536FD /* PIKPlakatTypeListViewController.m */,
-				F206A980175B6DFA00A536FD /* PIKPlakatTypeListViewController.xib */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -904,6 +904,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"DEBUG=1",
+				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

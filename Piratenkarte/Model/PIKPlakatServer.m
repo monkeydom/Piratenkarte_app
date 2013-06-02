@@ -187,9 +187,12 @@ typedef void(^PIKNetworkSuccessBlock)();
     [itemStorage endEditing];
 
     if (!first) {
-       NSLog(@"%s did fetch %d plakate in this area: %@ %@",__FUNCTION__,aResponse.plakate.count, [[CLLocation alloc] initWithLatitude:minCoord.latitude longitude:minCoord.longitude], [[CLLocation alloc] initWithLatitude:maxCoord.latitude longitude:maxCoord.longitude]);
+#if DEBUG
+        NSLog(@"%s did fetch %d plakate in this area: %@ %@",__FUNCTION__,aResponse.plakate.count, [[CLLocation alloc] initWithLatitude:minCoord.latitude longitude:minCoord.longitude], [[CLLocation alloc] initWithLatitude:maxCoord.latitude longitude:maxCoord.longitude]);
+#endif
         [[NSNotificationCenter defaultCenter] postNotificationName:PIKPlakatServerDidReceiveDataNotification object:self userInfo:@{@"coordinate":[NSValue valueWithMKCoordinate:aCoordinateRegion.center], @"coordinateSpan":[NSValue valueWithMKCoordinateSpan:aCoordinateRegion.span]}];
     }
+
 
 }
 
@@ -310,16 +313,22 @@ typedef void(^PIKNetworkSuccessBlock)();
     [requestBuilder addAdd:[addBuilder build]];
 
     Request *request = [requestBuilder build];
+#if DEBUG
     NSLog(@"%s %@",__FUNCTION__,request);
+#endif
     NSData *postData = request.data;
     NSMutableURLRequest *urlRequest = [self baseURLRequestWithPostData:postData];
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         @try {
             Response *response = [Response parseFromData:responseObject];
+#if DEBUG
             NSLog(@"%s parsed response = %@",__FUNCTION__,response);
+#endif
             if (response.addedCount == 1) {
+#if DEBUG
                 NSLog(@"%s successfully added",__FUNCTION__);
+#endif
                 [self handleViewRequestResponse:response requestDate:requestDate requestCoordinateRegion:region];
                 success();
             } else {
@@ -363,16 +372,22 @@ typedef void(^PIKNetworkSuccessBlock)();
     [requestBuilder addChange:[changeBuilder build]];
     
     Request *request = [requestBuilder build];
+#if DEBUG
     NSLog(@"%s %@",__FUNCTION__,request);
+#endif
     NSData *postData = request.data;
     NSMutableURLRequest *urlRequest = [self baseURLRequestWithPostData:postData];
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         @try {
             Response *response = [Response parseFromData:responseObject];
+#if DEBUG
             NSLog(@"%s parsed response = %@",__FUNCTION__,response);
+#endif
             if (response.changedCount == 1) {
+#if DEBUG
                 NSLog(@"%s successfully changed",__FUNCTION__);
+#endif
                 success();
             } else {
                 NSLog(@"%s failed to change a plakat",__FUNCTION__);
@@ -408,16 +423,22 @@ typedef void(^PIKNetworkSuccessBlock)();
     [requestBuilder addDelete:[deleteBuilder build]];
     
     Request *request = [requestBuilder build];
+#if DEBUG
     NSLog(@"%s %@",__FUNCTION__,request);
+#endif
     NSData *postData = request.data;
     NSMutableURLRequest *urlRequest = [self baseURLRequestWithPostData:postData];
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         @try {
             Response *response = [Response parseFromData:responseObject];
+#if DEBUG
             NSLog(@"%s parsed response = %@",__FUNCTION__,response);
+#endif
             if (response.deletedCount == 1) {
+#if DEBUG
                 NSLog(@"%s successfully deleted",__FUNCTION__);
+#endif
                 [self.locationItemStorage removeLocationItem:aPlakat];
                 success();
             } else {
@@ -485,18 +506,26 @@ typedef void(^PIKNetworkSuccessBlock)();
         @try {
 //            [responseObject writeToFile:@"/tmp/mistresult.proto" options:0 error:NULL];
             Response *response = [Response parseFromData:responseObject];
+#if DEBUG
             NSLog(@"%s parsed response = %@",__FUNCTION__,response);
+#endif
             if (response.addedCount == 1) {
+#if DEBUG
                 NSLog(@"%s successfully added",__FUNCTION__);
+#endif
                 // be happy and delete the bugger again
                 for (Plakat *plakat in response.plakate) {
                     if ([plakat.comment isEqualToString:comment]) {
+#if DEBUG
                         NSLog(@"%s Found the plakat we just added - jippie! %@",__FUNCTION__,plakat);
+#endif
                         self.username = aUsername;
                         self.password = aPassword;
                         PIKPlakat *pikPlakat = [[PIKPlakat alloc] initWithPlakat:plakat serverFetchDate:[NSDate new]];
                         [self removePlakatFromServer:pikPlakat completion:^(BOOL success, NSError *error) {
+#if DEBUG
                             NSLog(@"removing the credential plakat again was %@",success ? @"successful" : @"failurous");
+#endif
                         }];
                     }
                 }

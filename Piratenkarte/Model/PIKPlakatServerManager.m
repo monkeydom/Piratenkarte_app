@@ -74,14 +74,29 @@ static NSInteger s_activityCount = 0;
     if (self) {
         // TODO: save and read from defaults
         _serverArray = [NSMutableArray new];
-        
-        PIKPlakatServer *myTestServer = [PIKPlakatServer new];
-        myTestServer.identifier = @"B5C90E69-AF1C-4BD4-ADA8-DA89BF4C829B"; 
-        myTestServer.serverName = @"BTW Testserver";
-        myTestServer.serverInfoText = @"Testserver für die Bundestagswahl";
-        myTestServer.serverBaseURL = @"http://piraten.boombuler.de/testbtw/";
-        myTestServer.isDevelopment = YES;
-        [_serverArray addObject:myTestServer];
+
+#if DEBUG
+        {
+            PIKPlakatServer *myTestServer = [PIKPlakatServer new];
+            myTestServer.identifier = @"B5C90E69-AF1C-4BD4-ADA8-DA89BF4C829B"; 
+            myTestServer.serverName = @"BTW Testserver";
+            myTestServer.serverInfoText = @"Testserver für die Bundestagswahl";
+            myTestServer.serverBaseURL = @"http://piraten.boombuler.de/testbtw/";
+            myTestServer.isDevelopment = YES;
+            [_serverArray addObject:myTestServer];
+        }
+#else
+        {
+            PIKPlakatServer *myTestServer = [PIKPlakatServer new];
+            myTestServer.identifier = @"a1798eaf-c628-482e-9b35-e3cebd45eadc";
+            myTestServer.serverName = @"Niedersachsen";
+            myTestServer.serverInfoText = @"Testserver für die Bundestagswahl";
+            myTestServer.serverBaseURL = @"https://plakate.piraten-nds.de/";
+            myTestServer.isDevelopment = NO;
+            myTestServer.isDefault = YES;
+            [_serverArray addObject:myTestServer];
+        }
+#endif
 //        self.selectedServerIdentifier = myTestServer.identifier;
         [self restoreServerListFromDefaults];
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{

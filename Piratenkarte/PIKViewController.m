@@ -187,7 +187,7 @@ static PIKViewController *S_sharedViewController = nil;
 }
 
 - (void)changePlakatServer:(id)aSender {
-    NSLog(@"%s",__FUNCTION__);
+//    NSLog(@"%s",__FUNCTION__);
     PIKPlakatServerManager *plakatServerManager = [PIKPlakatServerManager plakatServerManager];
     PIKServerListViewController *serverListViewController = [PIKServerListViewController serverListViewControllerWithServerList:plakatServerManager.serverList selectedServer:plakatServerManager.selectedPlakatServer];
     [self presentViewController:serverListViewController animated:YES completion:NULL];
@@ -260,8 +260,9 @@ static PIKViewController *S_sharedViewController = nil;
         aContinuation();
     } else {
         UIAlertView *passwordAlert = [[UIAlertView alloc] initWithTitle:@"Server Login / Passwort" message:@"" completionBlock:^(NSUInteger buttonIndex, UIAlertView *alertView) {
+#if DEBUG
             NSLog(@"%s %@ %@",__FUNCTION__,[alertView textFieldAtIndex:0], [alertView textFieldAtIndex:1]);
-            
+#endif
             if (buttonIndex != 0) {
                 NSString *username = [alertView textFieldAtIndex:0].text;
                 NSString *password = [alertView textFieldAtIndex:1].text;
@@ -370,7 +371,9 @@ static PIKViewController *S_sharedViewController = nil;
         if (placemarks.count > 0) {
             CLPlacemark *placemark = placemarks[0];
             NSString *addressString = ABCreateStringWithAddressDictionary(placemark.addressDictionary, NO);
+#if DEBUG
             NSLog(@"%s %@",__FUNCTION__,addressString);
+#endif
         }
     }];
 
