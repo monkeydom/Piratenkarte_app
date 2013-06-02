@@ -11,6 +11,8 @@
 		F206A978175A727D00A536FD /* Crosshair@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F206A976175A727D00A536FD /* Crosshair@2x.png */; };
 		F206A97B175A72BE00A536FD /* PIKPlakatPlaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = F206A97A175A72BE00A536FD /* PIKPlakatPlaceView.m */; };
 		F206A97D175B53D100A536FD /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F206A97C175B53D100A536FD /* AddressBookUI.framework */; };
+		F206A981175B6DFA00A536FD /* PIKPlakatTypeListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F206A97F175B6DFA00A536FD /* PIKPlakatTypeListViewController.m */; };
+		F206A982175B6DFA00A536FD /* PIKPlakatTypeListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F206A980175B6DFA00A536FD /* PIKPlakatTypeListViewController.xib */; };
 		F20F22381751934800AF426F /* PIKPin_many.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F22361751934800AF426F /* PIKPin_many.png */; };
 		F20F22391751934800AF426F /* PIKPin_many@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F22371751934800AF426F /* PIKPin_many@2x.png */; };
 		F20F22491751FDC100AF426F /* alert-big.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F223B1751FDC100AF426F /* alert-big.png */; };
@@ -137,6 +139,9 @@
 		F206A979175A72BE00A536FD /* PIKPlakatPlaceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PIKPlakatPlaceView.h; path = Views/PIKPlakatPlaceView.h; sourceTree = "<group>"; };
 		F206A97A175A72BE00A536FD /* PIKPlakatPlaceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PIKPlakatPlaceView.m; path = Views/PIKPlakatPlaceView.m; sourceTree = "<group>"; };
 		F206A97C175B53D100A536FD /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		F206A97E175B6DFA00A536FD /* PIKPlakatTypeListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PIKPlakatTypeListViewController.h; path = ViewControllers/PIKPlakatTypeListViewController.h; sourceTree = "<group>"; };
+		F206A97F175B6DFA00A536FD /* PIKPlakatTypeListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PIKPlakatTypeListViewController.m; path = ViewControllers/PIKPlakatTypeListViewController.m; sourceTree = "<group>"; };
+		F206A980175B6DFA00A536FD /* PIKPlakatTypeListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PIKPlakatTypeListViewController.xib; path = ViewControllers/PIKPlakatTypeListViewController.xib; sourceTree = "<group>"; };
 		F20F22361751934800AF426F /* PIKPin_many.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PIKPin_many.png; sourceTree = "<group>"; };
 		F20F22371751934800AF426F /* PIKPin_many@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PIKPin_many@2x.png"; sourceTree = "<group>"; };
 		F20F223B1751FDC100AF426F /* alert-big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-big.png"; sourceTree = "<group>"; };
@@ -655,6 +660,9 @@
 				F2B037D21751493D001D8736 /* PIKServerListViewController.m */,
 				F20F226717522C2B00AF426F /* PIKPlakatDetailViewController.h */,
 				F20F226817522C2B00AF426F /* PIKPlakatDetailViewController.m */,
+				F206A97E175B6DFA00A536FD /* PIKPlakatTypeListViewController.h */,
+				F206A97F175B6DFA00A536FD /* PIKPlakatTypeListViewController.m */,
+				F206A980175B6DFA00A536FD /* PIKPlakatTypeListViewController.xib */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -776,6 +784,7 @@
 				F20F227D17524AB800AF426F /* ShadowLine.png in Resources */,
 				F206A977175A727D00A536FD /* Crosshair.png in Resources */,
 				F206A978175A727D00A536FD /* Crosshair@2x.png in Resources */,
+				F206A982175B6DFA00A536FD /* PIKPlakatTypeListViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -834,6 +843,7 @@
 				F20F226A17522C2B00AF426F /* PIKPlakatDetailViewController.m in Sources */,
 				F20F2283175275EE00AF426F /* PIKEditableCommentsCell.m in Sources */,
 				F206A97B175A72BE00A536FD /* PIKPlakatPlaceView.m in Sources */,
+				F206A981175B6DFA00A536FD /* PIKPlakatTypeListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

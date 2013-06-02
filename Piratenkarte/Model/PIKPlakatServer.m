@@ -323,18 +323,26 @@ typedef void(^PIKNetworkSuccessBlock)();
 
 }
 
+- (void)updateType:(NSString *)aType onPlakat:(PIKPlakat *)aPlakat completion:(PIKNetworkRequestCompletionHandler)aCompletion {
+    [self updatePlakatWithDictionary:@{@"type":aType} onPlakat:aPlakat completion:aCompletion];
+}
 
-- (void)updateComment:(NSString *)aComment onPlakat:(PIKPlakat *)aPlakat completion:(PIKNetworkRequestCompletionHandler)aCompletion {
+- (void)updatePlakatWithDictionary:(NSDictionary *)aDictionary onPlakat:(PIKPlakat *)aPlakat completion:(PIKNetworkRequestCompletionHandler)aCompletion {
     [PIKPlakatServerManager increaseNetworkActivityCount];
     PIKNetworkSuccessBlock success = [self successBlockWithCompletion:aCompletion];
     PIKNetworkFailBlock failure = [self failBlockWithCompletion:aCompletion];
     
     Request_Builder *requestBuilder = [self requestBuilderBase];
     requestBuilder.viewRequest = [self viewRequestWithCoordinateRegion:[self narrowRegionAroundCoordinate:aPlakat.coordinate]];
-
+    
     ChangeRequest_Builder *changeBuilder = [ChangeRequest builder];
     changeBuilder.id = aPlakat.plakatID;
-    changeBuilder.comment = aComment;
+    if (aDictionary[@"comment"]) {
+        changeBuilder.comment = aDictionary[@"comment"];
+    }
+    if (aDictionary[@"type"]) {
+        changeBuilder.type = aDictionary[@"type"];
+    }
     [requestBuilder addChange:[changeBuilder build]];
     
     Request *request = [requestBuilder build];
@@ -364,7 +372,10 @@ typedef void(^PIKNetworkSuccessBlock)();
         failure(error);
     }];
     [requestOperation start];
-    
+}
+
+- (void)updateComment:(NSString *)aComment onPlakat:(PIKPlakat *)aPlakat completion:(PIKNetworkRequestCompletionHandler)aCompletion {
+    [self updatePlakatWithDictionary:@{@"comment":aComment} onPlakat:aPlakat completion:aCompletion];
 }
 
 - (void)removePlakatFromServer:(PIKPlakat *)aPlakat completion:(PIKNetworkRequestCompletionHandler)aCompletion {

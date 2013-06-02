@@ -72,6 +72,29 @@ NSString * const PIKPlakatTypeWallOK    = @"wand_ok";
     return result;
 }
 
++ (NSString *)localizedDescriptionForPlakatType:(NSString *)aPlakatType {
+    NSString *type = aPlakatType;
+    if ([type isEqualToString:PIKPlakatTypeDefault]) {
+        return @"??";
+    } else if ([type isEqualToString:PIKPlakatTypeOK]) {
+        return @"Hängt";
+    } else if ([type isEqualToString:PIKPlakatTypeA0]) {
+        return @"A0 steht";
+    } else if ([type isEqualToString:PIKPlakatTypeStolen]) {
+        return @"Gestohlen";
+    } else if ([type isEqualToString:PIKPlakatTypeNicePlace]) {
+        return @"Gute Stelle";
+    } else if ([type isEqualToString:PIKPlakatTypeWrecked]) {
+        return @"Beschädigt";
+    } else if ([type isEqualToString:PIKPlakatTypeWall]) {
+        return @"Plakatwand";
+    } else if ([type isEqualToString:PIKPlakatTypeWallOK]) {
+        return @"Plakat an Plakatwand";
+    } else {
+        return type;
+    }
+}
+
 - (UIImage *)annotationImage {
     UIImage *result = [UIImage imageNamed:[NSString stringWithFormat:@"PIKAnnotation_%@",self.plakatType]];
     return result;
@@ -99,25 +122,8 @@ NSString * const PIKPlakatTypeWallOK    = @"wand_ok";
 
 - (NSString *)localizedType {
     NSString *type = self.plakatType;
-    if ([type isEqualToString:PIKPlakatTypeDefault]) {
-        return @"??";
-    } else if ([type isEqualToString:PIKPlakatTypeOK]) {
-        return @"Hängt";
-    } else if ([type isEqualToString:PIKPlakatTypeA0]) {
-        return @"A0 steht";
-    } else if ([type isEqualToString:PIKPlakatTypeStolen]) {
-        return @"Gestohlen";
-    } else if ([type isEqualToString:PIKPlakatTypeNicePlace]) {
-        return @"Gute Stelle";
-    } else if ([type isEqualToString:PIKPlakatTypeWrecked]) {
-        return @"Beschädigt";
-    } else if ([type isEqualToString:PIKPlakatTypeWall]) {
-        return @"Plakatwand";
-    } else if ([type isEqualToString:PIKPlakatTypeWallOK]) {
-        return @"Plakat an Plakatwand";
-    } else {
-        return type;
-    }
+    type = [self.class localizedDescriptionForPlakatType:type];
+    return type;
 }
 
 - (void)setPlakatID:(uint32_t)aPlakatID {

@@ -12,8 +12,9 @@
 #import "PIKPlakatServer.h"
 #import "PIKViewController.h"
 #import "PIKEditableCommentsCell.h"
+#import "PIKPlakatTypeListViewController.h"
 
-@interface PIKPlakatDetailViewController () <UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate>
+@interface PIKPlakatDetailViewController () <UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate, PIKPlakatTypeListViewControllerDelegate>
 
 @end
 
@@ -206,7 +207,32 @@
 }
 
 - (void)changeTypeAction:(id)aSender {
-    // TODO:
+    [[PIKViewController sharedViewController] ensureValidCredentialsWithContinuation:^{
+        PIKPlakatTypeListViewController *controller = [PIKPlakatTypeListViewController listControllerWithSelectedType:self.plakat.plakatType];
+        controller.delegate = self;
+        [self presentViewController:controller animated:YES completion:^{
+            NULL;
+        }];
+    }];
+}
+
+- (void)plakatTypeListViewController:(PIKPlakatTypeListViewController *)aController didChooseType:(NSString *)aType {
+    if (![aType isEqual:self.plakat.plakatType]) {
+        if (self.plakatIsNew) {
+            self.plakat.plakatType = aType;
+            [self adjustToPlakat];
+        } else {
+            [[[PIKPlakatServerManager plakatServerManager] selectedPlakatServer] updateType:aType onPlakat:self.plakat completion:^(BOOL success, NSError *error) {
+                if (success) {
+                    self.plakat.plakatType = aType;
+                    [self adjustToPlakat];
+                    [[PIKViewController sharedViewController] queryItemStorage];
+                } else {
+                    [self reportGenericNetworkFailure];
+                }
+            }];
+        }
+    }
 }
 
 - (void)deletePlakatAction:(id)aSender {

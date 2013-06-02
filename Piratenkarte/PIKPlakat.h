@@ -50,5 +50,6 @@ NSString * const PIKPlakatTypeWallOK;
 
 + (NSArray *)orderedPlakatTypes;
 + (UIImage *)annotationImageForPlakatType:(NSString *)aPlakatType;
++ (NSString *)localizedDescriptionForPlakatType:(NSString *)aPlakatType;
 
 @end

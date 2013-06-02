@@ -159,6 +159,7 @@ static PIKViewController *S_sharedViewController = nil;
     return _plakatDetailViewController;
 }
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
