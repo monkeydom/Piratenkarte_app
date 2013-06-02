@@ -30,7 +30,7 @@
 @implementation PIKPlakat (AnnotationAdditions)
 
 - (NSString *)title {
-    NSString *result = [NSString stringWithFormat:@"%@ (%@ am %@)", [self localizedType],self.usernameOfLastChange,self.localizedLastModifiedDate];
+    NSString *result = [NSString stringWithFormat:@"%@ (%@)", [self localizedType],self.usernameOfLastChange];
     return result;
 }
 
@@ -39,7 +39,7 @@
     if (self.comment.length > 0) [resultArray addObject:self.comment];
     if (self.imageURLString.length > 0) [resultArray addObject:self.imageURLString];
     [resultArray addObject:[@"#" stringByAppendingString:self.locationItemIdentifier]];
-    [resultArray addObject:[NSString stringWithFormat:@"(fetched %@)",self.localizedLastServerFetchDate]];
+    [resultArray addObject:[NSString stringWithFormat:@"(%@)",self.localizedLastServerFetchDate]];
     return [resultArray componentsJoinedByString:@" – "];
 }
 
@@ -138,6 +138,8 @@ static PIKViewController *S_sharedViewController = nil;
     layer.shadowOpacity = 1.0;
     layer.shadowRadius = 3.0;
     layer.shadowOffset = CGSizeZero;
+    
+    [[view superview] bringSubviewToFront:view];
 }
 
 #define CURRENTPOSITIONBASEKEY @"CurrentMapRect"
@@ -248,6 +250,9 @@ static PIKViewController *S_sharedViewController = nil;
     [self.o_mapView removeAnnotations:array ? array : anAnnotationArray];
 }
 
+#define TCMComparisonResultFromScalars(A,B) ({ __typeof__(A) __a = (A); __typeof__(B) __b = (B); __a < __b ? NSOrderedAscending : (__a > __b ? NSOrderedDescending : NSOrderedSame); })
+
+
 - (IBAction)queryItemStorage {
     [self storeLocationToDefaults];
     MKCoordinateRegion region = self.o_mapView.region;
@@ -259,7 +264,15 @@ static PIKViewController *S_sharedViewController = nil;
     if (items) {
         [self removeAnnotations:self.o_mapView.annotations];
         [self.o_mapView addAnnotations:items];
-        
+        // sorted items
+        /* [items sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        NSComparisonResult result = TCMComparisonResultFromScalars([obj2 coordinate].latitude, [obj1 coordinate].latitude);
+        if (result == NSOrderedSame) {
+            result = TCMComparisonResultFromScalars([obj1 coordinate].longitude, [obj2 coordinate].longitude);
+        }
+        return result;
+    }] */
+    
         if (items.count <= 0 || ([[[items lastObject] lastServerFetchDate] timeIntervalSinceNow] < -60. * 15.)) {
             [self queryServer];
         }
