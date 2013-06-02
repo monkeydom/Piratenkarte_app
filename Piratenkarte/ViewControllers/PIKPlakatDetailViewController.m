@@ -292,7 +292,7 @@
     PIKEditableCommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"label"];
     if (!cell) {
         cell = [[PIKEditableCommentsCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:@"label"];
-        cell.detailTextLabel.numberOfLines = 0;
+        cell.detailTextLabel.numberOfLines = 4;
         cell.textLabel.minimumFontSize = 6.0;
         cell.textLabel.adjustsLetterSpacingToFitWidth = YES;
         cell.textLabel.adjustsFontSizeToFitWidth = YES;
