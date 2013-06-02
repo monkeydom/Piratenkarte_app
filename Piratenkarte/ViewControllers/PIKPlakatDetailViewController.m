@@ -92,8 +92,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-
 - (IBAction)dismissAction:(id)aSender {
     PIKEditableCommentsCell *cell = (PIKEditableCommentsCell *)[self.o_editingTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     if ([cell.textView isFirstResponder]) {
@@ -128,14 +126,16 @@
             }
         }];
     } else if ([cell.textView isFirstResponder]) {
-        [[[PIKPlakatServerManager plakatServerManager] selectedPlakatServer] updateComment:comment onPlakat:self.plakat completion:^(BOOL success, NSError *error) {
-            if (success) {
-                [cell.textView resignFirstResponder];
-                self.plakat.comment = comment;
-                cell.textView.text = comment;
-            } else {
-                [self reportGenericNetworkFailure];
-            }
+        [[PIKViewController sharedViewController] ensureValidCredentialsWithContinuation:^{
+            [[[PIKPlakatServerManager plakatServerManager] selectedPlakatServer] updateComment:comment onPlakat:self.plakat completion:^(BOOL success, NSError *error) {
+                if (success) {
+                    [cell.textView resignFirstResponder];
+                    self.plakat.comment = comment;
+                    cell.textView.text = comment;
+                } else {
+                    [self reportGenericNetworkFailure];
+                }
+            }];
         }];
     } else {
         [self dismissAction:aSender];
