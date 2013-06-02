@@ -9,11 +9,14 @@
 #import "PIKAppDelegate.h"
 
 #import "PIKViewController.h"
+#import "AFNetworking.h"
+#import "PIKPlakatServerManager.h"
 
 @implementation PIKAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [PIKPlakatServerManager plakatServerManager];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
@@ -23,6 +26,7 @@
     }
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
@@ -45,7 +49,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
