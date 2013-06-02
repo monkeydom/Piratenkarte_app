@@ -12,6 +12,7 @@
 
 @interface PIKPlakatPlaceView ()
 @property (nonatomic, strong) UIView *crosshairView;
+@property (nonatomic, strong) UIView *annotationImageView;
 @end
 
 @implementation PIKPlakatPlaceView
@@ -27,6 +28,8 @@
         
         plakatTypeView.frame = CGRectInset(self.bounds,INSET,INSET);
         [self addSubview:plakatTypeView];
+        self.annotationImageView = plakatTypeView;
+        
         crosshairView.layer.position = CGPointMake(CGRectGetMidX(self.bounds)+0.5, -CGRectGetHeight(crosshairView.frame) + 10.5);
         [self addSubview:crosshairView];
         self.crosshairView=crosshairView;
@@ -39,7 +42,16 @@
     return self;    
 }
 
+- (CGPoint)targetPointInBoundsCoordinates {
+    CGPoint result = self.crosshairView.center;
+    return result;
+}
+
+
 - (void)ploppViewInWithDelay:(NSTimeInterval)aDelay completion:(MKDAnimationCompletionBlock)aCompletion {
+    self.crosshairView.alpha = 0.0;
+    self.transform = CGAffineTransformMakeScale(0.1, 0.1);
+    self.annotationImageView.transform = CGAffineTransformIdentity;
     [UIView animateWithDuration:0.4 delay:aDelay options:0 animations:^{
         self.transform = CGAffineTransformMakeScale(1.3, 1.3);
         self.alpha = 1.0;
@@ -54,6 +66,7 @@
     [UIView animateWithDuration:0.3 delay:0.0 options:0 animations:^{
         self.transform = CGAffineTransformMakeScale(0.1, 0.1);
         self.alpha = 0.0;
+        self.crosshairView.alpha = 0.0;
     } completion:aCompletion];
 }
 
@@ -62,6 +75,7 @@
     CGPoint touchPointInSuperview = self.layer.position;
     if ([aPanGestureRecognizer numberOfTouches] > 0) {
         touchPointInSuperview = [aPanGestureRecognizer locationOfTouch:0 inView:self.superview];
+        touchPointInSuperview.y -= 30.0; // Thumb area bonus
     }
     
     CGAffineTransform translation = CGAffineTransformMakeTranslation(touchPointInSuperview.x - self.layer.position.x, touchPointInSuperview.y - self.layer.position.y);
@@ -74,6 +88,7 @@
             }
             [UIView animateWithDuration:0.4 animations:^{
                 self.crosshairView.alpha = 1.0;
+                self.annotationImageView.transform = CGAffineTransformMakeTranslation(0, -80.);
             }];
         }
             break;
@@ -83,13 +98,17 @@
             break;
         case UIGestureRecognizerStateEnded: {
             //inform delegate
+            BOOL shouldSnapBack = YES;
             if (self.delegate) {
-                [[self delegate] plakatPlaceViewDidEndDrag:self];
+                shouldSnapBack = [[self delegate] plakatPlaceViewDidEndDragShouldSnapBack:self];
             }
-            [UIView animateWithDuration:0.4 animations:^{
-                self.crosshairView.alpha = 0.0;
-                self.transform = CGAffineTransformIdentity;
-            }];
+            if (shouldSnapBack) {
+                [UIView animateWithDuration:0.4 animations:^{
+                    self.crosshairView.alpha = 0.0;
+                    self.transform = CGAffineTransformIdentity;
+                    self.annotationImageView.transform = CGAffineTransformIdentity;
+                }];
+            }
         }
             break;
         default:

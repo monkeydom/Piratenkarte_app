@@ -19,6 +19,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "PIKPlakatDetailViewController.h"
 #import "PIKPlakatPlaceView.h"
+#import <AddressBookUI/AddressBookUI.h>
 
 @interface PIKPlakat (AnnotationAdditions)
 @end
@@ -200,6 +201,7 @@ static PIKViewController *S_sharedViewController = nil;
 }
 
 - (void)selectedPlakatServerDidChange:(NSNotification *)aNotification {
+    [self hideAddUI];
     [self updatePlakatServerButtonView];
     [self queryItemStorage];
 }
@@ -306,6 +308,7 @@ static PIKViewController *S_sharedViewController = nil;
     if (plakatAddViews.count <= 0) {
         for (NSString *plakatType in [PIKPlakat orderedPlakatTypes]) {
             PIKPlakatPlaceView *placeView = [[PIKPlakatPlaceView alloc] initWithPlakatType:plakatType];
+            placeView.delegate = self;
             [plakatAddViews addObject:placeView];
         }
     }
@@ -339,6 +342,33 @@ static PIKViewController *S_sharedViewController = nil;
         // do the actual adding UI here
         [self toggleAddUI];
     }];
+}
+
+- (void)plakatPlaceViewDidStartDrag:(PIKPlakatPlaceView *)aPlakatPlaceView {
+    // ignore currently
+}
+
+#define PLACEMENTYTHRESHOLD 30
+#define PLACEMENTXTHRESHOLD 30
+
+- (BOOL)plakatPlaceViewDidEndDragShouldSnapBack:(PIKPlakatPlaceView *)aPlakatPlaceView {
+    CGPoint pointInMapViewCoords = [aPlakatPlaceView convertPoint:[aPlakatPlaceView targetPointInBoundsCoordinates] toView:self.o_mapView];
+    CLLocationCoordinate2D location = [self.o_mapView convertPoint:pointInMapViewCoords toCoordinateFromView:self.o_mapView];
+    [[PIKPlakatServerManager geoCoder] reverseGeocodeLocation:[[CLLocation alloc] initWithLatitude:location.latitude longitude:location.longitude] completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (placemarks.count > 0) {
+            CLPlacemark *placemark = placemarks[0];
+            NSString *addressString = ABCreateStringWithAddressDictionary(placemark.addressDictionary, NO);
+            NSLog(@"%s %@",__FUNCTION__,addressString);
+        }
+    }];
+
+    if (ABS(aPlakatPlaceView.transform.tx) < PLACEMENTXTHRESHOLD &&
+        aPlakatPlaceView.transform.ty > -PLACEMENTYTHRESHOLD) {
+        return YES;
+    } else {
+        return NO;
+    }
+    
 }
 
 - (IBAction)queryServer {

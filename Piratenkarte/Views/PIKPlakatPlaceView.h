@@ -13,13 +13,14 @@ typedef void (^MKDAnimationCompletionBlock)(BOOL didFinish);
 
 @protocol PIKPlakatPlaceVieDelegate
 - (void)plakatPlaceViewDidStartDrag:(PIKPlakatPlaceView *)aPlakatPlaceView;
-- (void)plakatPlaceViewDidEndDrag:(PIKPlakatPlaceView *)aPlakatPlaceView;
+- (BOOL)plakatPlaceViewDidEndDragShouldSnapBack:(PIKPlakatPlaceView *)aPlakatPlaceView;
 @end
 
 @interface PIKPlakatPlaceView : UIView
 @property (nonatomic, weak) id<PIKPlakatPlaceVieDelegate> delegate;
 - (id)initWithPlakatType:(NSString *)aPlakatType;
 
+- (CGPoint)targetPointInBoundsCoordinates;
 - (void)ploppViewInWithDelay:(NSTimeInterval)aDelay completion:(MKDAnimationCompletionBlock)aCompletion;
 - (void)ploppViewOutCompletion:(MKDAnimationCompletionBlock)aCompletion;
 @end
