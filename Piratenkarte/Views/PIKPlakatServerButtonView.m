@@ -29,7 +29,8 @@
     result.lineBreakMode = UILineBreakModeMiddleTruncation;
     result.minimumFontSize = MAX((aFontSize - 6), 10.0);
     result.adjustsFontSizeToFitWidth = YES;
-    result.adjustsLetterSpacingToFitWidth = YES;
+    if ([result respondsToSelector:@selector(setAdjustsLetterSpacingToFitWidth:)])
+        result.adjustsLetterSpacingToFitWidth = YES;
     result.opaque = NO;
     return result;
 }
