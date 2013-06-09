@@ -1,0 +1,11 @@
+/* 
+  Localization.strings
+  Piratenkarte
+
+  Created by Dominik Wagner on 09.06.13.
+  Copyright (c) 2013 Dominik Wagner. All rights reserved.
+*/
+
+"Cancel" = "Abbrechen";
+"Save" = "Speichern";
+"Done" = "Fertig";

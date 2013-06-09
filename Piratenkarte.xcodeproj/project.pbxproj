@@ -12,7 +12,6 @@
 		F206A97B175A72BE00A536FD /* PIKPlakatPlaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = F206A97A175A72BE00A536FD /* PIKPlakatPlaceView.m */; };
 		F206A97D175B53D100A536FD /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F206A97C175B53D100A536FD /* AddressBookUI.framework */; };
 		F206A981175B6DFA00A536FD /* PIKPlakatTypeListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F206A97F175B6DFA00A536FD /* PIKPlakatTypeListViewController.m */; };
-		F206A982175B6DFA00A536FD /* PIKPlakatTypeListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F206A980175B6DFA00A536FD /* PIKPlakatTypeListViewController.xib */; };
 		F20F22381751934800AF426F /* PIKPin_many.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F22361751934800AF426F /* PIKPin_many.png */; };
 		F20F22391751934800AF426F /* PIKPin_many@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F22371751934800AF426F /* PIKPin_many@2x.png */; };
 		F20F22491751FDC100AF426F /* alert-big.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F223B1751FDC100AF426F /* alert-big.png */; };
@@ -35,25 +34,27 @@
 		F20F22641752147B00AF426F /* SGKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = F20F22631752147B00AF426F /* SGKeychain.m */; };
 		F20F22661752162300AF426F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F20F22651752162300AF426F /* Security.framework */; };
 		F20F226A17522C2B00AF426F /* PIKPlakatDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F20F226817522C2B00AF426F /* PIKPlakatDetailViewController.m */; };
-		F20F226B17522C2B00AF426F /* PIKPlakatDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F20F226917522C2B00AF426F /* PIKPlakatDetailViewController.xib */; };
 		F20F227817523DB800AF426F /* PIKDeleteButtonNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F227417523DB800AF426F /* PIKDeleteButtonNormal.png */; };
 		F20F227917523DB800AF426F /* PIKDeleteButtonNormal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F227517523DB800AF426F /* PIKDeleteButtonNormal@2x.png */; };
 		F20F227A17523DB800AF426F /* PIKDeleteButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F227617523DB800AF426F /* PIKDeleteButtonPressed.png */; };
 		F20F227B17523DB800AF426F /* PIKDeleteButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F227717523DB800AF426F /* PIKDeleteButtonPressed@2x.png */; };
 		F20F227D17524AB800AF426F /* ShadowLine.png in Resources */ = {isa = PBXBuildFile; fileRef = F20F227C17524AB800AF426F /* ShadowLine.png */; };
 		F20F2283175275EE00AF426F /* PIKEditableCommentsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F20F2282175275EE00AF426F /* PIKEditableCommentsCell.m */; };
+		F21B6C271764786600825BF3 /* PIKPlakatDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F21B6C1D1764786600825BF3 /* PIKPlakatDetailViewController.xib */; };
+		F21B6C281764786600825BF3 /* PIKPlakatTypeListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F21B6C1F1764786600825BF3 /* PIKPlakatTypeListViewController.xib */; };
+		F21B6C291764786600825BF3 /* PIKServerListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F21B6C211764786600825BF3 /* PIKServerListViewController.xib */; };
+		F21B6C2B1764786600825BF3 /* PIKViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = F21B6C251764786600825BF3 /* PIKViewController_iPhone.xib */; };
+		F21B6C301764787E00825BF3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F21B6C2C1764787E00825BF3 /* InfoPlist.strings */; };
+		F21B6C311764787E00825BF3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F21B6C2E1764787E00825BF3 /* Localizable.strings */; };
 		F221F1EE173FCDB200A63B56 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F221F1ED173FCDB200A63B56 /* UIKit.framework */; };
 		F221F1F0173FCDB200A63B56 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F221F1EF173FCDB200A63B56 /* Foundation.framework */; };
 		F221F1F2173FCDB200A63B56 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F221F1F1173FCDB200A63B56 /* CoreGraphics.framework */; };
-		F221F1F8173FCDB200A63B56 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F221F1F6173FCDB200A63B56 /* InfoPlist.strings */; };
 		F221F1FA173FCDB200A63B56 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F221F1F9173FCDB200A63B56 /* main.m */; };
 		F221F1FE173FCDB200A63B56 /* PIKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F221F1FD173FCDB200A63B56 /* PIKAppDelegate.m */; };
 		F221F200173FCDB200A63B56 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = F221F1FF173FCDB200A63B56 /* Default.png */; };
 		F221F202173FCDB200A63B56 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F221F201173FCDB200A63B56 /* Default@2x.png */; };
 		F221F204173FCDB200A63B56 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F221F203173FCDB200A63B56 /* Default-568h@2x.png */; };
 		F221F207173FCDB200A63B56 /* PIKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F221F206173FCDB200A63B56 /* PIKViewController.m */; };
-		F221F20A173FCDB200A63B56 /* PIKViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = F221F208173FCDB200A63B56 /* PIKViewController_iPhone.xib */; };
-		F221F20D173FCDB200A63B56 /* PIKViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = F221F20B173FCDB200A63B56 /* PIKViewController_iPad.xib */; };
 		F221F214173FD08700A63B56 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F221F213173FD08700A63B56 /* MapKit.framework */; };
 		F221F219173FDAF600A63B56 /* PiratenkarteIcon57.png in Resources */ = {isa = PBXBuildFile; fileRef = F221F217173FDAF600A63B56 /* PiratenkarteIcon57.png */; };
 		F221F21A173FDAF600A63B56 /* PiratenkarteIcon57@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F221F218173FDAF600A63B56 /* PiratenkarteIcon57@2x.png */; };
@@ -129,7 +130,6 @@
 		F2B037CC174FEE4E001D8736 /* PiratenkarteIcon72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2B037CA174FEE4E001D8736 /* PiratenkarteIcon72@2x.png */; };
 		F2B037CF17513A7F001D8736 /* PIKPlakatServerButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = F2B037CE17513A7F001D8736 /* PIKPlakatServerButtonView.m */; };
 		F2B037D41751493E001D8736 /* PIKServerListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2B037D21751493D001D8736 /* PIKServerListViewController.m */; };
-		F2B037D51751493E001D8736 /* PIKServerListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2B037D31751493E001D8736 /* PIKServerListViewController.xib */; };
 		F2B037D8175152F8001D8736 /* PIKLongDescriptionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2B037D7175152F8001D8736 /* PIKLongDescriptionTableViewCell.m */; };
 /* End PBXBuildFile section */
 
@@ -141,7 +141,6 @@
 		F206A97C175B53D100A536FD /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		F206A97E175B6DFA00A536FD /* PIKPlakatTypeListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PIKPlakatTypeListViewController.h; path = ViewControllers/PIKPlakatTypeListViewController.h; sourceTree = "<group>"; };
 		F206A97F175B6DFA00A536FD /* PIKPlakatTypeListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PIKPlakatTypeListViewController.m; path = ViewControllers/PIKPlakatTypeListViewController.m; sourceTree = "<group>"; };
-		F206A980175B6DFA00A536FD /* PIKPlakatTypeListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PIKPlakatTypeListViewController.xib; path = ViewControllers/PIKPlakatTypeListViewController.xib; sourceTree = "<group>"; };
 		F20F22361751934800AF426F /* PIKPin_many.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PIKPin_many.png; sourceTree = "<group>"; };
 		F20F22371751934800AF426F /* PIKPin_many@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PIKPin_many@2x.png"; sourceTree = "<group>"; };
 		F20F223B1751FDC100AF426F /* alert-big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-big.png"; sourceTree = "<group>"; };
@@ -169,7 +168,6 @@
 		F20F22651752162300AF426F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		F20F226717522C2B00AF426F /* PIKPlakatDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PIKPlakatDetailViewController.h; path = ViewControllers/PIKPlakatDetailViewController.h; sourceTree = "<group>"; };
 		F20F226817522C2B00AF426F /* PIKPlakatDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PIKPlakatDetailViewController.m; path = ViewControllers/PIKPlakatDetailViewController.m; sourceTree = "<group>"; };
-		F20F226917522C2B00AF426F /* PIKPlakatDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PIKPlakatDetailViewController.xib; path = ViewControllers/PIKPlakatDetailViewController.xib; sourceTree = "<group>"; };
 		F20F227417523DB800AF426F /* PIKDeleteButtonNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PIKDeleteButtonNormal.png; sourceTree = "<group>"; };
 		F20F227517523DB800AF426F /* PIKDeleteButtonNormal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PIKDeleteButtonNormal@2x.png"; sourceTree = "<group>"; };
 		F20F227617523DB800AF426F /* PIKDeleteButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PIKDeleteButtonPressed.png; sourceTree = "<group>"; };
@@ -177,12 +175,17 @@
 		F20F227C17524AB800AF426F /* ShadowLine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShadowLine.png; sourceTree = "<group>"; };
 		F20F2281175275EE00AF426F /* PIKEditableCommentsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PIKEditableCommentsCell.h; path = Views/PIKEditableCommentsCell.h; sourceTree = "<group>"; };
 		F20F2282175275EE00AF426F /* PIKEditableCommentsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PIKEditableCommentsCell.m; path = Views/PIKEditableCommentsCell.m; sourceTree = "<group>"; };
+		F21B6C1E1764786600825BF3 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/PIKPlakatDetailViewController.xib; sourceTree = "<group>"; };
+		F21B6C201764786600825BF3 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/PIKPlakatTypeListViewController.xib; sourceTree = "<group>"; };
+		F21B6C221764786600825BF3 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/PIKServerListViewController.xib; sourceTree = "<group>"; };
+		F21B6C261764786600825BF3 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/PIKViewController_iPhone.xib; sourceTree = "<group>"; };
+		F21B6C2D1764787E00825BF3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F21B6C2F1764787E00825BF3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F221F1EA173FCDB200A63B56 /* Piratenkarte.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Piratenkarte.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F221F1ED173FCDB200A63B56 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F221F1EF173FCDB200A63B56 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F221F1F1173FCDB200A63B56 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		F221F1F5173FCDB200A63B56 /* Piratenkarte-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Piratenkarte-Info.plist"; sourceTree = "<group>"; };
-		F221F1F7173FCDB200A63B56 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F221F1F9173FCDB200A63B56 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F221F1FB173FCDB200A63B56 /* Piratenkarte-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Piratenkarte-Prefix.pch"; sourceTree = "<group>"; };
 		F221F1FC173FCDB200A63B56 /* PIKAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PIKAppDelegate.h; sourceTree = "<group>"; };
@@ -192,8 +195,6 @@
 		F221F203173FCDB200A63B56 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		F221F205173FCDB200A63B56 /* PIKViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PIKViewController.h; sourceTree = "<group>"; };
 		F221F206173FCDB200A63B56 /* PIKViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PIKViewController.m; sourceTree = "<group>"; };
-		F221F209173FCDB200A63B56 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PIKViewController_iPhone.xib; sourceTree = "<group>"; };
-		F221F20C173FCDB200A63B56 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PIKViewController_iPad.xib; sourceTree = "<group>"; };
 		F221F213173FD08700A63B56 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F221F217173FDAF600A63B56 /* PiratenkarteIcon57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PiratenkarteIcon57.png; path = Images/Icon/PiratenkarteIcon57.png; sourceTree = "<group>"; };
 		F221F218173FDAF600A63B56 /* PiratenkarteIcon57@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "PiratenkarteIcon57@2x.png"; path = "Images/Icon/PiratenkarteIcon57@2x.png"; sourceTree = "<group>"; };
@@ -313,7 +314,6 @@
 		F2B037CE17513A7F001D8736 /* PIKPlakatServerButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PIKPlakatServerButtonView.m; path = Views/PIKPlakatServerButtonView.m; sourceTree = "<group>"; };
 		F2B037D11751493D001D8736 /* PIKServerListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PIKServerListViewController.h; path = ViewControllers/PIKServerListViewController.h; sourceTree = "<group>"; };
 		F2B037D21751493D001D8736 /* PIKServerListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PIKServerListViewController.m; path = ViewControllers/PIKServerListViewController.m; sourceTree = "<group>"; };
-		F2B037D31751493E001D8736 /* PIKServerListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PIKServerListViewController.xib; path = ViewControllers/PIKServerListViewController.xib; sourceTree = "<group>"; };
 		F2B037D6175152F8001D8736 /* PIKLongDescriptionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PIKLongDescriptionTableViewCell.h; sourceTree = "<group>"; };
 		F2B037D7175152F8001D8736 /* PIKLongDescriptionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PIKLongDescriptionTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -368,11 +368,10 @@
 		F20F225A1752114900AF426F /* Interface */ = {
 			isa = PBXGroup;
 			children = (
-				F206A980175B6DFA00A536FD /* PIKPlakatTypeListViewController.xib */,
-				F20F226917522C2B00AF426F /* PIKPlakatDetailViewController.xib */,
-				F2B037D31751493E001D8736 /* PIKServerListViewController.xib */,
-				F221F208173FCDB200A63B56 /* PIKViewController_iPhone.xib */,
-				F221F20B173FCDB200A63B56 /* PIKViewController_iPad.xib */,
+				F21B6C1D1764786600825BF3 /* PIKPlakatDetailViewController.xib */,
+				F21B6C1F1764786600825BF3 /* PIKPlakatTypeListViewController.xib */,
+				F21B6C211764786600825BF3 /* PIKServerListViewController.xib */,
+				F21B6C251764786600825BF3 /* PIKViewController_iPhone.xib */,
 			);
 			name = Interface;
 			sourceTree = "<group>";
@@ -446,12 +445,13 @@
 			isa = PBXGroup;
 			children = (
 				F221F1F5173FCDB200A63B56 /* Piratenkarte-Info.plist */,
-				F221F1F6173FCDB200A63B56 /* InfoPlist.strings */,
 				F221F1F9173FCDB200A63B56 /* main.m */,
 				F221F1FB173FCDB200A63B56 /* Piratenkarte-Prefix.pch */,
 				F221F1FF173FCDB200A63B56 /* Default.png */,
 				F221F201173FCDB200A63B56 /* Default@2x.png */,
 				F221F203173FCDB200A63B56 /* Default-568h@2x.png */,
+				F21B6C2C1764787E00825BF3 /* InfoPlist.strings */,
+				F21B6C2E1764787E00825BF3 /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -703,6 +703,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				de,
 			);
 			mainGroup = F221F1E1173FCDB200A63B56;
 			productRefGroup = F221F1EB173FCDB200A63B56 /* Products */;
@@ -719,12 +720,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F221F1F8173FCDB200A63B56 /* InfoPlist.strings in Resources */,
 				F221F200173FCDB200A63B56 /* Default.png in Resources */,
 				F221F202173FCDB200A63B56 /* Default@2x.png in Resources */,
 				F221F204173FCDB200A63B56 /* Default-568h@2x.png in Resources */,
-				F221F20A173FCDB200A63B56 /* PIKViewController_iPhone.xib in Resources */,
-				F221F20D173FCDB200A63B56 /* PIKViewController_iPad.xib in Resources */,
 				F221F219173FDAF600A63B56 /* PiratenkarteIcon57.png in Resources */,
 				F221F21A173FDAF600A63B56 /* PiratenkarteIcon57@2x.png in Resources */,
 				F2ACBA1E17496F5F0015E899 /* PIKAnnotation_plakat_a0.png in Resources */,
@@ -759,7 +757,6 @@
 				F2B037C8174FA83D001D8736 /* PIKPin_wand@2x.png in Resources */,
 				F2B037CB174FEE4E001D8736 /* PiratenkarteIcon72.png in Resources */,
 				F2B037CC174FEE4E001D8736 /* PiratenkarteIcon72@2x.png in Resources */,
-				F2B037D51751493E001D8736 /* PIKServerListViewController.xib in Resources */,
 				F20F22381751934800AF426F /* PIKPin_many.png in Resources */,
 				F20F22391751934800AF426F /* PIKPin_many@2x.png in Resources */,
 				F20F22491751FDC100AF426F /* alert-big.png in Resources */,
@@ -776,7 +773,6 @@
 				F20F22541751FDC100AF426F /* TrackingLocation@2x.png in Resources */,
 				F20F22551751FDC100AF426F /* TrackingOff.png in Resources */,
 				F20F22561751FDC100AF426F /* TrackingOff@2x.png in Resources */,
-				F20F226B17522C2B00AF426F /* PIKPlakatDetailViewController.xib in Resources */,
 				F20F227817523DB800AF426F /* PIKDeleteButtonNormal.png in Resources */,
 				F20F227917523DB800AF426F /* PIKDeleteButtonNormal@2x.png in Resources */,
 				F20F227A17523DB800AF426F /* PIKDeleteButtonPressed.png in Resources */,
@@ -784,7 +780,12 @@
 				F20F227D17524AB800AF426F /* ShadowLine.png in Resources */,
 				F206A977175A727D00A536FD /* Crosshair.png in Resources */,
 				F206A978175A727D00A536FD /* Crosshair@2x.png in Resources */,
-				F206A982175B6DFA00A536FD /* PIKPlakatTypeListViewController.xib in Resources */,
+				F21B6C271764786600825BF3 /* PIKPlakatDetailViewController.xib in Resources */,
+				F21B6C281764786600825BF3 /* PIKPlakatTypeListViewController.xib in Resources */,
+				F21B6C291764786600825BF3 /* PIKServerListViewController.xib in Resources */,
+				F21B6C2B1764786600825BF3 /* PIKViewController_iPhone.xib in Resources */,
+				F21B6C301764787E00825BF3 /* InfoPlist.strings in Resources */,
+				F21B6C311764787E00825BF3 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -850,28 +851,52 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		F221F1F6173FCDB200A63B56 /* InfoPlist.strings */ = {
+		F21B6C1D1764786600825BF3 /* PIKPlakatDetailViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				F221F1F7173FCDB200A63B56 /* en */,
+				F21B6C1E1764786600825BF3 /* de */,
 			);
-			name = InfoPlist.strings;
+			name = PIKPlakatDetailViewController.xib;
 			sourceTree = "<group>";
 		};
-		F221F208173FCDB200A63B56 /* PIKViewController_iPhone.xib */ = {
+		F21B6C1F1764786600825BF3 /* PIKPlakatTypeListViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				F221F209173FCDB200A63B56 /* en */,
+				F21B6C201764786600825BF3 /* de */,
+			);
+			name = PIKPlakatTypeListViewController.xib;
+			sourceTree = "<group>";
+		};
+		F21B6C211764786600825BF3 /* PIKServerListViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F21B6C221764786600825BF3 /* de */,
+			);
+			name = PIKServerListViewController.xib;
+			sourceTree = "<group>";
+		};
+		F21B6C251764786600825BF3 /* PIKViewController_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F21B6C261764786600825BF3 /* de */,
 			);
 			name = PIKViewController_iPhone.xib;
 			sourceTree = "<group>";
 		};
-		F221F20B173FCDB200A63B56 /* PIKViewController_iPad.xib */ = {
+		F21B6C2C1764787E00825BF3 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				F221F20C173FCDB200A63B56 /* en */,
+				F21B6C2D1764787E00825BF3 /* de */,
 			);
-			name = PIKViewController_iPad.xib;
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		F21B6C2E1764787E00825BF3 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F21B6C2F1764787E00825BF3 /* de */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
