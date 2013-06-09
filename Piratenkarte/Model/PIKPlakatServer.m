@@ -226,13 +226,14 @@ typedef void(^PIKNetworkSuccessBlock)();
     Request *req = request.build;
     NSData *postData = req.data;
     
-    //    [postData writeToFile:@"/tmp/karten.post" atomically:NO];
-    
+//    [postData writeToFile:@"/tmp/karten.post" atomically:NO];
+//    NSLog(@"%s post request = %@",__FUNCTION__,req);
     NSDate *requestDate = [NSDate new];
     
     NSMutableURLRequest *urlRequest = [self baseURLRequestWithPostData:postData];
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        [responseObject writeToFile:@"/tmp/karten.response" options:0 error:nil];
         //        NSLog(@"%s success %@, %@",__FUNCTION__,operation.response, responseObject);
         //        NSLog(@"%s all Headers %@",__FUNCTION__,[operation.response allHeaderFields]);
         @try {
