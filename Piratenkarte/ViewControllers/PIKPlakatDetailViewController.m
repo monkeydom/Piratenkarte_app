@@ -294,7 +294,8 @@
         cell = [[PIKEditableCommentsCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:@"label"];
         cell.detailTextLabel.numberOfLines = 4;
         cell.textLabel.minimumFontSize = 6.0;
-        cell.textLabel.adjustsLetterSpacingToFitWidth = YES;
+        if ([cell.textLabel respondsToSelector:@selector(setAdjustsLetterSpacingToFitWidth:)])
+            cell.textLabel.adjustsLetterSpacingToFitWidth = YES;
         cell.textLabel.adjustsFontSizeToFitWidth = YES;
     }
     switch (indexPath.row) {

@@ -190,7 +190,7 @@ typedef void(^PIKNetworkSuccessBlock)();
 #if DEBUG
         NSLog(@"%s did fetch %d plakate in this area: %@ %@",__FUNCTION__,aResponse.plakate.count, [[CLLocation alloc] initWithLatitude:minCoord.latitude longitude:minCoord.longitude], [[CLLocation alloc] initWithLatitude:maxCoord.latitude longitude:maxCoord.longitude]);
 #endif
-        [[NSNotificationCenter defaultCenter] postNotificationName:PIKPlakatServerDidReceiveDataNotification object:self userInfo:@{@"coordinate":[NSValue valueWithMKCoordinate:aCoordinateRegion.center], @"coordinateSpan":[NSValue valueWithMKCoordinateSpan:aCoordinateRegion.span]}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:PIKPlakatServerDidReceiveDataNotification object:self userInfo:@{@"coordinate":[NSValue valueWithBytes:&aCoordinateRegion.center objCType:@encode(CLLocationCoordinate2D)], @"coordinateSpan":[NSValue valueWithBytes:&aCoordinateRegion.span objCType:@encode(MKCoordinateRegion)]}];
     }
 
 
