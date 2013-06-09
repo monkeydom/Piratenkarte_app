@@ -211,6 +211,7 @@ typedef void(^PIKNetworkSuccessBlock)();
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:self.serverAPIURL];
     [urlRequest setHTTPMethod:@"POST"];
     [urlRequest setHTTPBody:aPostData];
+    [urlRequest setCachePolicy:NSURLCacheStorageNotAllowed];
     return urlRequest;
 }
 
@@ -549,7 +550,7 @@ typedef void(^PIKNetworkSuccessBlock)();
 
 - (void)setServerBaseURL:(NSString *)aServerBaseURLString {
     _serverBaseURL = aServerBaseURLString;
-    NSURL *serverAPIURL = [NSURL URLWithString:[aServerBaseURLString stringByAppendingPathComponent:@"api.php"]];
+    NSURL *serverAPIURL = [[NSURL URLWithString:aServerBaseURLString] URLByAppendingPathComponent:@"api.php"];
     self.serverAPIURL = serverAPIURL;
 }
 
