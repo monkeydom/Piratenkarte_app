@@ -156,7 +156,7 @@ static NSInteger s_activityCount = 0;
     if (!result && self.serverArray.count > 0) {
         result = [self.serverArray objectAtIndex:0];
     }
-	NSLog(@"%s result:%@",__FUNCTION__,result);
+	//	NSLog(@"%s result:%@",__FUNCTION__,result);
     return result;
 }
 
