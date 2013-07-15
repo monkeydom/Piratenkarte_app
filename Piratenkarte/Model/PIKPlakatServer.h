@@ -21,6 +21,8 @@ typedef void(^PIKNetworkRequestCompletionHandler)(BOOL success, NSError *error);
 @property (nonatomic, strong) NSString *identifier;
 @property (nonatomic) BOOL isDefault;
 @property (nonatomic) BOOL isDevelopment;
+@property (nonatomic, readonly) BOOL isNoServer;
+@property (nonatomic) BOOL isCurrent; // we remember all servers, but only current servers are allowed for users
 @property (nonatomic, strong) NSString *serverInfoText;
 @property (nonatomic, strong) NSString *serverName;
 @property (nonatomic, strong) NSString *serverBaseURL;
@@ -34,6 +36,9 @@ typedef void(^PIKNetworkRequestCompletionHandler)(BOOL success, NSError *error);
 + (instancetype)serverWithJSONRepresentation:(NSDictionary *)aServerJSONDictionary;
 // updates base values with from other server
 - (void)updateWithServer:(PIKPlakatServer *)aServer;
+
+/** dummy object that doesn't do networking or anyhting important */
++ (instancetype)noServer;
 
 
 @property (nonatomic, readonly, strong) NSString *username;

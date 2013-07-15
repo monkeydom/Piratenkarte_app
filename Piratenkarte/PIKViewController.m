@@ -195,7 +195,7 @@ static PIKViewController *S_sharedViewController = nil;
     [self.plakatServerButtonView setPlakatServer:[[PIKPlakatServerManager plakatServerManager] selectedPlakatServer]];
     [self.plakatServerButtonView addTarget:self action:@selector(changePlakatServer:) forControlEvents:UIControlEventTouchUpInside];
     
-    PIKNetworkErrorIndicationView *errorView  =[PIKNetworkErrorIndicationView networkErrorIndicationView];
+    PIKNetworkErrorIndicationView *errorView = [PIKNetworkErrorIndicationView networkErrorIndicationView];
     errorView.layer.position = CGPointMake(CGRectGetMaxX(self.view.bounds) - 2,CGRectGetMinY(self.view.bounds));
     [self.view addSubview:errorView];
 }

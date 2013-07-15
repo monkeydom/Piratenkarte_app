@@ -85,17 +85,6 @@ static NSInteger s_activityCount = 0;
             myTestServer.isDevelopment = YES;
             [_serverArray addObject:myTestServer];
         }
-#else
-        {
-            PIKPlakatServer *myTestServer = [PIKPlakatServer new];
-            myTestServer.identifier = @"a1798eaf-c628-482e-9b35-e3cebd45eadc";
-            myTestServer.serverName = @"Niedersachsen";
-            myTestServer.serverInfoText = @"Testserver für die Bundestagswahl";
-            myTestServer.serverBaseURL = @"https://plakate.piraten-nds.de/";
-            myTestServer.isDevelopment = NO;
-            myTestServer.isDefault = YES;
-            [_serverArray addObject:myTestServer];
-        }
 #endif
 //        self.selectedServerIdentifier = myTestServer.identifier;
         [self restoreServerListFromDefaults];
@@ -127,6 +116,12 @@ static NSInteger s_activityCount = 0;
 }
 
 - (void)updateListWithServerArray:(NSArray *)aServerArray {
+	
+	// mark all as non current
+	for (PIKPlakatServer *server in self.serverArray) {
+		server.isCurrent = NO;
+	}
+	
     for (PIKPlakatServer *server in aServerArray) {
         [self updateListWithServer:server];
     }
@@ -155,16 +150,12 @@ static NSInteger s_activityCount = 0;
         result = [self serverForIdentifier:self.selectedServerIdentifier];
     }
     if (!result) {
-        for (PIKPlakatServer *server in self.serverArray) {
-            if (server.isDefault) {
-                result = server;
-                break;
-            }
-        }
+		result = [PIKPlakatServer noServer];
     }
     if (!result && self.serverArray.count > 0) {
         result = [self.serverArray objectAtIndex:0];
     }
+	NSLog(@"%s result:%@",__FUNCTION__,result);
     return result;
 }
 
@@ -210,7 +201,13 @@ static NSInteger s_activityCount = 0;
 //        NSLog(@"%s success %@",__FUNCTION__,JSON);
         NSArray *serverList = [PIKPlakatServer parseFromJSONObject:JSON];
         if (serverList.count > 0) {
+			// mark all as current
+			for (PIKPlakatServer *server in serverList) {
+				server.isCurrent = YES;
+			}
             [self updateListWithServerArray:serverList];
+			// to debug an empty result
+            [self updateListWithServerArray:@[]];
             [self selectedServerDidChange];
         } else {
             [self.class postNetworkErrorNotification];

@@ -26,7 +26,13 @@
     NSMutableArray *liveServers = [NSMutableArray new];
     NSMutableArray *devServers = [NSMutableArray new];
     for (PIKPlakatServer *server in aServerList) {
-        [(server.isDevelopment ? devServers : liveServers) addObject:server];
+		if (server.isDevelopment) {
+			[devServers addObject:server];
+		} else {
+			if (server.isCurrent) {
+				[liveServers addObject:server];
+			}
+		}
     }
     result.liveServerArray = liveServers;
     result.developmentServerArray = devServers;
@@ -52,6 +58,14 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
+	if ([[self serverArrayForSection:0] count] == 0) {
+		// try reloading the json
+		[[PIKPlakatServerManager plakatServerManager] refreshServerList];
+	}
 }
 
 - (NSArray *)serverArrayForSection:(NSInteger)section {
@@ -135,7 +149,11 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-    return @"Wischen um das Passwort zu vergessen.";
+	if ([[self serverArrayForSection:section] count] == 0) {
+		return @"Server Liste konnte nicht geladen werden. Bitte Abbrechen und erneut versuchen.";
+	} else {
+		return @"Wischen um das Passwort zu vergessen.";
+	}
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

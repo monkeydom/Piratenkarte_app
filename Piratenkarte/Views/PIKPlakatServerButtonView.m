@@ -72,26 +72,30 @@
 
 - (void)setPlakatServer:(PIKPlakatServer *)aPlakatServer {
     self.serverMainLabel.text = aPlakatServer.serverName;
-    NSString *sublabel = aPlakatServer.serverBaseURL;
-    if ([sublabel hasPrefix:@"https://"]) {
-        sublabel = [sublabel substringFromIndex:@"https://".length];
-    }
-    if ([sublabel hasPrefix:@"http://"]) {
-        sublabel = [sublabel substringFromIndex:@"http://".length];
-    }
-    
-    if ([sublabel hasSuffix:@"/"]) {
-        sublabel = [sublabel substringToIndex:sublabel.length-1];
-    }
-    
-    NSString *username = aPlakatServer.username;
-    if (username.length > 0) {
-        sublabel = [NSString stringWithFormat:@"%@@%@",username,sublabel];
-    }
-    if (![aPlakatServer hasValidPassword]) {
-        sublabel = [@"! " stringByAppendingString:sublabel];
-    }
-    self.serverSubtitleLabel.text = sublabel;
+	if (!aPlakatServer.isNoServer) {
+		NSString *sublabel = aPlakatServer.serverBaseURL;
+		if ([sublabel hasPrefix:@"https://"]) {
+			sublabel = [sublabel substringFromIndex:@"https://".length];
+		}
+		if ([sublabel hasPrefix:@"http://"]) {
+			sublabel = [sublabel substringFromIndex:@"http://".length];
+		}
+		
+		if ([sublabel hasSuffix:@"/"]) {
+			sublabel = [sublabel substringToIndex:sublabel.length-1];
+		}
+		
+		NSString *username = aPlakatServer.username;
+		if (username.length > 0) {
+			sublabel = [NSString stringWithFormat:@"%@@%@",username,sublabel];
+		}
+		if (![aPlakatServer hasValidPassword]) {
+			sublabel = [@"! " stringByAppendingString:sublabel];
+		}
+		self.serverSubtitleLabel.text = sublabel;
+	} else {
+		self.serverSubtitleLabel.text = @"Hier tippen";
+	}
 }
 
 @end
