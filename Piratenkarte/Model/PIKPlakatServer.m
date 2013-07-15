@@ -19,6 +19,7 @@ typedef void(^PIKNetworkSuccessBlock)();
 
 @interface PIKPlakatServer ()
 @property (nonatomic, strong) NSString *password;
+@property (nonatomic, readwrite) BOOL isNoServer;
 @end
 
 @implementation PIKPlakatServer
@@ -49,6 +50,9 @@ typedef void(^PIKNetworkSuccessBlock)();
     if (aServerJSONDictionary[@"Development"]) {
         result.isDevelopment = [aServerJSONDictionary[@"Development"] boolValue];
     }
+	if (aServerJSONDictionary[@"Current"]) {
+		result.isCurrent = [aServerJSONDictionary[@"Current"] boolValue];
+	}
     return result;
 }
 
@@ -59,14 +63,32 @@ typedef void(^PIKNetworkSuccessBlock)();
     result[@"URL"] = self.serverBaseURL;
     if (self.serverInfoText) result[@"Info"] = self.serverInfoText;
     result[@"Development"] = @(self.isDevelopment);
+    result[@"Current"] = @(self.isCurrent);
     return result;
 }
 
+
+/** dummy object that doesn't do networking or anyhting important */
++ (instancetype)noServer {
+	static PIKPlakatServer *s_noServer;
+	if (!s_noServer) {
+		s_noServer = [PIKPlakatServer new];
+		s_noServer.isNoServer = YES;
+		s_noServer.identifier = @"C45525EF-B4F3-4C36-9233-A5B333C7B9DE";
+		s_noServer.serverName = @"Bitte Server auswählen!";
+	}
+	return s_noServer;
+}
+
+
 - (void)updateWithServer:(PIKPlakatServer *)aServer {
-    self.serverName = aServer.serverName;
-    self.serverBaseURL = aServer.serverBaseURL;
-    self.serverInfoText = aServer.serverInfoText;
-    self.isDevelopment = aServer.isDevelopment;
+	if (!self.isNoServer) {
+		self.serverName = aServer.serverName;
+		self.serverBaseURL = aServer.serverBaseURL;
+		self.serverInfoText = aServer.serverInfoText;
+		self.isDevelopment = aServer.isDevelopment;
+		self.isCurrent = aServer.isCurrent;
+	}
 }
 
 + (BoundingBox *)viewBoxForMKCoordinateRegion:(MKCoordinateRegion)aCoordinateRegion {
@@ -216,7 +238,8 @@ typedef void(^PIKNetworkSuccessBlock)();
 }
 
 - (void)requestPlakateInCoordinateRegion:(MKCoordinateRegion)aCoordinateRegion {
-
+	if (self.isNoServer) return; // no acitivity for noserver
+	
     [PIKPlakatServerManager increaseNetworkActivityCount];
     
     Request_Builder *request = [self requestBuilderBase];
@@ -294,6 +317,10 @@ typedef void(^PIKNetworkSuccessBlock)();
 }
 
 - (void)addPlakat:(PIKPlakat *)aPlakat completion:(PIKNetworkRequestCompletionHandler)aCompletion {
+	if (self.isNoServer) { // no acitivity for noserver
+		aCompletion(NO,nil);
+		return;
+	}
     [PIKPlakatServerManager increaseNetworkActivityCount];
     PIKNetworkSuccessBlock success = [self successBlockWithCompletion:aCompletion];
     PIKNetworkFailBlock failure = [self failBlockWithCompletion:aCompletion];
@@ -355,6 +382,11 @@ typedef void(^PIKNetworkSuccessBlock)();
 }
 
 - (void)updatePlakatWithDictionary:(NSDictionary *)aDictionary onPlakat:(PIKPlakat *)aPlakat completion:(PIKNetworkRequestCompletionHandler)aCompletion {
+	if (self.isNoServer) { // no acitivity for noserver
+		aCompletion(NO,nil);
+		return;
+	}
+	
     [PIKPlakatServerManager increaseNetworkActivityCount];
     PIKNetworkSuccessBlock success = [self successBlockWithCompletion:aCompletion];
     PIKNetworkFailBlock failure = [self failBlockWithCompletion:aCompletion];
@@ -412,6 +444,11 @@ typedef void(^PIKNetworkSuccessBlock)();
 }
 
 - (void)removePlakatFromServer:(PIKPlakat *)aPlakat completion:(PIKNetworkRequestCompletionHandler)aCompletion {
+	if (self.isNoServer) { // no acitivity for noserver
+		aCompletion(NO,nil);
+		return;
+	}
+
     [PIKPlakatServerManager increaseNetworkActivityCount];
     PIKNetworkSuccessBlock success = [self successBlockWithCompletion:aCompletion];
     PIKNetworkFailBlock failure = [self failBlockWithCompletion:aCompletion];
@@ -460,6 +497,10 @@ typedef void(^PIKNetworkSuccessBlock)();
 }
 
 - (void)validateUsername:(NSString *)aUsername password:(NSString *)aPassword completion:(PIKNetworkRequestCompletionHandler)aCompletion {
+	if (self.isNoServer) { // no acitivity for noserver
+		aCompletion(NO,nil);
+		return;
+	}
 
     [PIKPlakatServerManager increaseNetworkActivityCount];
     PIKNetworkSuccessBlock success = [self successBlockWithCompletion:aCompletion];
@@ -556,7 +597,12 @@ typedef void(^PIKNetworkSuccessBlock)();
 }
 
 - (NSString *)description {
-    NSArray *elements = @[self.serverName, self.serverBaseURL, self.identifier, self.serverInfoText, self.serverAPIURL];
+    NSArray *elements;
+	if (self.isNoServer) {
+		elements =  @[self.serverName, self.identifier, @"NOSERVER"];
+	} else {
+		elements = @[self.serverName, self.serverBaseURL, self.identifier, self.serverInfoText, self.serverAPIURL];
+	}
     NSString *result = [NSString stringWithFormat:@"<%@ %p: %@>",NSStringFromClass(self.class), self, [elements componentsJoinedByString:@" | "]];
     return result;
 }
