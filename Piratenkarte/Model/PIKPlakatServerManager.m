@@ -148,6 +148,7 @@ static NSInteger s_activityCount = 0;
     PIKPlakatServer *result;
     if (self.selectedServerIdentifier) {
         result = [self serverForIdentifier:self.selectedServerIdentifier];
+		if (!result.isCurrent) result = nil; // don't allow old servers
     }
     if (!result) {
 		result = [PIKPlakatServer noServer];
@@ -206,9 +207,16 @@ static NSInteger s_activityCount = 0;
 				server.isCurrent = YES;
 			}
             [self updateListWithServerArray:serverList];
-			// to debug an empty result
-            [self updateListWithServerArray:@[]];
-            [self selectedServerDidChange];
+			/*
+			{
+				// to debug an empty result
+				static int i = 0;
+				i++;
+				if ((i%3) > 0) {
+					[self updateListWithServerArray:@[]];
+				}
+			} */
+			[self selectedServerDidChange];
         } else {
             [self.class postNetworkErrorNotification];
         }
