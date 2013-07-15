@@ -1,0 +1,6 @@
+NEU
+* Support für iOS 5.1
+* Als erster Schritt muss nun ein Server ausgewählt werden.
+
+ÄNDERUNGEN
+* Die aktualisierung der Serverliste wurde verbessert.

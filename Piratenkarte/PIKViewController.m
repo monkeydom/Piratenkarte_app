@@ -195,7 +195,7 @@ static PIKViewController *S_sharedViewController = nil;
     [self.plakatServerButtonView setPlakatServer:[[PIKPlakatServerManager plakatServerManager] selectedPlakatServer]];
     [self.plakatServerButtonView addTarget:self action:@selector(changePlakatServer:) forControlEvents:UIControlEventTouchUpInside];
     
-    PIKNetworkErrorIndicationView *errorView  =[PIKNetworkErrorIndicationView networkErrorIndicationView];
+    PIKNetworkErrorIndicationView *errorView = [PIKNetworkErrorIndicationView networkErrorIndicationView];
     errorView.layer.position = CGPointMake(CGRectGetMaxX(self.view.bounds) - 2,CGRectGetMinY(self.view.bounds));
     [self.view addSubview:errorView];
 }
@@ -287,7 +287,7 @@ static PIKViewController *S_sharedViewController = nil;
     PIKPlakatServer *selectedServer = [PIKPlakatServerManager plakatServerManager].selectedPlakatServer;
     if (selectedServer.hasValidPassword) {
         aContinuation();
-    } else {
+    } else if (!selectedServer.isNoServer) {
         UIAlertView *passwordAlert = [[UIAlertView alloc] initWithTitle:@"Server Login / Passwort" message:@"" completionBlock:^(NSUInteger buttonIndex, UIAlertView *alertView) {
 #if DEBUG
             NSLog(@"%s %@ %@",__FUNCTION__,[alertView textFieldAtIndex:0], [alertView textFieldAtIndex:1]);
@@ -317,7 +317,10 @@ static PIKViewController *S_sharedViewController = nil;
         [[passwordAlert textFieldAtIndex:0] setText:selectedServer.username];
         [passwordAlert show];
         
-    }
+    } else {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Kein Server" message:@"Bitte zuerst einen Server auswählen." completionBlock:^(NSUInteger buttonIndex, UIAlertView *alertView){} cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		[alert show];
+	}
 }
 
 - (BOOL)isAddUIShown {

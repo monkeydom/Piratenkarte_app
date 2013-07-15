@@ -19,6 +19,7 @@ typedef void(^PIKNetworkSuccessBlock)();
 
 @interface PIKPlakatServer ()
 @property (nonatomic, strong) NSString *password;
+@property (nonatomic, readwrite) BOOL isNoServer;
 @end
 
 @implementation PIKPlakatServer
@@ -49,6 +50,9 @@ typedef void(^PIKNetworkSuccessBlock)();
     if (aServerJSONDictionary[@"Development"]) {
         result.isDevelopment = [aServerJSONDictionary[@"Development"] boolValue];
     }
+	if (aServerJSONDictionary[@"Current"]) {
+		result.isCurrent = [aServerJSONDictionary[@"Current"] boolValue];
+	}
     return result;
 }
 
@@ -59,14 +63,32 @@ typedef void(^PIKNetworkSuccessBlock)();
     result[@"URL"] = self.serverBaseURL;
     if (self.serverInfoText) result[@"Info"] = self.serverInfoText;
     result[@"Development"] = @(self.isDevelopment);
+    result[@"Current"] = @(self.isCurrent);
     return result;
 }
 
+
+/** dummy object that doesn't do networking or anyhting important */
++ (instancetype)noServer {
+	static PIKPlakatServer *s_noServer;
+	if (!s_noServer) {
+		s_noServer = [PIKPlakatServer new];
+		s_noServer.isNoServer = YES;
+		s_noServer.identifier = @"C45525EF-B4F3-4C36-9233-A5B333C7B9DE";
+		s_noServer.serverName = @"Bitte Server auswählen!";
+	}
+	return s_noServer;
+}
+
+
 - (void)updateWithServer:(PIKPlakatServer *)aServer {
-    self.serverName = aServer.serverName;
-    self.serverBaseURL = aServer.serverBaseURL;
-    self.serverInfoText = aServer.serverInfoText;
-    self.isDevelopment = aServer.isDevelopment;
+	if (!self.isNoServer) {
+		self.serverName = aServer.serverName;
+		self.serverBaseURL = aServer.serverBaseURL;
+		self.serverInfoText = aServer.serverInfoText;
+		self.isDevelopment = aServer.isDevelopment;
+		self.isCurrent = aServer.isCurrent;
+	}
 }
 
 + (BoundingBox *)viewBoxForMKCoordinateRegion:(MKCoordinateRegion)aCoordinateRegion {
@@ -190,7 +212,7 @@ typedef void(^PIKNetworkSuccessBlock)();
 #if DEBUG
         NSLog(@"%s did fetch %d plakate in this area: %@ %@",__FUNCTION__,aResponse.plakate.count, [[CLLocation alloc] initWithLatitude:minCoord.latitude longitude:minCoord.longitude], [[CLLocation alloc] initWithLatitude:maxCoord.latitude longitude:maxCoord.longitude]);
 #endif
-        [[NSNotificationCenter defaultCenter] postNotificationName:PIKPlakatServerDidReceiveDataNotification object:self userInfo:@{@"coordinate":[NSValue valueWithMKCoordinate:aCoordinateRegion.center], @"coordinateSpan":[NSValue valueWithMKCoordinateSpan:aCoordinateRegion.span]}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:PIKPlakatServerDidReceiveDataNotification object:self userInfo:@{@"coordinate":[NSValue valueWithBytes:&aCoordinateRegion.center objCType:@encode(CLLocationCoordinate2D)], @"coordinateSpan":[NSValue valueWithBytes:&aCoordinateRegion.span objCType:@encode(MKCoordinateRegion)]}];
     }
 
 
@@ -211,11 +233,13 @@ typedef void(^PIKNetworkSuccessBlock)();
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:self.serverAPIURL];
     [urlRequest setHTTPMethod:@"POST"];
     [urlRequest setHTTPBody:aPostData];
+    [urlRequest setCachePolicy:NSURLCacheStorageNotAllowed];
     return urlRequest;
 }
 
 - (void)requestPlakateInCoordinateRegion:(MKCoordinateRegion)aCoordinateRegion {
-
+	if (self.isNoServer) return; // no acitivity for noserver
+	
     [PIKPlakatServerManager increaseNetworkActivityCount];
     
     Request_Builder *request = [self requestBuilderBase];
@@ -225,13 +249,14 @@ typedef void(^PIKNetworkSuccessBlock)();
     Request *req = request.build;
     NSData *postData = req.data;
     
-    //    [postData writeToFile:@"/tmp/karten.post" atomically:NO];
-    
+//    [postData writeToFile:@"/tmp/karten.post" atomically:NO];
+//    NSLog(@"%s post request = %@",__FUNCTION__,req);
     NSDate *requestDate = [NSDate new];
     
     NSMutableURLRequest *urlRequest = [self baseURLRequestWithPostData:postData];
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        [responseObject writeToFile:@"/tmp/karten.response" options:0 error:nil];
         //        NSLog(@"%s success %@, %@",__FUNCTION__,operation.response, responseObject);
         //        NSLog(@"%s all Headers %@",__FUNCTION__,[operation.response allHeaderFields]);
         @try {
@@ -292,6 +317,10 @@ typedef void(^PIKNetworkSuccessBlock)();
 }
 
 - (void)addPlakat:(PIKPlakat *)aPlakat completion:(PIKNetworkRequestCompletionHandler)aCompletion {
+	if (self.isNoServer) { // no acitivity for noserver
+		aCompletion(NO,nil);
+		return;
+	}
     [PIKPlakatServerManager increaseNetworkActivityCount];
     PIKNetworkSuccessBlock success = [self successBlockWithCompletion:aCompletion];
     PIKNetworkFailBlock failure = [self failBlockWithCompletion:aCompletion];
@@ -353,6 +382,11 @@ typedef void(^PIKNetworkSuccessBlock)();
 }
 
 - (void)updatePlakatWithDictionary:(NSDictionary *)aDictionary onPlakat:(PIKPlakat *)aPlakat completion:(PIKNetworkRequestCompletionHandler)aCompletion {
+	if (self.isNoServer) { // no acitivity for noserver
+		aCompletion(NO,nil);
+		return;
+	}
+	
     [PIKPlakatServerManager increaseNetworkActivityCount];
     PIKNetworkSuccessBlock success = [self successBlockWithCompletion:aCompletion];
     PIKNetworkFailBlock failure = [self failBlockWithCompletion:aCompletion];
@@ -410,6 +444,11 @@ typedef void(^PIKNetworkSuccessBlock)();
 }
 
 - (void)removePlakatFromServer:(PIKPlakat *)aPlakat completion:(PIKNetworkRequestCompletionHandler)aCompletion {
+	if (self.isNoServer) { // no acitivity for noserver
+		aCompletion(NO,nil);
+		return;
+	}
+
     [PIKPlakatServerManager increaseNetworkActivityCount];
     PIKNetworkSuccessBlock success = [self successBlockWithCompletion:aCompletion];
     PIKNetworkFailBlock failure = [self failBlockWithCompletion:aCompletion];
@@ -458,6 +497,10 @@ typedef void(^PIKNetworkSuccessBlock)();
 }
 
 - (void)validateUsername:(NSString *)aUsername password:(NSString *)aPassword completion:(PIKNetworkRequestCompletionHandler)aCompletion {
+	if (self.isNoServer) { // no acitivity for noserver
+		aCompletion(NO,nil);
+		return;
+	}
 
     [PIKPlakatServerManager increaseNetworkActivityCount];
     PIKNetworkSuccessBlock success = [self successBlockWithCompletion:aCompletion];
@@ -549,12 +592,17 @@ typedef void(^PIKNetworkSuccessBlock)();
 
 - (void)setServerBaseURL:(NSString *)aServerBaseURLString {
     _serverBaseURL = aServerBaseURLString;
-    NSURL *serverAPIURL = [NSURL URLWithString:[aServerBaseURLString stringByAppendingPathComponent:@"api.php"]];
+    NSURL *serverAPIURL = [[NSURL URLWithString:aServerBaseURLString] URLByAppendingPathComponent:@"api.php"];
     self.serverAPIURL = serverAPIURL;
 }
 
 - (NSString *)description {
-    NSArray *elements = @[self.serverName, self.serverBaseURL, self.identifier, self.serverInfoText, self.serverAPIURL];
+    NSArray *elements;
+	if (self.isNoServer) {
+		elements =  @[self.serverName, self.identifier, @"NOSERVER"];
+	} else {
+		elements = @[self.serverName, self.serverBaseURL, self.identifier, self.serverInfoText, self.serverAPIURL];
+	}
     NSString *result = [NSString stringWithFormat:@"<%@ %p: %@>",NSStringFromClass(self.class), self, [elements componentsJoinedByString:@" | "]];
     return result;
 }
